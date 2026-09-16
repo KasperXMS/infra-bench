@@ -9,15 +9,22 @@ from .evaluation.report import write_report
 from .evaluation.selection import evaluate_cases
 from .generation.build_dataset import build_counterfactual_cases
 from .generation.sanity import build_sanity_cases
-from .generation.validate import validate_cases
 from .generation.splits import build_split_manifest
+from .generation.validate import validate_cases
+from .integration.export import export_group, safe_group_directory_name
+from .integration.import_result import (
+    import_mas_result,
+    read_mas_result,
+    write_imported_result,
+)
+from .integration.mas_case import ImportedMASResult
+from .integration.report import write_mas_report
+from .integration.smoke import V1_GROUP_ID, build_v1_smoke_cases
 from .io import read_jsonl, write_json, write_jsonl
 from .planners import LLMSelector, OraclePlanner, RandomPlanner, ResourceBlindPlanner
-from .schemas import BenchmarkCase, EvaluationResult
-from .schemas import TaskRecord, WorkflowRecord
-from .trajectories import build_workflow_bank, read_trajectories
+from .schemas import BenchmarkCase, EvaluationResult, TaskRecord, WorkflowRecord
 from .task_evaluation import build_swebench_command, run_swebench_evaluation, score_video_mme
-
+from .trajectories import build_workflow_bank, read_trajectories
 
 SOURCE_FILES = {
     "swebench": "swebench.jsonl",
@@ -232,6 +239,53 @@ def _grade_swebench(args: argparse.Namespace) -> int:
     return run_swebench_evaluation(args.predictions, **kwargs)
 
 
+def _export_mas(args: argparse.Namespace) -> int:
+    dataset = Path(args.dataset).resolve()
+    cases = read_jsonl(dataset, BenchmarkCase)
+    output = Path(args.output)
+    if args.output is None:
+        output = Path("data/mas_exports") / safe_group_directory_name(args.group)
+    paths = export_group(
+        cases,
+        args.group,
+        output.resolve(),
+        dataset_directory=dataset.parent,
+    )
+    print(f"exported {len(paths)} oracle-free MAS worlds to {output.resolve()}")
+    return 0
+
+
+def _import_mas(args: argparse.Namespace) -> int:
+    cases = read_jsonl(args.dataset, BenchmarkCase)
+    execution = read_mas_result(Path(args.run))
+    imported = import_mas_result(cases, execution)
+    output = Path(args.output or f"data/results/mas/{execution.run_id}.json")
+    write_imported_result(output, imported)
+    print(f"imported and evaluated MAS run at {output}")
+    return 0
+
+
+def _report_mas(args: argparse.Namespace) -> int:
+    results = [
+        ImportedMASResult.model_validate_json(Path(path).read_text(encoding="utf-8"))
+        for path in args.results
+    ]
+    csv_path, markdown_path = write_mas_report(results, Path(args.output_dir))
+    print(markdown_path.read_text(encoding="utf-8"))
+    print(f"wrote {csv_path} and {markdown_path}")
+    return 0
+
+
+def _prepare_mas_smoke(args: argparse.Namespace) -> int:
+    cases = build_v1_smoke_cases(Path(args.images))
+    write_jsonl(args.output, cases)
+    print(
+        f"wrote {len(cases)} V1 real-system smoke cases for group "
+        f"{V1_GROUP_ID!r} to {Path(args.output).resolve()}"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="infra-bench")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -282,6 +336,38 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--seed", type=int, default=42)
     evaluate.add_argument("--output", default="data/results/latest.jsonl")
     evaluate.set_defaults(handler=_evaluate)
+
+    export_mas = subparsers.add_parser(
+        "export-mas", help="export an oracle-free paired group for infra-aware-mas"
+    )
+    export_mas.add_argument("--dataset", required=True)
+    export_mas.add_argument("--group", required=True)
+    export_mas.add_argument("--output")
+    export_mas.set_defaults(handler=_export_mas)
+
+    prepare_mas_smoke = subparsers.add_parser(
+        "prepare-mas-smoke", help="build the paired six-image V1 real-system smoke dataset"
+    )
+    prepare_mas_smoke.add_argument("--images", required=True)
+    prepare_mas_smoke.add_argument(
+        "--output", default="data/generated/v1-mas-smoke.jsonl"
+    )
+    prepare_mas_smoke.set_defaults(handler=_prepare_mas_smoke)
+
+    import_mas = subparsers.add_parser(
+        "import-mas", help="evaluate a real infra-aware-mas run"
+    )
+    import_mas.add_argument("--dataset", required=True)
+    import_mas.add_argument("--run", required=True)
+    import_mas.add_argument("--output")
+    import_mas.set_defaults(handler=_import_mas)
+
+    report_mas = subparsers.add_parser(
+        "report-mas", help="report imported open-ended MAS results"
+    )
+    report_mas.add_argument("results", nargs="+")
+    report_mas.add_argument("--output-dir", default="data/results/mas/report")
+    report_mas.set_defaults(handler=_report_mas)
 
     report = subparsers.add_parser("report", help="write CSV and Markdown summaries")
     report.add_argument("results", nargs="+")

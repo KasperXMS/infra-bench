@@ -3,7 +3,6 @@ from itertools import product
 from ..schemas import ExecutionResult, InfraState, OperatorProfile, WorkflowRecord
 from .execution import simulate_assignment
 
-
 SUPPORTED_OBJECTIVES = {"latency_s", "wan_mb", "monetary_cost"}
 
 

@@ -5,6 +5,7 @@
 __pycache__/
 *.py[cod]
 /data/generated/*.jsonl
+/data/mas_exports/
 /data/results/*
 !/data/task_bank/.gitkeep
 !/data/workflow_bank/.gitkeep

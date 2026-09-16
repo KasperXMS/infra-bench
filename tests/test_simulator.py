@@ -1,4 +1,3 @@
-import pytest
 
 from infra_bench.schemas import (
     DataArtifact,

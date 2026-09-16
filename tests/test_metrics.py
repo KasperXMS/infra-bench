@@ -4,8 +4,8 @@ from infra_bench.evaluation.metrics import summarize_results
 from infra_bench.evaluation.selection import evaluate_cases
 from infra_bench.generation.sanity import build_sanity_cases
 from infra_bench.planners import OraclePlanner, RandomPlanner, ResourceBlindPlanner
-from infra_bench.simulator.utility import normalized_regret
 from infra_bench.schemas import EvaluationResult
+from infra_bench.simulator.utility import normalized_regret
 
 
 def test_normalized_regret():

@@ -95,3 +95,37 @@ The planner selects the semantic workflow. The shared physical optimizer only
 binds existing workflow nodes to compatible executors; it never rewrites the DAG.
 Planner inputs are produced through an oracle-free schema so labels and oracle
 metrics cannot leak into selection prompts.
+
+## Open-ended real-system MAS bridge
+
+The `integration/` layer is separate from the finite workflow-selection benchmark above. It exports
+only the instruction, artifact sources and initial sites, and planner-visible infrastructure facts.
+Candidate/reference workflows, oracle metrics, and evaluator configuration stay in this repository.
+The sibling `infra-aware-mas` remains an open-ended `dynamic_models` Planner.
+
+Build and export the reproducible six-image V1 smoke pair:
+
+```bash
+uv run infra-bench prepare-mas-smoke \
+  --images ../taskset_v0/images \
+  --output data/generated/v1-mas-smoke.jsonl
+uv run infra-bench export-mas \
+  --dataset data/generated/v1-mas-smoke.jsonl \
+  --group v1-six-image-real-system-smoke \
+  --output data/mas_exports/v1-smoke
+```
+
+After `infra-mas-bench` has run the static/snapshot arms on both worlds, import and report them:
+
+```bash
+uv run infra-bench import-mas \
+  --dataset data/generated/v1-mas-smoke.jsonl \
+  --run ../infra-aware-mas/runs/example-static-a \
+  --output data/results/mas/example-static-a.json
+uv run infra-bench report-mas data/results/mas/*.json \
+  --output-dir data/results/mas/report
+```
+
+Import associates the result with the original case before applying its hidden evaluator. The
+report keeps task quality, real E2E/Planner/service/transfer measurements, structural workflow
+metrics, and calibrated `reference_regret` separate rather than collapsing them into one score.

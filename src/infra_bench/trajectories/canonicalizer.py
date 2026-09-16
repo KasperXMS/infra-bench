@@ -5,7 +5,6 @@ import re
 from ..schemas import TaskRecord, WorkflowEdge, WorkflowNode, WorkflowRecord
 from .parser import TrajectoryRecord
 
-
 OPERATOR_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"(?:ripgrep|\brg\b|grep|code.?search|search_code)", re.I), "search_code"),
     (re.compile(r"(?:read.?file|open.?file|\bcat\b)", re.I), "read_file"),

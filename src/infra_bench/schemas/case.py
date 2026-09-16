@@ -6,7 +6,6 @@ from .infra import InfraState
 from .task import TaskRecord
 from .workflow import WorkflowRecord
 
-
 CaseType = Literal["semantic_switch", "placement_only", "invariance"]
 
 

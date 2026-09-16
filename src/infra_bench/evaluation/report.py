@@ -5,7 +5,6 @@ from pathlib import Path
 from ..schemas import EvaluationResult
 from .metrics import summarize_results
 
-
 CATEGORIES = ("semantic_switch", "placement_only", "invariance")
 
 
@@ -36,7 +35,6 @@ def write_report(
         writer.writeheader()
         for summary in summaries:
             overall = summary["overall"]
-            by_category = summary["by_category"]
             writer.writerow(
                 {
                     "planner": summary["planner"],
@@ -56,7 +54,6 @@ def write_report(
     ]
     for summary in summaries:
         overall = summary["overall"]
-        by_category = summary["by_category"]
         values = [
             str(summary["planner"] or "unknown"),
             f"{overall['accuracy']:.3f}",
