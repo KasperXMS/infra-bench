@@ -1,0 +1,18 @@
+seed: 42
+load_slowdown_alpha: 0.25
+objective: latency_s
+tie_tolerance: 1.0e-9
+counterfactual_values:
+  bandwidth_mbps: [10, 20, 50, 200, 1000, 10000]
+  rtt_ms: [5, 20, 50, 100, 200]
+  load: [0.1, 0.3, 0.6, 0.8, 0.9]
+operator_profiles: configs/operator_profiles.yaml
+task_banks:
+  - data/task_bank/swebench.jsonl
+  - data/task_bank/video-mme.jsonl
+workflow_banks:
+  - data/workflow_bank/swebench.jsonl
+  - data/workflow_bank/video-mme.jsonl
+infra_templates:
+  coding: configs/infra_templates/coding.yaml
+  video: configs/infra_templates/video.yaml

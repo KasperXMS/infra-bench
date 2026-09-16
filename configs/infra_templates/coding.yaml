@@ -1,0 +1,8 @@
+artifact_size_mb: 800.0
+rtt_ms: 20.0
+high_bandwidth_mbps: 10000.0
+low_bandwidth_mbps: 20.0
+low_load: 0.1
+high_load: 0.9
+cloud_cost_per_s: 0.02
+

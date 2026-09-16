@@ -1,0 +1,8 @@
+{
+  "dataset_id": "SWE-bench/SWE-bench_Verified",
+  "dataset_revisions": [
+    "78f471bf655a3137b2e8a75af1501690ec009ec3"
+  ],
+  "source": "swebench",
+  "task_count": 20
+}

@@ -1,0 +1,9 @@
+{
+  "provenance_counts": {
+    "manual_fallback": 40
+  },
+  "source": "swebench",
+  "task_count": 20,
+  "trajectory_file": null,
+  "workflow_count": 40
+}

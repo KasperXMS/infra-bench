@@ -1,0 +1,80 @@
+inspect_repo:
+  base_latency_s: 2.0
+  required_capabilities: [repo_access]
+  cpu_weight: 0.5
+  output_ratio: 0.02
+search_code:
+  base_latency_s: 1.0
+  required_capabilities: [code_search]
+  cpu_weight: 1.0
+  output_ratio: 0.03
+read_file:
+  base_latency_s: 0.5
+  required_capabilities: [repo_access]
+  cpu_weight: 0.2
+  output_ratio: 0.5
+static_analysis:
+  base_latency_s: 4.0
+  required_capabilities: [static_analysis]
+  cpu_weight: 1.0
+  output_ratio: 0.05
+run_targeted_test:
+  base_latency_s: 8.0
+  required_capabilities: [test_runner]
+  cpu_weight: 1.0
+  fixed_output_mb: 0.02
+run_full_test:
+  base_latency_s: 60.0
+  required_capabilities: [test_runner]
+  cpu_weight: 1.0
+  fixed_output_mb: 0.05
+edit_code:
+  base_latency_s: 1.0
+  required_capabilities: [code_edit]
+  cpu_weight: 0.3
+  fixed_output_mb: 0.1
+sample_frames:
+  base_latency_s: 2.0
+  required_capabilities: [video_preprocess]
+  cpu_weight: 1.0
+  output_ratio: 0.03
+strong_vlm:
+  base_latency_s: 4.0
+  required_capabilities: [strong_vlm]
+  gpu_weight: 1.0
+  fixed_output_mb: 0.02
+extract_clip:
+  base_latency_s: 2.0
+  required_capabilities: [video_preprocess]
+  cpu_weight: 1.0
+  output_ratio: 0.1
+detect:
+  base_latency_s: 2.0
+  required_capabilities: [video_detect]
+  gpu_weight: 0.5
+  output_ratio: 0.002
+small_vlm:
+  base_latency_s: 2.0
+  required_capabilities: [small_vlm]
+  gpu_weight: 0.5
+  fixed_output_mb: 0.02
+compress_evidence:
+  base_latency_s: 0.5
+  required_capabilities: [compress]
+  cpu_weight: 0.5
+  output_ratio: 0.1
+reason:
+  base_latency_s: 3.0
+  required_capabilities: [reason]
+  cpu_weight: 1.0
+  fixed_output_mb: 0.01
+verify:
+  base_latency_s: 1.0
+  required_capabilities: [verify]
+  cpu_weight: 0.5
+  fixed_output_mb: 0.01
+ocr:
+  base_latency_s: 1.0
+  required_capabilities: [ocr]
+  cpu_weight: 1.0
+  output_ratio: 0.001

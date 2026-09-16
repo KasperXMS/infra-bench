@@ -1,0 +1,12 @@
+/.venv/
+/.pytest_cache/
+/dist/
+/build/
+__pycache__/
+*.py[cod]
+/data/generated/*.jsonl
+/data/results/*
+!/data/task_bank/.gitkeep
+!/data/workflow_bank/.gitkeep
+!/data/generated/.gitkeep
+!/data/results/.gitkeep

@@ -1,0 +1,8 @@
+{
+  "dataset_id": "MME-Benchmarks/Video-MME-v2",
+  "dataset_revisions": [
+    "6e4bebb03202e1ddbf3d37703e560e51c5aa2d64"
+  ],
+  "source": "video-mme",
+  "task_count": 20
+}
