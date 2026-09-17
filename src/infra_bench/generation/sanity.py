@@ -12,6 +12,7 @@ from ..schemas import (
     WorkflowEdge,
     WorkflowNode,
     WorkflowRecord,
+    basic_task_interaction_spec,
 )
 from ..simulator.scheduler import optimize_workflow
 from .search import select_oracle
@@ -84,6 +85,13 @@ def _video_group(profiles: dict[str, OperatorProfile], seed: int) -> list[Benchm
         input_type="video",
         artifact_refs=["raw_video"],
         evaluator_type="synthetic",
+        interaction_spec=basic_task_interaction_spec(
+            task_id="sanity_video",
+            objective="Answer a question about a 500 MB video.",
+            artifacts=[("raw_video", "raw_video")],
+            operators=["sample_frames", "invoke_model"],
+            evaluator_id="synthetic",
+        ),
     )
     direct = WorkflowRecord(
         workflow_id="video_direct_vlm",
@@ -203,6 +211,13 @@ def _placement_group(profiles: dict[str, OperatorProfile], seed: int) -> list[Be
         input_type="text",
         artifact_refs=["facts"],
         evaluator_type="synthetic",
+        interaction_spec=basic_task_interaction_spec(
+            task_id="sanity_reasoning",
+            objective="Reason over a compact local fact set.",
+            artifacts=[("facts", "facts")],
+            operators=["invoke_model"],
+            evaluator_id="synthetic",
+        ),
     )
     workflow = WorkflowRecord(
         workflow_id="reason_once",
@@ -283,6 +298,16 @@ def _invariance_group(profiles: dict[str, OperatorProfile], seed: int) -> list[B
         input_type="text",
         artifact_refs=["facts"],
         evaluator_type="synthetic",
+        interaction_spec=basic_task_interaction_spec(
+            task_id="sanity_invariance",
+            objective=(
+                "Reason over a compact local fact set while an unrelated OCR worker "
+                "changes load."
+            ),
+            artifacts=[("facts", "facts")],
+            operators=["invoke_model"],
+            evaluator_id="synthetic",
+        ),
     )
     workflow = WorkflowRecord(
         workflow_id="invariant_reason",
@@ -363,4 +388,3 @@ def build_sanity_cases(
         *_placement_group(profiles, seed),
         *_invariance_group(profiles, seed),
     ]
-

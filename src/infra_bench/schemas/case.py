@@ -3,7 +3,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .infra import InfraState
-from .task import TaskRecord
+from .task import PlannerTaskRecord, TaskRecord
 from .workflow import WorkflowRecord
 
 CaseType = Literal["semantic_switch", "placement_only", "invariance"]
@@ -16,7 +16,7 @@ class PlannerInput(BaseModel):
 
     case_id: str
     group_id: str
-    task: TaskRecord
+    task: PlannerTaskRecord
     infra: InfraState | None
     candidate_workflows: list[WorkflowRecord]
 
@@ -56,11 +56,10 @@ class BenchmarkCase(BaseModel):
     def planner_input(self, *, include_infra: bool = True) -> PlannerInput:
         # Evaluator configuration may contain gold answers or hidden tests. It is
         # intentionally stripped from every planner-facing representation.
-        planner_task = self.task.model_copy(update={"evaluator_config": {}})
         return PlannerInput(
             case_id=self.case_id,
             group_id=self.group_id,
-            task=planner_task,
+            task=self.task.planner_view(),
             infra=self.infra if include_infra else None,
             candidate_workflows=self.candidate_workflows,
         )

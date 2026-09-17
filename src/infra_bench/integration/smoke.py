@@ -15,6 +15,7 @@ from infra_bench.schemas import (
     WorkflowEdge,
     WorkflowNode,
     WorkflowRecord,
+    basic_task_interaction_spec,
 )
 
 V1_GROUP_ID = "v1-six-image-real-system-smoke"
@@ -67,7 +68,7 @@ def _reference_workflows() -> list[WorkflowRecord]:
         nodes=[
             WorkflowNode(
                 node_id="inspect-all",
-                operator="edge-vlm",
+                operator="invoke_model",
                 input_artifacts=[f"img_{index:02d}" for index in range(1, 7)],
                 output_artifacts=["answer"],
                 required_capabilities=["edge-vlm"],
@@ -78,7 +79,7 @@ def _reference_workflows() -> list[WorkflowRecord]:
     pair_nodes = [
         WorkflowNode(
             node_id=f"inspect-pair-{pair}",
-            operator="edge-vlm",
+            operator="invoke_model",
             input_artifacts=[f"img_{2 * pair - 1:02d}", f"img_{2 * pair:02d}"],
             output_artifacts=[f"pair-{pair}-finding"],
             required_capabilities=["edge-vlm"],
@@ -93,7 +94,7 @@ def _reference_workflows() -> list[WorkflowRecord]:
             *pair_nodes,
             WorkflowNode(
                 node_id="synthesize",
-                operator="edge-vlm",
+                operator="invoke_model",
                 input_artifacts=[f"pair-{pair}-finding" for pair in range(1, 4)],
                 output_artifacts=["answer"],
                 required_capabilities=["edge-vlm"],
@@ -131,6 +132,19 @@ def build_v1_smoke_cases(image_directory: Path) -> list[BenchmarkCase]:
         artifact_refs=[str(path) for path in images],
         evaluator_type="exact_image_id",
         evaluator_config={"image_id": "img_06"},
+        interaction_spec=basic_task_interaction_spec(
+            task_id=V1_TASK_ID,
+            objective=(
+                "Find the image that contains both a blue airplane and a truck. "
+                "Return the image ID and briefly justify the answer."
+            ),
+            artifacts=[
+                (f"img_{index:02d}", str(path))
+                for index, path in enumerate(images, start=1)
+            ],
+            operators=["invoke_model"],
+            evaluator_id="exact_image_id",
+        ),
     )
     workflows = _reference_workflows()
     workflow_ids = [workflow.workflow_id for workflow in workflows]

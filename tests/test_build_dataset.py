@@ -55,6 +55,5 @@ def test_real_task_counterfactual_builder_filters_for_proven_transitions(profile
     cases = build_counterfactual_cases(
         [task], verified, profiles, {"video": template, "coding": template}
     )
-    assert {case.case_type for case in cases} == {"semantic_switch", "placement_only"}
-    assert len(cases) == 4
+    assert cases == []  # sample_frames has no current MAS binding, so diversity is < 2
     assert validate_cases(cases, profiles) == []

@@ -21,6 +21,7 @@ from infra_bench.schemas import (
     TaskRecord,
     WorkflowNode,
     WorkflowRecord,
+    basic_task_interaction_spec,
 )
 
 
@@ -32,7 +33,7 @@ def _case(tmp_path: Path, *, case_id: str = "v1:colocated") -> BenchmarkCase:
         workflow_id="hidden-reference",
         task_id="v1",
         source="smoke",
-        nodes=[WorkflowNode(node_id="inspect", operator="vlm")],
+        nodes=[WorkflowNode(node_id="inspect", operator="invoke_model")],
         success=True,
     )
     task = TaskRecord(
@@ -43,6 +44,13 @@ def _case(tmp_path: Path, *, case_id: str = "v1:colocated") -> BenchmarkCase:
         artifact_refs=[str(path) for path in images],
         evaluator_type="exact_image_id",
         evaluator_config={"image_id": "img_99"},
+        interaction_spec=basic_task_interaction_spec(
+            task_id="v1",
+            objective="Find the matching image.",
+            artifacts=[("img_01", str(images[0])), ("img_02", str(images[1]))],
+            operators=["invoke_model"],
+            evaluator_id="exact_image_id",
+        ),
     )
     infra = InfraState(
         infra_id=f"{case_id}:infra",
@@ -90,6 +98,7 @@ def _execution(case: BenchmarkCase) -> MASExecutionResult:
         actions=[
             RealizedAction(
                 action_id="a",
+                semantic_operator="invoke_model",
                 model_id="vlm",
                 role="inspect-one",
                 input_artifacts=["img_01"],
@@ -97,6 +106,7 @@ def _execution(case: BenchmarkCase) -> MASExecutionResult:
             ),
             RealizedAction(
                 action_id="b",
+                semantic_operator="invoke_model",
                 model_id="vlm",
                 role="inspect-two",
                 input_artifacts=["img_02"],
@@ -104,6 +114,7 @@ def _execution(case: BenchmarkCase) -> MASExecutionResult:
             ),
             RealizedAction(
                 action_id="c",
+                semantic_operator="invoke_model",
                 model_id="vlm",
                 role="verify",
                 input_artifacts=["finding-a", "finding-b"],
@@ -154,11 +165,18 @@ def test_schema_rejects_hidden_fields_even_when_nested() -> None:
     with pytest.raises(ValueError, match="hidden benchmark field"):
         MASRunSpec.model_validate(
             {
-                "schema_version": "mas-run-spec-v1",
+                "schema_version": "mas-run-spec-v2",
                 "case_id": "c",
                 "group_id": "g",
                 "task_id": "t",
                 "instruction": "x",
+                "task_interaction": basic_task_interaction_spec(
+                    task_id="t",
+                    objective="x",
+                    artifacts=[],
+                    operators=["invoke_model"],
+                    evaluator_id="hidden",
+                ).model_dump(mode="json"),
                 "artifacts": [],
                 "infra_world": {},
                 "metadata": {"nested": {"oracle_metrics": {}}},
@@ -226,6 +244,6 @@ def test_v1_smoke_builder_keeps_hidden_fields_out_of_export(tmp_path: Path) -> N
         "A28",
     ]
     exported = export_case(cases[0], dataset_directory=tmp_path).model_dump_json()
-    assert "evaluator" not in exported
+    assert "evaluator_config" not in exported
     assert "candidate" not in exported
     assert "reference" not in exported

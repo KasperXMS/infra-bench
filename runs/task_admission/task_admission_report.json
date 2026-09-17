@@ -1,86 +1,18 @@
 {
-  "admitted_task_world_pairs": [
-    {
-      "benchmark": "SWE-bench Verified",
-      "task_id": "astropy__astropy-14309",
-      "workflows": [
-        "whole_repo_remote_reasoning",
-        "local_search_test_compact_remote_reasoning"
-      ],
-      "worlds": [
-        {
-          "artifact_locality": "edge",
-          "bandwidth_mbps": 1.0,
-          "cost_ms": {
-            "local_search_test_compact_remote_reasoning": 605163.681,
-            "whole_repo_remote_reasoning": 901839.908
-          },
-          "margin": 0.490241,
-          "remote_selection_service_scale": 5.0,
-          "replicas": {
-            "local_search_static_filter": [
-              "edge"
-            ],
-            "remote_patch_reasoning": [
-              "cloud"
-            ],
-            "remote_repo_selection": [
-              "cloud"
-            ]
-          },
-          "rtt_ms": 50.0,
-          "service_time_estimates_ms": {
-            "local_search_static_filter": 16.541,
-            "remote_reasoning_typical": 422695.84,
-            "remote_repository_inspection": 658809.927
-          },
-          "winner": "local_search_test_compact_remote_reasoning",
-          "world_id": "edge_bw1_rtt50_remote_selection5x"
-        },
-        {
-          "artifact_locality": "cloud",
-          "bandwidth_mbps": 1.0,
-          "cost_ms": {
-            "local_search_test_compact_remote_reasoning": 1291070.569,
-            "whole_repo_remote_reasoning": 900544.468
-          },
-          "margin": 0.433656,
-          "remote_selection_service_scale": 5.0,
-          "replicas": {
-            "local_search_static_filter": [
-              "edge"
-            ],
-            "remote_patch_reasoning": [
-              "cloud"
-            ],
-            "remote_repo_selection": [
-              "cloud"
-            ]
-          },
-          "rtt_ms": 50.0,
-          "service_time_estimates_ms": {
-            "local_search_static_filter": 16.541,
-            "remote_reasoning_typical": 422695.84,
-            "remote_repository_inspection": 658809.927
-          },
-          "winner": "whole_repo_remote_reasoning",
-          "world_id": "cloud_bw1_rtt50_remote_selection5x"
-        }
-      ]
-    }
-  ],
+  "admitted_task_world_pairs": [],
   "official_video_mme_evaluator_sha256": [
     "f27a00bca743adcdc55c22e65deeff4416305d41f15197de3d2cad086cf6674b"
   ],
   "policy": {
+    "admission_rule": "MAS-realizable AND benchmark-correct AND infra-sensitive",
     "export_only_admitted": true,
     "manual_fallback_is_valid": false,
     "minimum_verified_workflows": 2,
     "semantic_switch_margin": 0.2
   },
   "summary": {
-    "admitted_count": 1,
-    "target_reached": true,
+    "admitted_count": 0,
+    "target_reached": false,
     "task_count": 6
   },
   "tasks": [
@@ -418,11 +350,13 @@
       ]
     },
     {
+      "action_space_alignment_audit": "action_space_alignment/astropy__astropy-14309.json",
       "benchmark": "SWE-bench Verified",
       "calibration": {
         "admission_margin": 0.2,
         "measurement_note": "Service times are real workflow traces; repository/context byte sizes are measured from the checked-out artifact and exact bounded contexts.",
         "objective": "measured_service_plus_network_e2e_ms",
+        "reason": "reference workflows are not MAS-realizable",
         "selected_worlds": [
           {
             "artifact_locality": "edge",
@@ -484,6 +418,7 @@
           }
         ],
         "semantic_switch_pair_found": true,
+        "status": "invalidated",
         "world_count": 128,
         "worlds": [
           {
@@ -4200,26 +4135,30 @@
           }
         ]
       },
-      "reason": "admitted",
-      "semantic_switch_admitted": true,
+      "reason": "legacy_reference_workflows_not_mas_realizable",
+      "semantic_switch_admitted": false,
       "task_id": "astropy__astropy-14309",
       "verified_workflows": [
         {
+          "mas_realizable": false,
           "official_evaluator_report": "qwen3.8-max__whole_repo_remote_reasoning.infra-bench-remote-14309.json",
           "patch_apply_check": true,
           "quality": {
             "resolved": true
           },
+          "realizability_status": "not_realizable",
           "service_ms_sum": 373496.526,
           "verified": true,
           "workflow_id": "whole_repo_remote_reasoning"
         },
         {
+          "mas_realizable": false,
           "official_evaluator_report": "qwen3.8-max__local_search_test_compact_remote_reasoning.infra-bench-compact-14309.json",
           "patch_apply_check": true,
           "quality": {
             "resolved": true
           },
+          "realizability_status": "not_realizable",
           "service_ms_sum": 603673.681,
           "verified": true,
           "workflow_id": "local_search_test_compact_remote_reasoning"

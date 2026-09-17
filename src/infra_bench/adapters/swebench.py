@@ -2,7 +2,17 @@ import json
 from collections.abc import Iterable, Mapping
 from typing import Any
 
-from ..schemas import TaskRecord, WorkflowEdge, WorkflowNode, WorkflowRecord
+from ..schemas import (
+    ExternalEvaluatorSpec,
+    InitialArtifactSpec,
+    ObservationSpec,
+    RuntimeVerifierSpec,
+    TaskInteractionSpec,
+    TaskRecord,
+    WorkflowEdge,
+    WorkflowNode,
+    WorkflowRecord,
+)
 from .base import BenchmarkAdapter
 from .huggingface import HuggingFaceRowsClient
 
@@ -48,6 +58,56 @@ class SweBenchVerifiedAdapter(BenchmarkAdapter):
                 "dataset_id": self.dataset_id,
                 "dataset_revision": revision,
             },
+            interaction_spec=TaskInteractionSpec(
+                task_id=instance_id,
+                objective=str(row["problem_statement"]),
+                initial_artifacts=[
+                    InitialArtifactSpec(
+                        artifact_id="repository",
+                        kind="git_repository",
+                        source_ref=f"repo://{repo}@{base_commit}",
+                    )
+                ],
+                operators=[
+                    "search_code",
+                    "read_file",
+                    "edit_file",
+                    "apply_patch",
+                    "run_targeted_test",
+                    "run_full_test",
+                    "invoke_model",
+                    "submit_patch",
+                ],
+                observations=[
+                    ObservationSpec(
+                        observation_id="repository_observation",
+                        produced_by=["search_code", "read_file"],
+                        description="Bounded search matches and file contents.",
+                    ),
+                    ObservationSpec(
+                        observation_id="test_feedback",
+                        produced_by=["run_targeted_test", "run_full_test"],
+                        description="Exit status and bounded test output.",
+                    ),
+                    ObservationSpec(
+                        observation_id="mutation_feedback",
+                        produced_by=["edit_file", "apply_patch", "submit_patch"],
+                        description="Mutation or submission success and bounded diagnostics.",
+                    ),
+                    ObservationSpec(
+                        observation_id="model_output",
+                        produced_by=["invoke_model"],
+                        description="Model reasoning output used by the Planner.",
+                    ),
+                ],
+                runtime_verifier=RuntimeVerifierSpec(
+                    level="partial",
+                    signals=["targeted_test_result", "full_test_result"],
+                ),
+                external_evaluator=ExternalEvaluatorSpec(
+                    evaluator_id="swebench_official"
+                ),
+            ),
         )
 
     def ingest_workflows(self, task: TaskRecord) -> Iterable[WorkflowRecord]:

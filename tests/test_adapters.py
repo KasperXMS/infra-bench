@@ -54,5 +54,5 @@ def test_planner_view_strips_evaluator_ground_truth(profiles):
     case = build_sanity_cases(profiles)[0]
     case.task.evaluator_config = {"answer": "SECRET"}
     planner_input = case.planner_input()
-    assert planner_input.task.evaluator_config == {}
+    assert "evaluator" not in planner_input.task.model_dump_json()
     assert "SECRET" not in planner_input.model_dump_json()

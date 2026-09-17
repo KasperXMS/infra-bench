@@ -12,6 +12,13 @@ from .official_video_mme import score_with_official_script
 from .swebench import WORKFLOW_COMPACT, WORKFLOW_REMOTE
 from .video_mme import WORKFLOW_DENSE, WORKFLOW_LOCALIZED
 
+_LEGACY_REALIZABILITY = {
+    WORKFLOW_REMOTE: (False, ["inspect_repo"]),
+    WORKFLOW_COMPACT: (False, ["static_analysis"]),
+    WORKFLOW_DENSE: (True, []),
+    WORKFLOW_LOCALIZED: (False, ["sample_frames"]),
+}
+
 
 def _load(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -73,9 +80,13 @@ def build_admission_report(
                 "preprocess_service_ms": result["preprocess_service_ms"],
                 "model_service_ms": result["model_service_ms"],
                 "transfer_payload_bytes": result["request_bytes"],
+                "mas_realizable": _LEGACY_REALIZABILITY[workflow_id][0],
+                "unsupported_operators": _LEGACY_REALIZABILITY[workflow_id][1],
             }
+            if not workflow_row["mas_realizable"]:
+                results.pop(workflow_id, None)
             workflows.append(workflow_row)
-            if passed:
+            if passed and workflow_row["mas_realizable"]:
                 verified_workflows.append(
                     {
                         "task_id": f"video_mme_v2:{video_id}",
@@ -91,7 +102,7 @@ def build_admission_report(
 
         calibration = None
         passed = False
-        reason = "fewer_than_two_workflows_meet_quality_threshold"
+        reason = "fewer_than_two_mas_realizable_workflows_meet_quality_threshold"
         if len(results) == 2 and all(
             bool(result["quality_threshold_met"]) for result in results.values()
         ):
@@ -148,7 +159,10 @@ def build_admission_report(
                     sum(float(item.get("service_ms", 0.0)) for item in result["trace"]), 3
                 )
             workflow_rows.append(row)
-            if resolved and result is not None:
+            realizable, unsupported = _LEGACY_REALIZABILITY[workflow_id]
+            row["mas_realizable"] = realizable
+            row["unsupported_operators"] = unsupported
+            if resolved and result is not None and realizable:
                 workflow_results[workflow_id] = result
                 verified_workflows.append(
                     {
@@ -169,7 +183,9 @@ def build_admission_report(
             for workflow_id in (WORKFLOW_REMOTE, WORKFLOW_COMPACT)
             if (swebench_result_dir / f"{task_id}__{workflow_id}.json").is_file()
         ]
-        if generated and any(not item.get("patch_apply_check") for item in generated):
+        if not any(bool(row.get("mas_realizable")) for row in workflow_rows):
+            reason = "legacy_reference_workflows_not_mas_realizable"
+        elif generated and any(not item.get("patch_apply_check") for item in generated):
             reason = "workflow_patch_generation_failed"
         elif generated:
             reason = "official_evaluation_pending"
@@ -210,6 +226,7 @@ def build_admission_report(
             "minimum_verified_workflows": 2,
             "semantic_switch_margin": admission_margin,
             "export_only_admitted": True,
+            "admission_rule": "MAS-realizable AND benchmark-correct AND infra-sensitive",
         },
         "official_video_mme_evaluator_sha256": sorted(official_hashes),
         "tasks": task_rows,
@@ -252,12 +269,13 @@ def _write_mas_exports(
         for index, world in enumerate(calibration["selected_worlds"], start=1):
             source_services = world.get("service_time_estimates_ms", {})
             payload = {
-                "schema_version": 1,
+                "schema_version": 2,
                 "task": {
                     "task_id": task.task_id,
                     "benchmark": row["benchmark"],
                     "instruction": task.instruction,
                     "artifact_refs": task.artifact_refs,
+                    "interaction_spec": task.interaction_spec.model_dump(mode="json"),
                 },
                 "infrastructure": {
                     "world_id": f"admitted_world_{index}",
@@ -286,6 +304,8 @@ def _write_mas_exports(
                 "planner_contract": {
                     "oracle_free": True,
                     "dynamic_state_only": True,
+                    "admitted": True,
+                    "realizability_status": "realizable",
                 },
             }
             write_json(task_dir / f"world_{index}.json", payload)
@@ -295,8 +315,9 @@ def _markdown(report: dict[str, Any]) -> str:
     lines = [
         "# Real task admission report",
         "",
-        "Only workflows that pass the original benchmark evaluator are eligible. "
-        "Unverified templates and `manual_fallback` records are rejected.",
+        "Admission requires MAS-realizability, original benchmark correctness, and "
+        "infrastructure sensitivity. Unverified templates, `manual_fallback` records, "
+        "and workflows with unbound semantic operators are rejected.",
         "",
         "| Task | Benchmark | Verified workflows | Calibration pair | Admission | Reason |",
         "| --- | --- | ---: | --- | --- | --- |",

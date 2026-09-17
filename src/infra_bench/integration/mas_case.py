@@ -6,6 +6,8 @@ from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from infra_bench.schemas import TaskInteractionSpec
+
 Visibility = Literal["none", "static", "snapshot"]
 
 _FORBIDDEN_EXPORT_KEYS = frozenset(
@@ -58,11 +60,12 @@ class MASRunSpec(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["mas-run-spec-v1"] = "mas-run-spec-v1"
+    schema_version: Literal["mas-run-spec-v2"] = "mas-run-spec-v2"
     case_id: str
     group_id: str
     task_id: str
     instruction: str
+    task_interaction: TaskInteractionSpec
     artifacts: list[ArtifactBinding]
     infra_world: dict[str, Any]
     metadata: dict[str, Any] = Field(default_factory=dict)
@@ -72,6 +75,14 @@ class MASRunSpec(BaseModel):
         leaked = _find_forbidden_key(self.model_dump(mode="python"))
         if leaked is not None:
             raise ValueError(f"MAS run spec contains hidden benchmark field at {leaked}")
+        if self.task_interaction.task_id != self.task_id:
+            raise ValueError("TaskInteractionSpec task_id does not match MAS run spec")
+        if self.task_interaction.objective != self.instruction:
+            raise ValueError("TaskInteractionSpec objective does not match instruction")
+        if {item.artifact_id for item in self.task_interaction.initial_artifacts} != {
+            item.artifact_id for item in self.artifacts
+        }:
+            raise ValueError("TaskInteractionSpec initial artifacts do not match bindings")
         return self
 
 
@@ -81,6 +92,8 @@ class RealizedAction(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     action_id: str
+    semantic_operator: str
+    tool: str | None = None
     parent_action_id: str | None = None
     model_id: str | None = None
     role: str | None = None

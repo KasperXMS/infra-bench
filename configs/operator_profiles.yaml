@@ -43,6 +43,11 @@ strong_vlm:
   required_capabilities: [strong_vlm]
   gpu_weight: 1.0
   fixed_output_mb: 0.02
+invoke_model:
+  base_latency_s: 3.0
+  required_capabilities: []
+  cpu_weight: 1.0
+  fixed_output_mb: 0.02
 extract_clip:
   base_latency_s: 2.0
   required_capabilities: [video_preprocess]

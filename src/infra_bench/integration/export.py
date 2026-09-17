@@ -8,7 +8,8 @@ from typing import cast
 from urllib.parse import urlparse
 
 from infra_bench.io import write_json
-from infra_bench.schemas import BenchmarkCase
+from infra_bench.real_tasks.realizability import validate_workflow_realizability
+from infra_bench.schemas import BenchmarkCase, runtime_bindings_for_task
 
 from .mas_case import ArtifactBinding, MASRunSpec
 
@@ -24,6 +25,20 @@ def _resolved_source_ref(source_ref: str, dataset_directory: Path) -> str:
 
 def export_case(case: BenchmarkCase, *, dataset_directory: Path) -> MASRunSpec:
     """Create a minimal planner-safe representation of one benchmark world."""
+    invalid = {
+        workflow.workflow_id: validation.model_dump(mode="json")
+        for workflow in case.candidate_workflows
+        if (
+            validation := validate_workflow_realizability(
+                workflow,
+                case.task.interaction_spec,
+                runtime_bindings=runtime_bindings_for_task(case.task.interaction_spec),
+            )
+        ).status
+        != "realizable"
+    }
+    if invalid:
+        raise ValueError(f"not_realizable benchmark workflow(s): {invalid}")
     sources_override = case.metadata.get("mas_artifact_sources")
     if sources_override is not None:
         if not isinstance(sources_override, dict):
@@ -75,6 +90,7 @@ def export_case(case: BenchmarkCase, *, dataset_directory: Path) -> MASRunSpec:
         group_id=case.group_id,
         task_id=case.task_id,
         instruction=case.task.instruction,
+        task_interaction=case.task.interaction_spec,
         artifacts=bindings,
         infra_world=infra_world,
         metadata={

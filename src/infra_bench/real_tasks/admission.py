@@ -1,7 +1,12 @@
 from collections.abc import Mapping
 from typing import Any
 
-from ..schemas import WorkflowRecord
+from ..schemas import (
+    TaskInteractionSpec,
+    WorkflowRecord,
+    runtime_bindings_for_task,
+)
+from .realizability import validate_workflow_realizability
 
 
 def is_evaluator_verified(workflow: WorkflowRecord) -> bool:
@@ -15,6 +20,26 @@ def is_evaluator_verified(workflow: WorkflowRecord) -> bool:
         in {"swebench_official", "video_mme_v2_official"}
         and verification.get("passed") is True
         and verification.get("quality_threshold_met") is True
+    )
+
+
+def is_admission_eligible(
+    workflow: WorkflowRecord,
+    task: TaskInteractionSpec,
+    *,
+    infra_sensitive: bool,
+    runtime_bindings: set[str] | frozenset[str] | None = None,
+) -> bool:
+    """Admission is realizability AND benchmark correctness AND infra sensitivity."""
+    return bool(
+        infra_sensitive
+        and is_evaluator_verified(workflow)
+        and validate_workflow_realizability(
+            workflow, task, runtime_bindings=runtime_bindings
+            if runtime_bindings is not None
+            else runtime_bindings_for_task(task)
+        ).status
+        == "realizable"
     )
 
 

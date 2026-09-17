@@ -3,6 +3,7 @@ from collections.abc import Iterable, Mapping
 from typing import Any
 
 from ..real_tasks.admission import is_evaluator_verified
+from ..real_tasks.realizability import validate_workflow_realizability
 from ..schemas import (
     BenchmarkCase,
     DataArtifact,
@@ -13,6 +14,7 @@ from ..schemas import (
     Site,
     TaskRecord,
     WorkflowRecord,
+    runtime_bindings_for_task,
 )
 from ..simulator.scheduler import optimize_workflow
 from .search import select_oracle
@@ -202,13 +204,25 @@ def build_counterfactual_cases(
     *,
     seed: int = 42,
 ) -> list[BenchmarkCase]:
+    task_list = list(tasks)
+    task_by_id = {task.task_id: task for task in task_list}
     workflows_by_task: dict[str, list[WorkflowRecord]] = defaultdict(list)
     for workflow in workflows:
-        if is_evaluator_verified(workflow):
+        task = task_by_id.get(workflow.task_id)
+        if (
+            task is not None
+            and is_evaluator_verified(workflow)
+            and validate_workflow_realizability(
+                workflow,
+                task.interaction_spec,
+                runtime_bindings=runtime_bindings_for_task(task.interaction_spec),
+            ).status
+            == "realizable"
+        ):
             workflows_by_task[workflow.task_id].append(workflow)
 
     output: list[BenchmarkCase] = []
-    for index, task in enumerate(tasks):
+    for index, task in enumerate(task_list):
         candidates = sorted(workflows_by_task[task.task_id], key=lambda item: item.workflow_id)
         if len(candidates) < 2:
             continue

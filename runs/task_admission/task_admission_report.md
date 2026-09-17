@@ -1,13 +1,15 @@
 # Real task admission report
 
-Only workflows that pass the original benchmark evaluator are eligible. Unverified templates and `manual_fallback` records are rejected.
+> **Action-space audit update:** `astropy__astropy-14309` is no longer admitted. Its legacy reference workflows are not MAS-realizable; the old 49%/43% crossover is invalid for Planner evaluation. See `action_space_alignment/astropy__astropy-14309.md`.
+
+Admission requires MAS-realizability, original benchmark correctness, and infrastructure sensitivity. Unverified templates, `manual_fallback` records, and workflows with unbound semantic operators are rejected.
 
 | Task | Benchmark | Verified workflows | Calibration pair | Admission | Reason |
 | --- | --- | ---: | --- | --- | --- |
 | video_mme_v2:002 | Video-MME-v2 | 0 | - | FAIL | fewer_than_two_workflows_meet_quality_threshold |
 | video_mme_v2:003 | Video-MME-v2 | 1 | - | FAIL | fewer_than_two_workflows_meet_quality_threshold |
 | video_mme_v2:004 | Video-MME-v2 | 0 | - | FAIL | fewer_than_two_workflows_meet_quality_threshold |
-| astropy__astropy-14309 | SWE-bench Verified | 2 | edge_bw1_rtt50_remote_selection5x <-> cloud_bw1_rtt50_remote_selection5x | PASS | admitted |
+| astropy__astropy-14309 | SWE-bench Verified | 2 | - | FAIL | legacy_reference_workflows_not_mas_realizable |
 | astropy__astropy-14995 | SWE-bench Verified | 0 | - | FAIL | workflow_patch_generation_failed |
 | astropy__astropy-7166 | SWE-bench Verified | 0 | - | FAIL | workflow_patch_generation_failed |
 

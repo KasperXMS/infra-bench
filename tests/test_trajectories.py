@@ -40,7 +40,7 @@ def test_canonicalizer_maps_agent_specific_actions_and_removes_noise():
     assert [node.operator for node in workflow.nodes] == [
         "search_code",
         "read_file",
-        "edit_code",
+        "apply_patch",
         "run_targeted_test",
     ]
     assert workflow.provenance["type"] == "real_successful_trajectory"
@@ -56,4 +56,5 @@ def test_real_trajectory_is_preferred_but_fallback_preserves_minimum_diversity()
     )
     bank = build_workflow_bank([task], adapter.ingest_workflows, [trace])
     assert any(item.provenance["type"] == "real_successful_trajectory" for item in bank)
-    assert len(bank) >= 2
+    assert len(bank) == 1
+    assert bank[0].provenance["realizability"]["status"] == "realizable"

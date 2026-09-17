@@ -1,7 +1,17 @@
 from collections.abc import Iterable, Mapping
 from typing import Any
 
-from ..schemas import TaskRecord, WorkflowEdge, WorkflowNode, WorkflowRecord
+from ..schemas import (
+    ExternalEvaluatorSpec,
+    InitialArtifactSpec,
+    ObservationSpec,
+    RuntimeVerifierSpec,
+    TaskInteractionSpec,
+    TaskRecord,
+    WorkflowEdge,
+    WorkflowNode,
+    WorkflowRecord,
+)
 from .base import BenchmarkAdapter
 from .huggingface import HuggingFaceRowsClient
 
@@ -49,6 +59,34 @@ class VideoMMEV2Adapter(BenchmarkAdapter):
                 "dataset_id": self.dataset_id,
                 "dataset_revision": revision,
             },
+            interaction_spec=TaskInteractionSpec(
+                task_id=f"video_mme_v2:{question_id}",
+                objective=instruction,
+                initial_artifacts=[
+                    InitialArtifactSpec(
+                        artifact_id="raw_video",
+                        kind="video",
+                        source_ref=f"video-mme-v2://{video_id}",
+                    )
+                ],
+                operators=["sample_frames", "invoke_model"],
+                observations=[
+                    ObservationSpec(
+                        observation_id="sampled_frames",
+                        produced_by=["sample_frames"],
+                        description="Selected temporal samples.",
+                    ),
+                    ObservationSpec(
+                        observation_id="model_output",
+                        produced_by=["invoke_model"],
+                        description="Model evidence or answer.",
+                    ),
+                ],
+                runtime_verifier=RuntimeVerifierSpec(level="none"),
+                external_evaluator=ExternalEvaluatorSpec(
+                    evaluator_id="video_mme_v2_official"
+                ),
+            ),
         )
 
     def ingest_workflows(self, task: TaskRecord) -> Iterable[WorkflowRecord]:
@@ -58,8 +96,8 @@ class VideoMMEV2Adapter(BenchmarkAdapter):
             task_id=task.task_id,
             source=self.source,
             nodes=[
-                WorkflowNode(node_id="vlm", operator="strong_vlm", input_artifacts=["raw_video"], output_artifacts=["evidence"]),
-                WorkflowNode(node_id="reason", operator="reason", input_artifacts=["evidence"], output_artifacts=["answer"]),
+                WorkflowNode(node_id="vlm", operator="invoke_model", input_artifacts=["raw_video"], output_artifacts=["evidence"], required_capabilities=["strong_vlm"]),
+                WorkflowNode(node_id="reason", operator="invoke_model", input_artifacts=["evidence"], output_artifacts=["answer"], required_capabilities=["reason"]),
             ],
             edges=[WorkflowEdge(src="vlm", dst="reason", artifact="evidence")],
             success=False,
@@ -75,8 +113,8 @@ class VideoMMEV2Adapter(BenchmarkAdapter):
             source=self.source,
             nodes=[
                 WorkflowNode(node_id="sample", operator="sample_frames", input_artifacts=["raw_video"], output_artifacts=["frames"]),
-                WorkflowNode(node_id="vlm", operator="strong_vlm", input_artifacts=["frames"], output_artifacts=["evidence"]),
-                WorkflowNode(node_id="reason", operator="reason", input_artifacts=["evidence"], output_artifacts=["answer"]),
+                WorkflowNode(node_id="vlm", operator="invoke_model", input_artifacts=["frames"], output_artifacts=["evidence"], required_capabilities=["strong_vlm"]),
+                WorkflowNode(node_id="reason", operator="invoke_model", input_artifacts=["evidence"], output_artifacts=["answer"], required_capabilities=["reason"]),
             ],
             edges=[
                 WorkflowEdge(src="sample", dst="vlm", artifact="frames"),

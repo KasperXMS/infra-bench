@@ -11,17 +11,18 @@ OPERATOR_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"(?:static.?analysis|lint|type.?check)", re.I), "static_analysis"),
     (re.compile(r"(?:pytest|targeted.?test|test.?single|test.?file)", re.I), "run_targeted_test"),
     (re.compile(r"(?:full.?test|test.?suite)", re.I), "run_full_test"),
-    (re.compile(r"(?:apply.?patch|edit.?code|write.?file)", re.I), "edit_code"),
+    (re.compile(r"(?:apply.?patch)", re.I), "apply_patch"),
+    (re.compile(r"(?:edit.?code|write.?file)", re.I), "edit_file"),
     (re.compile(r"(?:inspect.?repo|repo.?tree|list.?files)", re.I), "inspect_repo"),
     (re.compile(r"(?:sample.?frames|extract.?frames)", re.I), "sample_frames"),
     (re.compile(r"(?:extract.?clip|video.?clip)", re.I), "extract_clip"),
     (re.compile(r"(?:detect|object.?detection)", re.I), "detect"),
     (re.compile(r"(?:\bocr\b|text.?recognition)", re.I), "ocr"),
-    (re.compile(r"(?:strong.?vlm|video.?model)", re.I), "strong_vlm"),
-    (re.compile(r"(?:small.?vlm|local.?vlm)", re.I), "small_vlm"),
+    (re.compile(r"(?:strong.?vlm|video.?model)", re.I), "invoke_model"),
+    (re.compile(r"(?:small.?vlm|local.?vlm)", re.I), "invoke_model"),
     (re.compile(r"(?:compress.?evidence|summari[sz]e.?evidence)", re.I), "compress_evidence"),
     (re.compile(r"(?:verify|validation|check.?answer)", re.I), "verify"),
-    (re.compile(r"(?:reason|think|analy[sz]e)", re.I), "reason"),
+    (re.compile(r"(?:reason|think|analy[sz]e)", re.I), "invoke_model"),
 )
 
 
