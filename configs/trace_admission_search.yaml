@@ -1,0 +1,18 @@
+version: 1
+objective: discover_real_mas_semantic_switch
+
+# Keep the first search deliberately small.  More tasks are added only after
+# the trace-driven screen proves useful on this cohort.
+task_bank: data/task_bank/swebench.jsonl
+trace_root: ../infra-aware-mas/runs
+task_ids:
+  - astropy__astropy-14309
+  - astropy__astropy-14995
+  - astropy__astropy-7166
+
+excluded_tasks:
+  astropy__astropy-14309: confirmed_not_semantic_switch
+
+minimum_resource_contrast: 0.35
+admission_margin: 0.20
+output_dir: runs/task_admission/search

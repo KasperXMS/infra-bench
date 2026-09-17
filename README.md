@@ -134,6 +134,30 @@ service factors. Only pairs with opposite winners and at least 20% margin on bot
 sides are listed in `admitted_pairs.json`; only those pairs are eligible for MAS
 export.
 
+### Trace-driven admission search
+
+The current admission path derives workflow candidates from real, successful MAS
+traces instead of hand-authored workflow names. It requires a submitted patch and
+an official-resolved result, reconstructs the semantic operators and artifact
+dependencies, and deduplicates repeated/retried low-level actions into semantic
+phases. Measured resource signatures select the infrastructure dimensions worth
+testing. Modeled counterfactuals are screening signals only; final admission still
+requires an observed winner reversal in two shared real worlds with the configured
+margin on both sides.
+
+Run the deliberately small SWE-bench search cohort with:
+
+```bash
+uv run infra-bench search-trace-admission \
+  --config configs/trace_admission_search.yaml
+```
+
+The command writes `admission_search_report.json`,
+`admission_search_report.md`, `verified_trace_workflow_bank.jsonl`, and
+`admitted_pairs.json`. Oracle-free worlds are eligible for MAS export only when a
+pair passes empirical admission. Frozen tasks may remain in the report for audit,
+but the search never recalibrates them.
+
 ## Design boundary
 
 The planner selects the semantic workflow. The shared physical optimizer only

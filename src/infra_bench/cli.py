@@ -23,6 +23,7 @@ from .integration.smoke import V1_GROUP_ID, build_v1_smoke_cases
 from .io import read_jsonl, write_json, write_jsonl
 from .planners import LLMSelector, OraclePlanner, RandomPlanner, ResourceBlindPlanner
 from .real_tasks import run_swebench_workflows, run_video_mme_workflows
+from .real_tasks.admission_search import build_trace_admission_search_report
 from .real_tasks.report import build_admission_report
 from .real_tasks.swebench import build_swebench_predictions
 from .schemas import BenchmarkCase, EvaluationResult, TaskRecord, WorkflowRecord
@@ -279,6 +280,38 @@ def _report_real_admission(args: argparse.Namespace) -> int:
     return 0
 
 
+def _search_trace_admission(args: argparse.Namespace) -> int:
+    config_path = Path(args.config)
+    config = load_yaml(config_path)
+    task_bank = _configured_path(
+        config_path, args.task_bank or str(config["task_bank"])
+    )
+    trace_root = _configured_path(
+        config_path, args.trace_root or str(config["trace_root"])
+    )
+    output_dir = Path(args.output_dir or str(config["output_dir"]))
+    tasks = read_jsonl(task_bank, TaskRecord)
+    task_ids = [str(item) for item in config.get("task_ids", [])]
+    excluded_tasks = {
+        str(task_id): str(reason)
+        for task_id, reason in config.get("excluded_tasks", {}).items()
+    }
+    report = build_trace_admission_search_report(
+        tasks,
+        trace_root=trace_root,
+        output_dir=output_dir,
+        task_ids=task_ids or None,
+        excluded_tasks=excluded_tasks,
+        minimum_resource_contrast=float(
+            config.get("minimum_resource_contrast", 0.35)
+        ),
+        admission_margin=float(config.get("admission_margin", 0.20)),
+    )
+    print(json.dumps(report["summary"], indent=2, sort_keys=True))
+    print(f"wrote trace-driven admission report to {output_dir.resolve()}")
+    return 0
+
+
 def _run_real_swebench(args: argparse.Namespace) -> int:
     tasks = read_jsonl(args.tasks, TaskRecord)
     outputs = run_swebench_workflows(
@@ -501,6 +534,16 @@ def build_parser() -> argparse.ArgumentParser:
     report_real.add_argument("--swebench-ids", nargs="+", required=True)
     report_real.add_argument("--admission-margin", type=float, default=0.20)
     report_real.set_defaults(handler=_report_real_admission)
+
+    search_trace = subparsers.add_parser(
+        "search-trace-admission",
+        help="screen real successful MAS traces for infrastructure-sensitive workflow pairs",
+    )
+    search_trace.add_argument("--config", default="configs/trace_admission_search.yaml")
+    search_trace.add_argument("--task-bank")
+    search_trace.add_argument("--trace-root")
+    search_trace.add_argument("--output-dir")
+    search_trace.set_defaults(handler=_search_trace_admission)
     return parser
 
 
