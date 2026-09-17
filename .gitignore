@@ -7,6 +7,9 @@ __pycache__/
 /data/generated/*.jsonl
 /data/mas_exports/
 /data/results/*
+/data/real_benchmarks/external/
+/data/real_benchmarks/video_mme/*.zip
+/data/real_benchmarks/video_mme/videos/
 !/data/task_bank/.gitkeep
 !/data/workflow_bank/.gitkeep
 !/data/generated/.gitkeep

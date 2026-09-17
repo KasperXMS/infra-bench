@@ -22,6 +22,9 @@ from .integration.report import write_mas_report
 from .integration.smoke import V1_GROUP_ID, build_v1_smoke_cases
 from .io import read_jsonl, write_json, write_jsonl
 from .planners import LLMSelector, OraclePlanner, RandomPlanner, ResourceBlindPlanner
+from .real_tasks import run_swebench_workflows, run_video_mme_workflows
+from .real_tasks.report import build_admission_report
+from .real_tasks.swebench import build_swebench_predictions
 from .schemas import BenchmarkCase, EvaluationResult, TaskRecord, WorkflowRecord
 from .task_evaluation import build_swebench_command, run_swebench_evaluation, score_video_mme
 from .trajectories import build_workflow_bank, read_trajectories
@@ -239,6 +242,67 @@ def _grade_swebench(args: argparse.Namespace) -> int:
     return run_swebench_evaluation(args.predictions, **kwargs)
 
 
+def _run_real_video(args: argparse.Namespace) -> int:
+    tasks = read_jsonl(args.tasks, TaskRecord)
+    outputs = run_video_mme_workflows(
+        tasks,
+        video_dir=Path(args.video_dir),
+        credential_file=Path(args.credential_file),
+        output_dir=Path(args.output_dir),
+        video_ids=args.video_ids,
+        model=args.model,
+        thinking=args.thinking,
+    )
+    print(f"completed or resumed {len(outputs)} real Video-MME-v2 workflow runs")
+    for output in outputs:
+        print(output)
+    return 0
+
+
+def _report_real_admission(args: argparse.Namespace) -> int:
+    tasks = [
+        *read_jsonl(args.video_tasks, TaskRecord),
+        *read_jsonl(args.swebench_tasks, TaskRecord),
+    ]
+    report = build_admission_report(
+        tasks,
+        result_dir=Path(args.result_dir),
+        official_script=Path(args.official_video_script),
+        output_dir=Path(args.output_dir),
+        swebench_result_dir=Path(args.swebench_result_dir),
+        swebench_eval_dir=Path(args.swebench_eval_dir),
+        video_ids=args.video_ids,
+        swebench_ids=args.swebench_ids,
+        admission_margin=args.admission_margin,
+    )
+    print(json.dumps(report["summary"], indent=2, sort_keys=True))
+    return 0
+
+
+def _run_real_swebench(args: argparse.Namespace) -> int:
+    tasks = read_jsonl(args.tasks, TaskRecord)
+    outputs = run_swebench_workflows(
+        tasks,
+        task_ids=args.task_ids,
+        repo_root=Path(args.repo_root),
+        credential_file=Path(args.credential_file),
+        output_dir=Path(args.output_dir),
+        model=args.model,
+    )
+    print(f"completed or resumed {len(outputs)} real SWE-bench workflow runs")
+    for output in outputs:
+        print(output)
+    return 0
+
+
+def _prepare_real_swebench_eval(args: argparse.Namespace) -> int:
+    predictions = build_swebench_predictions(
+        Path(args.result_dir), workflow_id=args.workflow_id, output=Path(args.output)
+    )
+    print(f"wrote {len(predictions)} evaluator-ready predictions to {args.output}")
+    return 0
+
+
 def _export_mas(args: argparse.Namespace) -> int:
     dataset = Path(args.dataset).resolve()
     cases = read_jsonl(dataset, BenchmarkCase)
@@ -391,6 +455,52 @@ def build_parser() -> argparse.ArgumentParser:
     grade_swe.add_argument("--instance-ids", nargs="*")
     grade_swe.add_argument("--dry-run", action="store_true")
     grade_swe.set_defaults(handler=_grade_swebench)
+
+    run_real_video = subparsers.add_parser(
+        "run-real-video", help="execute real Video-MME-v2 semantic workflows"
+    )
+    run_real_video.add_argument("--tasks", default="data/task_bank/video-mme.jsonl")
+    run_real_video.add_argument("--video-dir", required=True)
+    run_real_video.add_argument("--credential-file", required=True)
+    run_real_video.add_argument("--output-dir", default="runs/task_admission/video_mme")
+    run_real_video.add_argument("--video-ids", nargs="+", required=True)
+    run_real_video.add_argument("--model", default="qwen3-vl-plus")
+    run_real_video.add_argument("--thinking", action="store_true")
+    run_real_video.set_defaults(handler=_run_real_video)
+
+    run_real_swe = subparsers.add_parser(
+        "run-real-swebench", help="generate SWE-bench patches through two semantic workflows"
+    )
+    run_real_swe.add_argument("--tasks", default="data/task_bank/swebench.jsonl")
+    run_real_swe.add_argument("--repo-root", required=True)
+    run_real_swe.add_argument("--credential-file", required=True)
+    run_real_swe.add_argument("--output-dir", default="runs/task_admission/swebench")
+    run_real_swe.add_argument("--task-ids", nargs="+", required=True)
+    run_real_swe.add_argument("--model", default="qwen3.8-max")
+    run_real_swe.set_defaults(handler=_run_real_swebench)
+
+    prepare_swe = subparsers.add_parser(
+        "prepare-real-swebench-eval", help="build official evaluator predictions for one workflow"
+    )
+    prepare_swe.add_argument("--result-dir", default="runs/task_admission/swebench")
+    prepare_swe.add_argument("--workflow-id", required=True)
+    prepare_swe.add_argument("--output", required=True)
+    prepare_swe.set_defaults(handler=_prepare_real_swebench_eval)
+
+    report_real = subparsers.add_parser(
+        "report-real-admission", help="verify, calibrate, and report real task admission"
+    )
+    report_real.add_argument("--video-tasks", default="data/task_bank/video-mme.jsonl")
+    report_real.add_argument("--swebench-tasks", default="data/task_bank/swebench.jsonl")
+    report_real.add_argument("--result-dir", default="runs/task_admission/video_mme")
+    report_real.add_argument("--swebench-result-dir", default="runs/task_admission/swebench")
+    report_real.add_argument("--swebench-eval-dir", default="runs/task_admission/swebench/eval")
+    report_real.add_argument("--official-video-script", required=True)
+    report_real.add_argument("--output-dir", default="runs/task_admission")
+    report_real.add_argument("--video-ids", nargs="+", required=True)
+    report_real.add_argument("--swebench-ids", nargs="+", required=True)
+    report_real.add_argument("--admission-margin", type=float, default=0.20)
+    report_real.set_defaults(handler=_report_real_admission)
     return parser
 
 

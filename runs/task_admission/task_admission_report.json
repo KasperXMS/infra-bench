@@ -1,0 +1,4281 @@
+{
+  "admitted_task_world_pairs": [
+    {
+      "benchmark": "SWE-bench Verified",
+      "task_id": "astropy__astropy-14309",
+      "workflows": [
+        "whole_repo_remote_reasoning",
+        "local_search_test_compact_remote_reasoning"
+      ],
+      "worlds": [
+        {
+          "artifact_locality": "edge",
+          "bandwidth_mbps": 1.0,
+          "cost_ms": {
+            "local_search_test_compact_remote_reasoning": 605163.681,
+            "whole_repo_remote_reasoning": 901839.908
+          },
+          "margin": 0.490241,
+          "remote_selection_service_scale": 5.0,
+          "replicas": {
+            "local_search_static_filter": [
+              "edge"
+            ],
+            "remote_patch_reasoning": [
+              "cloud"
+            ],
+            "remote_repo_selection": [
+              "cloud"
+            ]
+          },
+          "rtt_ms": 50.0,
+          "service_time_estimates_ms": {
+            "local_search_static_filter": 16.541,
+            "remote_reasoning_typical": 422695.84,
+            "remote_repository_inspection": 658809.927
+          },
+          "winner": "local_search_test_compact_remote_reasoning",
+          "world_id": "edge_bw1_rtt50_remote_selection5x"
+        },
+        {
+          "artifact_locality": "cloud",
+          "bandwidth_mbps": 1.0,
+          "cost_ms": {
+            "local_search_test_compact_remote_reasoning": 1291070.569,
+            "whole_repo_remote_reasoning": 900544.468
+          },
+          "margin": 0.433656,
+          "remote_selection_service_scale": 5.0,
+          "replicas": {
+            "local_search_static_filter": [
+              "edge"
+            ],
+            "remote_patch_reasoning": [
+              "cloud"
+            ],
+            "remote_repo_selection": [
+              "cloud"
+            ]
+          },
+          "rtt_ms": 50.0,
+          "service_time_estimates_ms": {
+            "local_search_static_filter": 16.541,
+            "remote_reasoning_typical": 422695.84,
+            "remote_repository_inspection": 658809.927
+          },
+          "winner": "whole_repo_remote_reasoning",
+          "world_id": "cloud_bw1_rtt50_remote_selection5x"
+        }
+      ]
+    }
+  ],
+  "official_video_mme_evaluator_sha256": [
+    "f27a00bca743adcdc55c22e65deeff4416305d41f15197de3d2cad086cf6674b"
+  ],
+  "policy": {
+    "export_only_admitted": true,
+    "manual_fallback_is_valid": false,
+    "minimum_verified_workflows": 2,
+    "semantic_switch_margin": 0.2
+  },
+  "summary": {
+    "admitted_count": 1,
+    "target_reached": true,
+    "task_count": 6
+  },
+  "tasks": [
+    {
+      "benchmark": "Video-MME-v2",
+      "calibration": null,
+      "reason": "fewer_than_two_workflows_meet_quality_threshold",
+      "semantic_switch_admitted": false,
+      "task_id": "video_mme_v2:002",
+      "verified_workflows": [
+        {
+          "e2e_ms": 25364.382,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 9303.304,
+          "preprocess_service_ms": 16060.158,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 50.0
+              },
+              "level_acc": {
+                "level_1": 66.66666666666667,
+                "level_3": 0.0
+              },
+              "overall_acc": 50.0,
+              "second_head_acc": {
+                "Frame-Only": 66.66666666666667,
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_acc": {
+                "Basic Counting": 66.66666666666667,
+                "Counterfactual Reasoning": 0.0
+              }
+            },
+            "grouped_rating": 0.0,
+            "question_accuracy": 50.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 0.0,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 0.0
+              },
+              "overall_rating": {
+                "total": 0.0
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_rating": {
+                "Counterfactual Reasoning": 0.0
+              }
+            }
+          },
+          "transfer_payload_bytes": 5826617,
+          "verified": false,
+          "workflow_id": "full_video_dense_128"
+        },
+        {
+          "e2e_ms": 92117.107,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 5903.596,
+          "preprocess_service_ms": 86213.147,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 75.0
+              },
+              "level_acc": {
+                "level_1": 66.66666666666667,
+                "level_3": 100.0
+              },
+              "overall_acc": 75.0,
+              "second_head_acc": {
+                "Frame-Only": 66.66666666666667,
+                "Physical World Reasoning": 100.0
+              },
+              "third_head_acc": {
+                "Basic Counting": 66.66666666666667,
+                "Counterfactual Reasoning": 100.0
+              }
+            },
+            "grouped_rating": 0.0,
+            "question_accuracy": 75.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 0.0,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 0.0
+              },
+              "overall_rating": {
+                "total": 0.0
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_rating": {
+                "Counterfactual Reasoning": 0.0
+              }
+            }
+          },
+          "transfer_payload_bytes": 3363509,
+          "verified": false,
+          "workflow_id": "local_temporal_clip_64"
+        }
+      ]
+    },
+    {
+      "benchmark": "Video-MME-v2",
+      "calibration": null,
+      "reason": "fewer_than_two_workflows_meet_quality_threshold",
+      "semantic_switch_admitted": false,
+      "task_id": "video_mme_v2:003",
+      "verified_workflows": [
+        {
+          "e2e_ms": 28072.84,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 10071.688,
+          "preprocess_service_ms": 18000.701,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 75.0
+              },
+              "level_acc": {
+                "level_1": 100.0,
+                "level_3": 50.0
+              },
+              "overall_acc": 75.0,
+              "second_head_acc": {
+                "Frame-Only": 100.0,
+                "Physical World Reasoning": 50.0
+              },
+              "third_head_acc": {
+                "Entity Persistence Tracking": 50.0,
+                "Visual Recognition": 100.0
+              }
+            },
+            "grouped_rating": 56.25,
+            "question_accuracy": 75.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 56.25,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 56.25
+              },
+              "overall_rating": {
+                "total": 56.25
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 56.25
+              },
+              "third_head_rating": {
+                "Entity Persistence Tracking": 56.25
+              }
+            }
+          },
+          "transfer_payload_bytes": 7122548,
+          "verified": false,
+          "workflow_id": "full_video_dense_128"
+        },
+        {
+          "e2e_ms": 40486.457,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 5784.32,
+          "preprocess_service_ms": 34701.801,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 100.0
+              },
+              "level_acc": {
+                "level_1": 100.0,
+                "level_3": 100.0
+              },
+              "overall_acc": 100.0,
+              "second_head_acc": {
+                "Frame-Only": 100.0,
+                "Physical World Reasoning": 100.0
+              },
+              "third_head_acc": {
+                "Entity Persistence Tracking": 100.0,
+                "Visual Recognition": 100.0
+              }
+            },
+            "grouped_rating": 100.0,
+            "question_accuracy": 100.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 100.0,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 100.0
+              },
+              "overall_rating": {
+                "total": 100.0
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 100.0
+              },
+              "third_head_rating": {
+                "Entity Persistence Tracking": 100.0
+              }
+            }
+          },
+          "transfer_payload_bytes": 3310480,
+          "verified": true,
+          "workflow_id": "local_temporal_clip_64"
+        }
+      ]
+    },
+    {
+      "benchmark": "Video-MME-v2",
+      "calibration": null,
+      "reason": "fewer_than_two_workflows_meet_quality_threshold",
+      "semantic_switch_admitted": false,
+      "task_id": "video_mme_v2:004",
+      "verified_workflows": [
+        {
+          "e2e_ms": 25724.65,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 8199.585,
+          "preprocess_service_ms": 17524.654,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 25.0
+              },
+              "level_acc": {
+                "level_1": 33.333333333333336,
+                "level_3": 0.0
+              },
+              "overall_acc": 25.0,
+              "second_head_acc": {
+                "Frame-Only": 33.333333333333336,
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_acc": {
+                "Basic Counting": 33.333333333333336,
+                "Entity Persistence Tracking": 0.0
+              }
+            },
+            "grouped_rating": 0.0,
+            "question_accuracy": 25.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 0.0,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 0.0
+              },
+              "overall_rating": {
+                "total": 0.0
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_rating": {
+                "Entity Persistence Tracking": 0.0
+              }
+            }
+          },
+          "transfer_payload_bytes": 6380991,
+          "verified": false,
+          "workflow_id": "full_video_dense_128"
+        },
+        {
+          "e2e_ms": 43933.04,
+          "model": "qwen3-vl-plus",
+          "model_service_ms": 5705.642,
+          "preprocess_service_ms": 38227.05,
+          "quality": {
+            "acc": {
+              "group_type_acc": {
+                "logic": 0.0
+              },
+              "level_acc": {
+                "level_1": 0.0,
+                "level_3": 0.0
+              },
+              "overall_acc": 0.0,
+              "second_head_acc": {
+                "Frame-Only": 0.0,
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_acc": {
+                "Basic Counting": 0.0,
+                "Entity Persistence Tracking": 0.0
+              }
+            },
+            "grouped_rating": 0.0,
+            "question_accuracy": 0.0,
+            "rating": {
+              "group_type_rating": {
+                "logic": 0.0,
+                "relevance": 0.0
+              },
+              "level_rating": {
+                "level_1": 0.0,
+                "level_2": 0.0,
+                "level_3": 0.0
+              },
+              "overall_rating": {
+                "total": 0.0
+              },
+              "second_head_rating": {
+                "Physical World Reasoning": 0.0
+              },
+              "third_head_rating": {
+                "Entity Persistence Tracking": 0.0
+              }
+            }
+          },
+          "transfer_payload_bytes": 2923307,
+          "verified": false,
+          "workflow_id": "local_temporal_clip_64"
+        }
+      ]
+    },
+    {
+      "benchmark": "SWE-bench Verified",
+      "calibration": {
+        "admission_margin": 0.2,
+        "measurement_note": "Service times are real workflow traces; repository/context byte sizes are measured from the checked-out artifact and exact bounded contexts.",
+        "objective": "measured_service_plus_network_e2e_ms",
+        "selected_worlds": [
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 901839.908
+            },
+            "margin": 0.490241,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.433656,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection5x"
+          }
+        ],
+        "semantic_switch_pair_found": true,
+        "world_count": 128,
+        "worlds": [
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 308870.973
+            },
+            "margin": 0.959147,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 374751.966
+            },
+            "margin": 0.614731,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 506513.951
+            },
+            "margin": 0.194683,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 638275.937
+            },
+            "margin": 0.054786,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 770037.922
+            },
+            "margin": 0.27253,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 901799.908
+            },
+            "margin": 0.490274,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 1033561.893
+            },
+            "margin": 0.708018,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605123.681,
+              "whole_repo_remote_reasoning": 1297085.864
+            },
+            "margin": 1.143505,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 308910.973
+            },
+            "margin": 0.959023,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 374791.966
+            },
+            "margin": 0.614666,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 506553.951
+            },
+            "margin": 0.194668,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 638315.937
+            },
+            "margin": 0.054782,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 770077.922
+            },
+            "margin": 0.272512,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 901839.908
+            },
+            "margin": 0.490241,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 1033601.893
+            },
+            "margin": 0.707971,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 605163.681,
+              "whole_repo_remote_reasoning": 1297125.864
+            },
+            "margin": 1.14343,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 307750.077
+            },
+            "margin": 0.962072,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 373631.07
+            },
+            "margin": 0.616107,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 505393.055
+            },
+            "margin": 0.194768,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 637155.041
+            },
+            "margin": 0.055193,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 768917.026
+            },
+            "margin": 0.273405,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 900679.012
+            },
+            "margin": 0.491616,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 1032440.997
+            },
+            "margin": 0.709827,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603827.681,
+              "whole_repo_remote_reasoning": 1295964.968
+            },
+            "margin": 1.14625,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 307790.077
+            },
+            "margin": 0.961947,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 373671.07
+            },
+            "margin": 0.616041,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 505433.055
+            },
+            "margin": 0.194753,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 637195.041
+            },
+            "margin": 0.05519,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 768957.026
+            },
+            "margin": 0.273387,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 900719.012
+            },
+            "margin": 0.491583,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 1032480.997
+            },
+            "margin": 0.70978,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603867.681,
+              "whole_repo_remote_reasoning": 1296004.968
+            },
+            "margin": 1.146174,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw10_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 307637.987
+            },
+            "margin": 0.962365,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 373518.98
+            },
+            "margin": 0.616245,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 505280.966
+            },
+            "margin": 0.194777,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 637042.951
+            },
+            "margin": 0.055234,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 768804.937
+            },
+            "margin": 0.273492,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 900566.922
+            },
+            "margin": 0.491751,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 1032328.908
+            },
+            "margin": 0.710009,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603698.081,
+              "whole_repo_remote_reasoning": 1295852.879
+            },
+            "margin": 1.146525,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 307677.987
+            },
+            "margin": 0.96224,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 373558.98
+            },
+            "margin": 0.616179,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 505320.966
+            },
+            "margin": 0.194762,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 637082.951
+            },
+            "margin": 0.055231,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 768844.937
+            },
+            "margin": 0.273474,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 900606.922
+            },
+            "margin": 0.491718,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 1032368.908
+            },
+            "margin": 0.709962,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603738.081,
+              "whole_repo_remote_reasoning": 1295892.879
+            },
+            "margin": 1.146449,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw100_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 307626.779
+            },
+            "margin": 0.962395,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 373507.771
+            },
+            "margin": 0.616259,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 505269.757
+            },
+            "margin": 0.194778,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 637031.742
+            },
+            "margin": 0.055238,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 768793.728
+            },
+            "margin": 0.273501,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 900555.713
+            },
+            "margin": 0.491764,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 1032317.699
+            },
+            "margin": 0.710027,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603685.121,
+              "whole_repo_remote_reasoning": 1295841.67
+            },
+            "margin": 1.146552,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 307666.779
+            },
+            "margin": 0.962269,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 373547.771
+            },
+            "margin": 0.616193,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 505309.757
+            },
+            "margin": 0.194762,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 637071.742
+            },
+            "margin": 0.055235,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 768833.728
+            },
+            "margin": 0.273483,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 900595.713
+            },
+            "margin": 0.491731,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 1032357.699
+            },
+            "margin": 0.70998,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "edge",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 603725.121,
+              "whole_repo_remote_reasoning": 1295881.67
+            },
+            "margin": 1.146476,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "edge_bw1000_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 3.196767,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 2.4565,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 1.555109,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 1.026608,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.679266,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.433567,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.250588,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1290990.569,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 0.003749,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 3.197027,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 2.456714,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 1.555267,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 1.026733,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.67937,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.433656,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.250666,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 1291070.569,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 0.003687,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 1.185921,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.800347,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.33085,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.055576,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.143301,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.339252,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.535203,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672423.37,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 0.927105,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 1.186181,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.800561,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.331008,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.055701,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.143165,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.339093,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.53502,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 10.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 672503.37,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 0.926876,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw10_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 0.984837,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.634732,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.208424,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.043327,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.25913,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.474932,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.690735,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610566.65,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 1.122341,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 0.985097,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.634946,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.208583,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.04319,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.258965,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.474739,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.690514,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 100.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 610646.65,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 1.122063,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw100_rtt50_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 0.964728,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.61817,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.196182,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.054005,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.272016,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.490028,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.708039,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604380.978,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 1.144062,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 10.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt10_remote_selection8x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 307615.533
+            },
+            "margin": 0.964988,
+            "remote_selection_service_scale": 0.5,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 65880.993
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection0.5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 373496.526
+            },
+            "margin": 0.618384,
+            "remote_selection_service_scale": 1.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 131761.985
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection1x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 505258.511
+            },
+            "margin": 0.19634,
+            "remote_selection_service_scale": 2.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 263523.971
+            },
+            "winner": "whole_repo_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection2x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 637020.497
+            },
+            "margin": 0.053865,
+            "remote_selection_service_scale": 3.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 395285.956
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection3x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 768782.482
+            },
+            "margin": 0.271848,
+            "remote_selection_service_scale": 4.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 527047.942
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection4x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 900544.468
+            },
+            "margin": 0.489831,
+            "remote_selection_service_scale": 5.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 658809.927
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection5x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 1032306.453
+            },
+            "margin": 0.707813,
+            "remote_selection_service_scale": 6.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 790571.913
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection6x"
+          },
+          {
+            "artifact_locality": "cloud",
+            "bandwidth_mbps": 1000.0,
+            "cost_ms": {
+              "local_search_test_compact_remote_reasoning": 604460.978,
+              "whole_repo_remote_reasoning": 1295830.424
+            },
+            "margin": 1.143778,
+            "remote_selection_service_scale": 8.0,
+            "replicas": {
+              "local_search_static_filter": [
+                "edge"
+              ],
+              "remote_patch_reasoning": [
+                "cloud"
+              ],
+              "remote_repo_selection": [
+                "cloud"
+              ]
+            },
+            "rtt_ms": 50.0,
+            "service_time_estimates_ms": {
+              "local_search_static_filter": 16.541,
+              "remote_reasoning_typical": 422695.84,
+              "remote_repository_inspection": 1054095.884
+            },
+            "winner": "local_search_test_compact_remote_reasoning",
+            "world_id": "cloud_bw1000_rtt50_remote_selection8x"
+          }
+        ]
+      },
+      "reason": "admitted",
+      "semantic_switch_admitted": true,
+      "task_id": "astropy__astropy-14309",
+      "verified_workflows": [
+        {
+          "official_evaluator_report": "qwen3.8-max__whole_repo_remote_reasoning.infra-bench-remote-14309.json",
+          "patch_apply_check": true,
+          "quality": {
+            "resolved": true
+          },
+          "service_ms_sum": 373496.526,
+          "verified": true,
+          "workflow_id": "whole_repo_remote_reasoning"
+        },
+        {
+          "official_evaluator_report": "qwen3.8-max__local_search_test_compact_remote_reasoning.infra-bench-compact-14309.json",
+          "patch_apply_check": true,
+          "quality": {
+            "resolved": true
+          },
+          "service_ms_sum": 603673.681,
+          "verified": true,
+          "workflow_id": "local_search_test_compact_remote_reasoning"
+        }
+      ]
+    },
+    {
+      "benchmark": "SWE-bench Verified",
+      "calibration": null,
+      "reason": "workflow_patch_generation_failed",
+      "semantic_switch_admitted": false,
+      "task_id": "astropy__astropy-14995",
+      "verified_workflows": [
+        {
+          "official_evaluator_report": null,
+          "patch_apply_check": false,
+          "quality": null,
+          "service_ms_sum": 13705.246,
+          "verified": false,
+          "workflow_id": "whole_repo_remote_reasoning"
+        },
+        {
+          "official_evaluator_report": null,
+          "patch_apply_check": false,
+          "quality": null,
+          "service_ms_sum": 20494.328,
+          "verified": false,
+          "workflow_id": "local_search_test_compact_remote_reasoning"
+        }
+      ]
+    },
+    {
+      "benchmark": "SWE-bench Verified",
+      "calibration": null,
+      "reason": "workflow_patch_generation_failed",
+      "semantic_switch_admitted": false,
+      "task_id": "astropy__astropy-7166",
+      "verified_workflows": [
+        {
+          "official_evaluator_report": null,
+          "patch_apply_check": false,
+          "quality": null,
+          "service_ms_sum": 12576.986,
+          "verified": false,
+          "workflow_id": "whole_repo_remote_reasoning"
+        },
+        {
+          "official_evaluator_report": null,
+          "patch_apply_check": false,
+          "quality": null,
+          "service_ms_sum": 12949.72,
+          "verified": false,
+          "workflow_id": "local_search_test_compact_remote_reasoning"
+        }
+      ]
+    }
+  ],
+  "version": 1
+}

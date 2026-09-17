@@ -1,0 +1,68 @@
+{
+  "benchmark": "SWE-bench Verified",
+  "model": "qwen3.8-max",
+  "repository_bytes": 85732111,
+  "context_bytes": 155680,
+  "official_evaluation": null,
+  "patch_apply_check": true,
+  "patch_apply_error": "",
+  "patch_file": "runs/task_admission/swebench/astropy__astropy-14309__whole_repo_remote_reasoning.patch",
+  "selected_files": [
+    "astropy/io/fits/connect.py",
+    "astropy/io/fits/tests/test_connect.py",
+    "astropy/io/registry/base.py",
+    "astropy/io/registry/compat.py",
+    "astropy/io/registry/tests/test_registries.py"
+  ],
+  "task_id": "astropy__astropy-14309",
+  "trace": [
+    {
+      "phase": "remote_file_selection",
+      "service_ms": 131761.98548602406,
+      "usage": {
+        "completion_tokens": 5117,
+        "completion_tokens_details": {
+          "reasoning_tokens": 5064,
+          "text_tokens": 5117
+        },
+        "prompt_tokens": 21755,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 21755
+        },
+        "total_tokens": 26872
+      }
+    },
+    {
+      "phase": "remote_patch_reasoning",
+      "service_ms": 237853.5297869821,
+      "usage": {
+        "completion_tokens": 10392,
+        "completion_tokens_details": {
+          "reasoning_tokens": 10115,
+          "text_tokens": 10392
+        },
+        "prompt_tokens": 30919,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 30919
+        },
+        "total_tokens": 41311
+      }
+    },
+    {
+      "phase": "patch_apply_repair",
+      "service_ms": 3881.0105650045443,
+      "usage": {
+        "completion_tokens": 178,
+        "prompt_tokens": 4520,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 4520
+        },
+        "total_tokens": 4698
+      }
+    }
+  ],
+  "workflow_id": "whole_repo_remote_reasoning"
+}

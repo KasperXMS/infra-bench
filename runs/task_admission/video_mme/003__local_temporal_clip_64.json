@@ -1,0 +1,213 @@
+{
+  "benchmark": "Video-MME-v2",
+  "e2e_ms": 40486.457,
+  "frame_count": 64,
+  "model": "qwen3-vl-plus",
+  "model_response": "{\n  \"003-1\": \"B\",\n  \"003-2\": \"G\",\n  \"003-3\": \"C\",\n  \"003-4\": \"D\"\n}",
+  "model_service_ms": 5784.32,
+  "official_evaluator_sha256": "f27a00bca743adcdc55c22e65deeff4416305d41f15197de3d2cad086cf6674b",
+  "official_metrics": {
+    "acc": {
+      "group_type_acc": {
+        "logic": 100.0
+      },
+      "level_acc": {
+        "level_1": 100.0,
+        "level_3": 100.0
+      },
+      "overall_acc": 100.0,
+      "second_head_acc": {
+        "Frame-Only": 100.0,
+        "Physical World Reasoning": 100.0
+      },
+      "third_head_acc": {
+        "Entity Persistence Tracking": 100.0,
+        "Visual Recognition": 100.0
+      }
+    },
+    "grouped_rating": 100.0,
+    "question_accuracy": 100.0,
+    "rating": {
+      "group_type_rating": {
+        "logic": 100.0,
+        "relevance": 0.0
+      },
+      "level_rating": {
+        "level_1": 0.0,
+        "level_2": 0.0,
+        "level_3": 100.0
+      },
+      "overall_rating": {
+        "total": 100.0
+      },
+      "second_head_rating": {
+        "Physical World Reasoning": 100.0
+      },
+      "third_head_rating": {
+        "Entity Persistence Tracking": 100.0
+      }
+    }
+  },
+  "predictions": {
+    "video_mme_v2:003-1": "B",
+    "video_mme_v2:003-2": "G",
+    "video_mme_v2:003-3": "C",
+    "video_mme_v2:003-4": "D"
+  },
+  "preprocess_service_ms": 34701.801,
+  "quality_threshold": {
+    "grouped_rating": 100.0,
+    "question_accuracy": 100.0
+  },
+  "quality_threshold_met": true,
+  "request_bytes": 3310480,
+  "selected_frame_indices": [
+    3471,
+    3507,
+    3544,
+    3581,
+    3618,
+    3655,
+    3691,
+    3728,
+    3765,
+    3802,
+    3839,
+    3875,
+    3912,
+    3949,
+    3986,
+    4023,
+    4059,
+    4096,
+    4133,
+    4170,
+    4207,
+    4244,
+    4280,
+    4317,
+    4354,
+    4391,
+    4428,
+    4464,
+    4501,
+    4538,
+    4575,
+    4612,
+    4648,
+    4685,
+    4722,
+    4759,
+    4796,
+    4832,
+    4869,
+    4906,
+    4943,
+    4980,
+    5017,
+    5053,
+    5090,
+    5127,
+    5164,
+    5201,
+    5237,
+    5274,
+    5311,
+    5348,
+    5385,
+    5421,
+    5458,
+    5495,
+    5532,
+    5569,
+    5605,
+    5642,
+    5679,
+    5716,
+    5753,
+    5790
+  ],
+  "selected_timestamps_s": [
+    115.7,
+    116.9,
+    118.133,
+    119.367,
+    120.6,
+    121.833,
+    123.033,
+    124.267,
+    125.5,
+    126.733,
+    127.967,
+    129.167,
+    130.4,
+    131.633,
+    132.867,
+    134.1,
+    135.3,
+    136.533,
+    137.767,
+    139.0,
+    140.233,
+    141.467,
+    142.667,
+    143.9,
+    145.133,
+    146.367,
+    147.6,
+    148.8,
+    150.033,
+    151.267,
+    152.5,
+    153.733,
+    154.933,
+    156.167,
+    157.4,
+    158.633,
+    159.867,
+    161.067,
+    162.3,
+    163.533,
+    164.767,
+    166.0,
+    167.233,
+    168.433,
+    169.667,
+    170.9,
+    172.133,
+    173.367,
+    174.567,
+    175.8,
+    177.033,
+    178.267,
+    179.5,
+    180.7,
+    181.933,
+    183.167,
+    184.4,
+    185.633,
+    186.833,
+    188.067,
+    189.3,
+    190.533,
+    191.767,
+    193.0
+  ],
+  "source_artifact_bytes": 77080589,
+  "usage": {
+    "completion_tokens": 47,
+    "completion_tokens_details": {
+      "text_tokens": 47
+    },
+    "prompt_tokens": 7421,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "text_tokens": 379,
+      "video_tokens": 7042
+    },
+    "total_tokens": 7468
+  },
+  "video_id": "003",
+  "visual_payload_bytes": 2480359,
+  "workflow_id": "local_temporal_clip_64"
+}

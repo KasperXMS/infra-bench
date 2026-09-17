@@ -1,0 +1,48 @@
+{
+  "benchmark": "SWE-bench Verified",
+  "model": "qwen3.8-max",
+  "official_evaluation": null,
+  "patch_apply_check": false,
+  "patch_apply_error": "model response contains no unified diff",
+  "patch_file": null,
+  "selected_files": [
+    "astropy/nddata/mixins/ndarithmetic.py",
+    "astropy/nddata/mixins/tests/test_ndarithmetic.py",
+    "astropy/nddata/nddata_withmixins.py",
+    "astropy/nddata/compat.py",
+    "astropy/nddata/nddata.py",
+    "astropy/nddata/nddata_base.py",
+    "astropy/nddata/__init__.py",
+    "astropy/nddata/tests/test_nddata.py"
+  ],
+  "task_id": "astropy__astropy-14995",
+  "trace": [
+    {
+      "phase": "remote_file_selection",
+      "service_ms": 2621.4995849877596,
+      "usage": {
+        "completion_tokens": 96,
+        "prompt_tokens": 12231,
+        "prompt_tokens_details": {
+          "cached_tokens": 11904,
+          "text_tokens": 12231
+        },
+        "total_tokens": 12327
+      }
+    },
+    {
+      "phase": "remote_patch_reasoning",
+      "service_ms": 11083.746614982374,
+      "usage": {
+        "completion_tokens": 632,
+        "prompt_tokens": 37860,
+        "prompt_tokens_details": {
+          "cached_tokens": 36864,
+          "text_tokens": 37860
+        },
+        "total_tokens": 38492
+      }
+    }
+  ],
+  "workflow_id": "whole_repo_remote_reasoning"
+}

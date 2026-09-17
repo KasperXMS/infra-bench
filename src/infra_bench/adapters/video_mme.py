@@ -62,8 +62,12 @@ class VideoMMEV2Adapter(BenchmarkAdapter):
                 WorkflowNode(node_id="reason", operator="reason", input_artifacts=["evidence"], output_artifacts=["answer"]),
             ],
             edges=[WorkflowEdge(src="vlm", dst="reason", artifact="evidence")],
-            success=True,
-            provenance={"type": "manual_fallback", "correctness_basis": "strategy_template"},
+            success=False,
+            provenance={
+                "type": "unverified_template",
+                "correctness_basis": "not_evaluated",
+                "admission_eligible": False,
+            },
         )
         sampled = WorkflowRecord(
             workflow_id=f"{prefix}:sample_then_strong_vlm",
@@ -78,7 +82,11 @@ class VideoMMEV2Adapter(BenchmarkAdapter):
                 WorkflowEdge(src="sample", dst="vlm", artifact="frames"),
                 WorkflowEdge(src="vlm", dst="reason", artifact="evidence"),
             ],
-            success=True,
-            provenance={"type": "manual_fallback", "correctness_basis": "strategy_template"},
+            success=False,
+            provenance={
+                "type": "unverified_template",
+                "correctness_basis": "not_evaluated",
+                "admission_eligible": False,
+            },
         )
         return [direct, sampled]

@@ -1,0 +1,53 @@
+{
+  "benchmark": "SWE-bench Verified",
+  "model": "qwen3.8-max",
+  "official_evaluation": null,
+  "patch_apply_check": false,
+  "patch_apply_error": "model response contains no unified diff",
+  "patch_file": null,
+  "selected_files": [
+    "astropy/nddata/mixins/tests/test_ndarithmetic.py",
+    "astropy/nddata/mixins/ndslicing.py",
+    "astropy/nddata/mixins/tests/test_ndio.py",
+    "astropy/coordinates/tests/test_sky_coord_velocities.py",
+    "astropy/nddata/__init__.py",
+    "astropy/nddata/compat.py",
+    "astropy/coordinates/representation/base.py",
+    "astropy/coordinates/representation/spherical.py"
+  ],
+  "task_id": "astropy__astropy-14995",
+  "trace": [
+    {
+      "phase": "local_search_static_filter",
+      "search_terms": [
+        "NDDataRef",
+        "propagation",
+        "operand",
+        "applies",
+        "operand",
+        "propagation",
+        "arithmetic",
+        "particular",
+        "handle_mask",
+        "bitwise_or",
+        "problem",
+        "enough"
+      ],
+      "service_ms": 15.686792001361027
+    },
+    {
+      "phase": "remote_patch_reasoning",
+      "service_ms": 20478.64116198616,
+      "usage": {
+        "completion_tokens": 607,
+        "prompt_tokens": 47633,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 47633
+        },
+        "total_tokens": 48240
+      }
+    }
+  ],
+  "workflow_id": "local_search_test_compact_remote_reasoning"
+}

@@ -74,8 +74,12 @@ class SweBenchVerifiedAdapter(BenchmarkAdapter):
                 WorkflowEdge(src="edit", dst="test", artifact="patch"),
                 WorkflowEdge(src="test", dst="verify", artifact="test_result"),
             ],
-            success=True,
-            provenance={"type": "manual_fallback", "correctness_basis": "strategy_template"},
+            success=False,
+            provenance={
+                "type": "unverified_template",
+                "correctness_basis": "not_evaluated",
+                "admission_eligible": False,
+            },
         )
         local_filter = WorkflowRecord(
             workflow_id=f"{prefix}:local_filter_remote_reason",
@@ -97,8 +101,12 @@ class SweBenchVerifiedAdapter(BenchmarkAdapter):
                 WorkflowEdge(src="edit", dst="test", artifact="patch"),
                 WorkflowEdge(src="test", dst="verify", artifact="test_result"),
             ],
-            success=True,
-            provenance={"type": "manual_fallback", "correctness_basis": "strategy_template"},
+            success=False,
+            provenance={
+                "type": "unverified_template",
+                "correctness_basis": "not_evaluated",
+                "admission_eligible": False,
+            },
         )
         return [full_remote, local_filter]
 

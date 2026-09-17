@@ -1,0 +1,72 @@
+{
+  "pairs": [
+    {
+      "benchmark": "SWE-bench Verified",
+      "task_id": "astropy__astropy-14309",
+      "workflows": [
+        "whole_repo_remote_reasoning",
+        "local_search_test_compact_remote_reasoning"
+      ],
+      "worlds": [
+        {
+          "artifact_locality": "edge",
+          "bandwidth_mbps": 1.0,
+          "cost_ms": {
+            "local_search_test_compact_remote_reasoning": 605163.681,
+            "whole_repo_remote_reasoning": 901839.908
+          },
+          "margin": 0.490241,
+          "remote_selection_service_scale": 5.0,
+          "replicas": {
+            "local_search_static_filter": [
+              "edge"
+            ],
+            "remote_patch_reasoning": [
+              "cloud"
+            ],
+            "remote_repo_selection": [
+              "cloud"
+            ]
+          },
+          "rtt_ms": 50.0,
+          "service_time_estimates_ms": {
+            "local_search_static_filter": 16.541,
+            "remote_reasoning_typical": 422695.84,
+            "remote_repository_inspection": 658809.927
+          },
+          "winner": "local_search_test_compact_remote_reasoning",
+          "world_id": "edge_bw1_rtt50_remote_selection5x"
+        },
+        {
+          "artifact_locality": "cloud",
+          "bandwidth_mbps": 1.0,
+          "cost_ms": {
+            "local_search_test_compact_remote_reasoning": 1291070.569,
+            "whole_repo_remote_reasoning": 900544.468
+          },
+          "margin": 0.433656,
+          "remote_selection_service_scale": 5.0,
+          "replicas": {
+            "local_search_static_filter": [
+              "edge"
+            ],
+            "remote_patch_reasoning": [
+              "cloud"
+            ],
+            "remote_repo_selection": [
+              "cloud"
+            ]
+          },
+          "rtt_ms": 50.0,
+          "service_time_estimates_ms": {
+            "local_search_static_filter": 16.541,
+            "remote_reasoning_typical": 422695.84,
+            "remote_repository_inspection": 658809.927
+          },
+          "winner": "whole_repo_remote_reasoning",
+          "world_id": "cloud_bw1_rtt50_remote_selection5x"
+        }
+      ]
+    }
+  ]
+}

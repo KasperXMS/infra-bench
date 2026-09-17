@@ -22,7 +22,8 @@ def test_swebench_row_mapping_and_workflows():
     workflows = list(adapter.ingest_workflows(task))
     assert len(workflows) == 2
     assert all(workflow.topological_order() for workflow in workflows)
-    assert all(workflow.provenance["type"] == "manual_fallback" for workflow in workflows)
+    assert all(workflow.provenance["type"] == "unverified_template" for workflow in workflows)
+    assert not any(workflow.success for workflow in workflows)
 
 
 def test_video_mme_row_preserves_grouped_evaluator_without_answer_in_instruction():

@@ -1,0 +1,99 @@
+{
+  "benchmark": "Video-MME-v2",
+  "e2e_ms": 37052.108,
+  "frame_count": 24,
+  "model": "qwen3-vl-plus",
+  "model_response": "{\n  \"004-1\": \"C\",\n  \"004-2\": \"E\",\n  \"004-3\": \"A\",\n  \"004-4\": \"A\"\n}",
+  "model_service_ms": 3573.403,
+  "official_metrics": {
+    "group_count": 1,
+    "group_type_rating": {
+      "logic": 0.0
+    },
+    "grouped_rating": 0.0,
+    "question_accuracy": 0.0,
+    "question_count": 4
+  },
+  "predictions": {
+    "video_mme_v2:004-1": "C",
+    "video_mme_v2:004-2": "E",
+    "video_mme_v2:004-3": "A",
+    "video_mme_v2:004-4": "A"
+  },
+  "preprocess_service_ms": 33478.405,
+  "quality_threshold": {
+    "grouped_rating": 100.0,
+    "question_accuracy": 100.0
+  },
+  "quality_threshold_met": false,
+  "request_bytes": 1012027,
+  "selected_frame_indices": [
+    0,
+    1380,
+    2190,
+    3120,
+    3840,
+    4110,
+    4320,
+    4350,
+    4590,
+    4800,
+    4890,
+    5010,
+    5070,
+    5130,
+    5250,
+    5430,
+    5580,
+    5730,
+    5850,
+    5940,
+    6030,
+    6510,
+    6960,
+    7070
+  ],
+  "selected_timestamps_s": [
+    0.0,
+    46.0,
+    73.0,
+    104.0,
+    128.0,
+    137.0,
+    144.0,
+    145.0,
+    153.0,
+    160.0,
+    163.0,
+    167.0,
+    169.0,
+    171.0,
+    175.0,
+    181.0,
+    186.0,
+    191.0,
+    195.0,
+    198.0,
+    201.0,
+    217.0,
+    232.0,
+    235.667
+  ],
+  "source_artifact_bytes": 70909044,
+  "usage": {
+    "completion_tokens": 47,
+    "completion_tokens_details": {
+      "text_tokens": 47
+    },
+    "prompt_tokens": 3181,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "text_tokens": 539,
+      "video_tokens": 2642
+    },
+    "total_tokens": 3228
+  },
+  "video_id": "004",
+  "visual_payload_bytes": 756964,
+  "workflow_id": "local_motion_24"
+}

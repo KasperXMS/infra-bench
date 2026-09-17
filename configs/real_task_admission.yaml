@@ -1,0 +1,26 @@
+version: 1
+objective: first_robust_real_semantic_switch
+admission_margin: 0.20
+
+swebench_verified:
+  task_ids:
+    - astropy__astropy-14309
+    - astropy__astropy-14995
+    - astropy__astropy-7166
+  workflows:
+    - whole_repo_remote_reasoning
+    - local_search_test_compact_remote_reasoning
+  quality_threshold:
+    resolved: true
+  evaluator: swebench_official
+
+video_mme_v2:
+  video_ids: ["002", "003", "004"]
+  workflows:
+    - full_video_dense_128
+    - local_temporal_clip_64
+  quality_threshold:
+    question_accuracy: 100.0
+    grouped_rating: 100.0
+  evaluator: video_mme_v2_official
+  model: qwen3-vl-plus

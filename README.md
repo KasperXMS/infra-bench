@@ -13,7 +13,7 @@ The current milestone implements:
 - cost-derived semantic-switch, placement-only, and invariance sanity groups;
 - dataset validation, oracle/random/resource-blind baselines, metrics, and reports.
 - metadata-only adapters for SWE-bench Verified and Video-MME-v2;
-- canonical manual-fallback workflow-bank construction with explicit provenance.
+- unverified semantic workflow templates that are explicitly ineligible for admission;
 - normalized successful-trajectory import, canonicalization, and semantic deduplication.
 
 Real benchmark ingestion was gated on the synthetic sanity benchmark, as required
@@ -40,8 +40,8 @@ uv run infra-bench report data/results/latest.jsonl
 ```
 
 When successful agent traces are available, provide normalized JSONL records with
-`task_id`, `success`, and an `actions` array. Real successful trajectories are
-preferred; manual strategies are used only to preserve minimum diversity:
+`task_id`, `success`, and an `actions` array. Templates preserve structural
+diversity but remain `success=false`; they never count as verified workflows:
 
 ```bash
 uv run infra-bench workflows build --source swebench --trajectories data/raw/swe_traces.jsonl
@@ -88,6 +88,51 @@ exact command before installing/running that external harness:
 ```bash
 uv run infra-bench grade swebench --predictions patches.jsonl --run-id experiment-1 --dry-run
 ```
+
+## Real task admission
+
+The real-task milestone uses the narrow candidate set in
+`configs/real_task_admission.yaml`: three SWE-bench Verified instances and three
+Video-MME-v2 four-question groups. Two semantically different workflows are
+executed per candidate. A record enters `verified_workflow_bank.jsonl` only after
+the original benchmark evaluator meets the configured quality threshold.
+
+Video execution is intended for a storage/GPU host with the official MP4 files:
+
+```bash
+uv run --extra real-video infra-bench run-real-video \
+  --video-dir /path/to/videos \
+  --credential-file /path/to/api_key.txt \
+  --video-ids 002 003 004
+```
+
+SWE-bench patch generation keeps the model constant while changing semantic
+processing: remote file selection from the repository tree versus local
+search/static filtering followed by compact remote reasoning.
+
+```bash
+uv run infra-bench run-real-swebench \
+  --repo-root /path/to/checkouts \
+  --credential-file /path/to/api_key.txt \
+  --task-ids astropy__astropy-14309 astropy__astropy-14995 astropy__astropy-7166
+```
+
+Generate the fail-closed report by executing the scoring functions directly from
+a pinned checkout of the official Video-MME-v2 evaluation script:
+
+```bash
+uv run --extra real-video infra-bench report-real-admission \
+  --official-video-script /path/to/Video-MME-v2/evaluation/test_video_mme_v2.py \
+  --video-ids 002 003 004 \
+  --swebench-ids astropy__astropy-14309 astropy__astropy-14995 astropy__astropy-7166
+```
+
+Counterfactual calibration starts only when both workflows for a task pass. It
+uses measured preprocessing/model service times and actual payload sizes, then
+scans artifact locality, bandwidth/RTT, replica availability, and preprocessing
+service factors. Only pairs with opposite winners and at least 20% margin on both
+sides are listed in `admitted_pairs.json`; only those pairs are eligible for MAS
+export.
 
 ## Design boundary
 

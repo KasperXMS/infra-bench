@@ -34,6 +34,27 @@ def test_real_task_counterfactual_builder_filters_for_proven_transitions(profile
     cases = build_counterfactual_cases(
         [task], workflows, profiles, {"video": template, "coding": template}
     )
+    assert cases == []
+
+    verified = [
+        workflow.model_copy(
+            update={
+                "success": True,
+                "provenance": {
+                    "verification": {
+                        "evaluator": "video_mme_v2_official",
+                        "passed": True,
+                        "quality_threshold_met": True,
+                    }
+                },
+            },
+            deep=True,
+        )
+        for workflow in workflows
+    ]
+    cases = build_counterfactual_cases(
+        [task], verified, profiles, {"video": template, "coding": template}
+    )
     assert {case.case_type for case in cases} == {"semantic_switch", "placement_only"}
     assert len(cases) == 4
     assert validate_cases(cases, profiles) == []

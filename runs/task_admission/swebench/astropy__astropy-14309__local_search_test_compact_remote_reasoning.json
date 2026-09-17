@@ -1,0 +1,72 @@
+{
+  "benchmark": "SWE-bench Verified",
+  "model": "qwen3.8-max",
+  "repository_bytes": 85732111,
+  "context_bytes": 180000,
+  "official_evaluation": null,
+  "patch_apply_check": true,
+  "patch_apply_error": "",
+  "patch_file": "runs/task_admission/swebench/astropy__astropy-14309__local_search_test_compact_remote_reasoning.patch",
+  "selected_files": [
+    "astropy/io/fits/tests/test_connect.py",
+    "astropy/coordinates/earth.py",
+    "astropy/coordinates/sky_coordinate.py",
+    "astropy/coordinates/tests/test_earth.py",
+    "astropy/io/registry/base.py",
+    "astropy/io/registry/compat.py",
+    "astropy/io/registry/tests/test_registries.py",
+    ".pyinstaller/run_astropy_tests.py"
+  ],
+  "task_id": "astropy__astropy-14309",
+  "trace": [
+    {
+      "phase": "local_search_static_filter",
+      "search_terms": [
+        "IndexError",
+        "identify_format",
+        "registry",
+        "comments",
+        "hidden",
+        "submit",
+        "remove",
+        "Please",
+        "contributing",
+        "guidelines",
+        "github",
+        "astropy"
+      ],
+      "service_ms": 16.541346994927153
+    },
+    {
+      "phase": "remote_patch_reasoning",
+      "service_ms": 600009.113793989,
+      "usage": {
+        "completion_tokens": 27476,
+        "completion_tokens_details": {
+          "reasoning_tokens": 27277,
+          "text_tokens": 27476
+        },
+        "prompt_tokens": 47149,
+        "prompt_tokens_details": {
+          "cached_tokens": 47104,
+          "text_tokens": 47149
+        },
+        "total_tokens": 74625
+      }
+    },
+    {
+      "phase": "patch_apply_repair",
+      "service_ms": 3648.025565984426,
+      "usage": {
+        "completion_tokens": 188,
+        "prompt_tokens": 4442,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 4442
+        },
+        "total_tokens": 4630
+      }
+    }
+  ],
+  "workflow_id": "local_search_test_compact_remote_reasoning"
+}

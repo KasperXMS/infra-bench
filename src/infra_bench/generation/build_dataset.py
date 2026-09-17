@@ -2,6 +2,7 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from typing import Any
 
+from ..real_tasks.admission import is_evaluator_verified
 from ..schemas import (
     BenchmarkCase,
     DataArtifact,
@@ -203,7 +204,8 @@ def build_counterfactual_cases(
 ) -> list[BenchmarkCase]:
     workflows_by_task: dict[str, list[WorkflowRecord]] = defaultdict(list)
     for workflow in workflows:
-        workflows_by_task[workflow.task_id].append(workflow)
+        if is_evaluator_verified(workflow):
+            workflows_by_task[workflow.task_id].append(workflow)
 
     output: list[BenchmarkCase] = []
     for index, task in enumerate(tasks):

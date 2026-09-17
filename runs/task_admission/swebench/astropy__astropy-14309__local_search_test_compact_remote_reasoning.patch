@@ -1,0 +1,16 @@
+diff --git a/astropy/io/fits/connect.py b/astropy/io/fits/connect.py
+--- a/astropy/io/fits/connect.py
++++ b/astropy/io/fits/connect.py
+@@ -66,6 +66,11 @@ def is_fits(origin, filepath, fileobj, *args, **kwargs):
+     if filepath is not None:
+         if filepath.lower().endswith(
+             (".fits", ".fits.gz", ".fit", ".fit.gz", ".fts", ".fts.gz")
+         ):
+             return True
+-    return isinstance(args[0], (HDUList, TableHDU, BinTableHDU, GroupsHDU))
++        return False
++
++    if args:
++        return isinstance(args[0], (HDUList, TableHDU, BinTableHDU, GroupsHDU))
++
++    return False

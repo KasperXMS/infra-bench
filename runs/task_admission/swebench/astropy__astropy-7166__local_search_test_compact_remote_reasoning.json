@@ -1,0 +1,51 @@
+{
+  "benchmark": "SWE-bench Verified",
+  "model": "qwen3.8-max",
+  "official_evaluation": null,
+  "patch_apply_check": false,
+  "patch_apply_error": "model response contains no unified diff",
+  "patch_file": null,
+  "selected_files": [
+    "astropy/utils/tests/test_misc.py",
+    "astropy/config/configuration.py",
+    "astropy/constants/constant.py",
+    "astropy/coordinates/representation.py",
+    "astropy/coordinates/baseframe.py",
+    "astropy/convolution/kernels.py",
+    "astropy/coordinates/earth.py",
+    "astropy/coordinates/builtin_frames/fk4.py"
+  ],
+  "task_id": "astropy__astropy-7166",
+  "trace": [
+    {
+      "phase": "local_search_static_filter",
+      "search_terms": [
+        "InheritDocstrings",
+        "metaclass",
+        "properties",
+        "Inside",
+        "InheritDocstrings",
+        "metaclass",
+        "inspect",
+        "isfunction",
+        "returns",
+        "properties"
+      ],
+      "service_ms": 17.887958005303517
+    },
+    {
+      "phase": "remote_patch_reasoning",
+      "service_ms": 12931.831818976207,
+      "usage": {
+        "completion_tokens": 470,
+        "prompt_tokens": 40502,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "text_tokens": 40502
+        },
+        "total_tokens": 40972
+      }
+    }
+  ],
+  "workflow_id": "local_search_test_compact_remote_reasoning"
+}
