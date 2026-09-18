@@ -158,6 +158,34 @@ The command writes `admission_search_report.json`,
 pair passes empirical admission. Frozen tasks may remain in the report for audit,
 but the search never recalibrates them.
 
+## Offline multi-document scenario mining
+
+`mine-scenarios` normalizes 2WikiMultiHopQA, MuSiQue, and selected LongBench-v2
+categories into `ScenarioRecord`, then applies fixed structural gates without any
+model calls. Raw benchmark content may stay on a data host: artifacts in the
+generated bank carry pinned `dataset://` source references and byte sizes rather
+than embedded content.
+
+```bash
+uv run --extra scenario-mining infra-bench mine-scenarios \
+  --config configs/scenario_mining.yaml
+```
+
+The two generic strategy families are checked against the real general-MAS
+operator surface. `centralized_raw` passes every raw artifact to one model call;
+`distributed_reduction` performs one model-based reduction per artifact and a
+final model synthesis. Supporting facts estimate compression only and never
+select inputs or enter the planner-visible `TaskInteractionSpec`.
+Downstream integrations must use `ScenarioRecord.planner_view()` rather than
+serializing the full offline record, which intentionally co-locates hidden answer
+and evidence annotations for mining and evaluation.
+
+The miner keeps task features `T`, intrinsic workflow demand `D(G)`, and modeled
+infrastructure `H` separate. In particular, `WorkflowDemandTemplate` contains no
+placement, cross-site bytes, network latency, service latency, or E2E fields.
+`calibration_candidates.json` is screening output only and never changes
+`admitted_pairs.json`.
+
 ## Design boundary
 
 The planner selects the semantic workflow. The shared physical optimizer only

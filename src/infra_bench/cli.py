@@ -26,6 +26,7 @@ from .real_tasks import run_swebench_workflows, run_video_mme_workflows
 from .real_tasks.admission_search import build_trace_admission_search_report
 from .real_tasks.report import build_admission_report
 from .real_tasks.swebench import build_swebench_predictions
+from .scenario_mining.runner import run_scenario_mining
 from .schemas import BenchmarkCase, EvaluationResult, TaskRecord, WorkflowRecord
 from .task_evaluation import build_swebench_command, run_swebench_evaluation, score_video_mme
 from .trajectories import build_workflow_bank, read_trajectories
@@ -312,6 +313,12 @@ def _search_trace_admission(args: argparse.Namespace) -> int:
     return 0
 
 
+def _mine_scenarios(args: argparse.Namespace) -> int:
+    report = run_scenario_mining(args.config)
+    print(json.dumps(report["summary"], indent=2, sort_keys=True))
+    return 0
+
+
 def _run_real_swebench(args: argparse.Namespace) -> int:
     tasks = read_jsonl(args.tasks, TaskRecord)
     outputs = run_swebench_workflows(
@@ -544,6 +551,13 @@ def build_parser() -> argparse.ArgumentParser:
     search_trace.add_argument("--trace-root")
     search_trace.add_argument("--output-dir")
     search_trace.set_defaults(handler=_search_trace_admission)
+
+    scenario_mining = subparsers.add_parser(
+        "mine-scenarios",
+        help="offline-mine multi-document QA tasks for calibration candidates",
+    )
+    scenario_mining.add_argument("--config", default="configs/scenario_mining.yaml")
+    scenario_mining.set_defaults(handler=_mine_scenarios)
     return parser
 
 

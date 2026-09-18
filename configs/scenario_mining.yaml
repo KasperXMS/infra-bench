@@ -1,0 +1,37 @@
+version: 1
+objective: offline_multi_document_scenario_mining
+
+# Raw benchmark data and full outputs live on the dual-4090 host.  The generated
+# report can be copied back into this repository without copying raw contexts.
+output_dir: ~/xiaoming/infra-bench/scenario-mining/runs/scenario_mining
+raw_candidate_limit: 40
+shortlist_limit: 15
+evidence_unknown_limit: 10
+source_minimums:
+  2wikimultihopqa: 5
+  musique: 3
+  longbench-v2: 3
+
+datasets:
+  - adapter: 2wikimultihopqa
+    path: ~/xiaoming/infra-bench/scenario-mining/data/2wikimultihopqa/validation.parquet
+    revision: fe713bfbd1afbca1a65246741a75890405d56a3a
+    upstream_revision: 13800e5be57df1b4040b9b1588c6c811779e69e9
+    variant: official-v1.0
+    split: validation
+    embed_content: false
+
+  - adapter: musique
+    path: ~/xiaoming/infra-bench/scenario-mining/data/musique/dev.jsonl
+    revision: c8f4f8c9465fb69d31a8eae894c3fd509c4ca321
+    upstream_revision: 922ac98f19a201998dbdae6d7f2887a5258dbdeb
+    variant: ans-v1.0
+    split: dev
+    embed_content: false
+
+  - adapter: longbench-v2
+    path: ~/xiaoming/infra-bench/scenario-mining/data/longbench_v2/selected.jsonl
+    revision: 2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9
+    variant: official-public
+    split: train
+    embed_content: false

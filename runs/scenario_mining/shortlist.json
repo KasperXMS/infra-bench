@@ -1,0 +1,2597 @@
+[
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 11944,
+        "artifact_bytes_produced": 12,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 11974,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 11944,
+        "artifact_bytes_produced": 74,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 11944,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 12336,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 62,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 11944,
+      "raw_evidence_ratio": 192.6451612903226
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 844.2576,
+          "modeled_cross_site_bytes": 11944,
+          "modeled_network_ms": 204.7776,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1501.0781333333332,
+          "modeled_cross_site_bytes": 62,
+          "modeled_network_ms": 60.0248,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 639.48,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1441.0533333333333,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:f37a8fca0bda11eba7f7acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:f37a8fca0bda11eba7f7acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:f37a8fca0bda11eba7f7acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.863922691565069,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:f37a8fca0bda11eba7f7acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 9091,
+        "artifact_bytes_produced": 7,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 9156,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 9091,
+        "artifact_bytes_produced": 57,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 9091,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 9856,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 50,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 9091,
+      "raw_evidence_ratio": 181.82
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 786.7564,
+          "modeled_cross_site_bytes": 9091,
+          "modeled_network_ms": 203.6364,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1491.3233333333333,
+          "modeled_cross_site_bytes": 50,
+          "modeled_network_ms": 60.02,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 583.12,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1431.3033333333333,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:dec6d80c0baf11ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:dec6d80c0baf11ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:dec6d80c0baf11ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.806397335024045,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:dec6d80c0baf11ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 10373,
+        "artifact_bytes_produced": 14,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 10422,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 10373,
+        "artifact_bytes_produced": 95,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 10373,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 10993,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 81,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 10373,
+      "raw_evidence_ratio": 128.06172839506172
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 812.5892000000001,
+          "modeled_cross_site_bytes": 10373,
+          "modeled_network_ms": 204.1492,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1496.2290666666668,
+          "modeled_cross_site_bytes": 81,
+          "modeled_network_ms": 60.0324,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 608.44,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1436.1966666666667,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:2f6db50a0bb011ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:2f6db50a0bb011ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:2f6db50a0bb011ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.4581860773988,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:2f6db50a0bb011ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 7197,
+        "artifact_bytes_produced": 4,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 7247,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 7197,
+        "artifact_bytes_produced": 66,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 7197,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 7809,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 62,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 7197,
+      "raw_evidence_ratio": 116.08064516129032
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 747.8188,
+          "modeled_cross_site_bytes": 7197,
+          "modeled_network_ms": 202.8788,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1485.2548,
+          "modeled_cross_site_bytes": 62,
+          "modeled_network_ms": 60.0248,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 544.94,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1425.23,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:169c31500bb011ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:169c31500bb011ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:169c31500bb011ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.36075824503812,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:169c31500bb011ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 8093,
+        "artifact_bytes_produced": 14,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 8143,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 8093,
+        "artifact_bytes_produced": 86,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 8093,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 8715,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 72,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 8093,
+      "raw_evidence_ratio": 112.40277777777777
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 766.0972,
+          "modeled_cross_site_bytes": 8093,
+          "modeled_network_ms": 203.2372,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1488.4454666666668,
+          "modeled_cross_site_bytes": 72,
+          "modeled_network_ms": 60.0288,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 562.86,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1428.4166666666667,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:f18206380baf11ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:f18206380baf11ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:f18206380baf11ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.328841159186881,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:f18206380baf11ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 7472,
+        "artifact_bytes_produced": 15,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 7524,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 7472,
+        "artifact_bytes_produced": 85,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 7472,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 8114,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 70,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 7472,
+      "raw_evidence_ratio": 106.74285714285715
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 753.4688,
+          "modeled_cross_site_bytes": 7472,
+          "modeled_network_ms": 202.9888,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1486.3346666666669,
+          "modeled_cross_site_bytes": 70,
+          "modeled_network_ms": 60.028,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 550.48,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1426.3066666666668,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:897694360bb011ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:897694360bb011ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:897694360bb011ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.277642708567313,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:897694360bb011ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 7639,
+        "artifact_bytes_produced": 14,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 7690,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 7639,
+        "artifact_bytes_produced": 86,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 7639,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 8272,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 72,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 7639,
+      "raw_evidence_ratio": 106.09722222222223
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 756.8556,
+          "modeled_cross_site_bytes": 7639,
+          "modeled_network_ms": 203.0556,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1486.9321333333335,
+          "modeled_cross_site_bytes": 72,
+          "modeled_network_ms": 60.0288,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 553.8,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1426.9033333333334,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:b583abd20baf11ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:b583abd20baf11ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:b583abd20baf11ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.271632313615276,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:b583abd20baf11ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 7237,
+        "artifact_bytes_produced": 13,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 7287,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 7237,
+        "artifact_bytes_produced": 85,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 7237,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 7859,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 72,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 7237,
+      "raw_evidence_ratio": 100.51388888888889
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 748.6348,
+          "modeled_cross_site_bytes": 7237,
+          "modeled_network_ms": 202.8948,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1485.5921333333335,
+          "modeled_cross_site_bytes": 72,
+          "modeled_network_ms": 60.0288,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 545.74,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1425.5633333333335,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:57022c280baf11ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:57022c280baf11ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:57022c280baf11ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.218090898262707,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:57022c280baf11ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 12906,
+        "artifact_bytes_produced": 14,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 12955,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 12906,
+        "artifact_bytes_produced": 143,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 12906,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 13574,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 129,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 12906,
+      "raw_evidence_ratio": 100.04651162790698
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 864.2624000000001,
+          "modeled_cross_site_bytes": 12906,
+          "modeled_network_ms": 205.1624,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1505.6516,
+          "modeled_cross_site_bytes": 129,
+          "modeled_network_ms": 60.0516,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 659.1,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1445.6,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:d17265b80baf11ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:d17265b80baf11ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:d17265b80baf11ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.2134761948043,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:d17265b80baf11ebab90acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 6153,
+        "artifact_bytes_produced": 3,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 6203,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 6153,
+        "artifact_bytes_produced": 66,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 6153,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 6766,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 63,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 6153,
+      "raw_evidence_ratio": 97.66666666666667
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 726.5211999999999,
+          "modeled_cross_site_bytes": 6153,
+          "modeled_network_ms": 202.4612,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1481.7952,
+          "modeled_cross_site_bytes": 63,
+          "modeled_network_ms": 60.0252,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 524.06,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1421.77,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:33e0c5680bde11eba7f7acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:33e0c5680bde11eba7f7acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:33e0c5680bde11eba7f7acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.189642438454321,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:33e0c5680bde11eba7f7acde48001122"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 16576,
+        "artifact_bytes_produced": 11,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 16634,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 16576,
+        "artifact_bytes_produced": 194,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 16576,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 17397,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 183,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 16576,
+      "raw_evidence_ratio": 90.5792349726776
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 939.3104,
+          "modeled_cross_site_bytes": 16576,
+          "modeled_network_ms": 206.6304,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1518.9865333333335,
+          "modeled_cross_site_bytes": 183,
+          "modeled_network_ms": 60.0732,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 732.68,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1458.9133333333334,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:75acd1b4086411ebbd5eac1f6bf848b6",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:75acd1b4086411ebbd5eac1f6bf848b6",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:75acd1b4086411ebbd5eac1f6bf848b6",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.115099826341822,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:75acd1b4086411ebbd5eac1f6bf848b6"
+  },
+  {
+    "dataset": "2wikimultihopqa",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 6422,
+        "artifact_bytes_produced": 15,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 6475,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 6422,
+        "artifact_bytes_produced": 86,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 6422,
+        "potential_parallel_width": 10,
+        "reasoning_input_bytes": 7076,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 10,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 71,
+      "evidence_dispersion": 0.2,
+      "raw_bytes": 6422,
+      "raw_evidence_ratio": 90.45070422535211
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 732.0688,
+          "modeled_cross_site_bytes": 6422,
+          "modeled_network_ms": 202.5688,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1482.8550666666665,
+          "modeled_cross_site_bytes": 71,
+          "modeled_network_ms": 60.0284,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 529.5,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1422.8266666666666,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "2wikimultihopqa",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "2wikimultihopqa:official-v1.0:validation:84c9e4880bb011ebab90acde48001122",
+      "screening_only": true,
+      "task_id": "2wikimultihopqa:official-v1.0:validation:84c9e4880bb011ebab90acde48001122",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "doc-0000": "A4",
+            "doc-0001": "A5",
+            "doc-0002": "A28",
+            "doc-0003": "A4",
+            "doc-0004": "A5",
+            "doc-0005": "A28",
+            "doc-0006": "A4",
+            "doc-0007": "A5",
+            "doc-0008": "A28",
+            "doc-0009": "A4"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "doc-0000": "cloud",
+            "doc-0001": "cloud",
+            "doc-0002": "cloud",
+            "doc-0003": "cloud",
+            "doc-0004": "cloud",
+            "doc-0005": "cloud",
+            "doc-0006": "cloud",
+            "doc-0007": "cloud",
+            "doc-0008": "cloud",
+            "doc-0009": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "2wikimultihopqa:official-v1.0:validation:84c9e4880bb011ebab90acde48001122",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 8.113695348265543,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "2wikimultihopqa:official-v1.0:validation:84c9e4880bb011ebab90acde48001122"
+  },
+  {
+    "dataset": "musique",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 11264,
+        "artifact_bytes_produced": 17,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 11362,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 11264,
+        "artifact_bytes_produced": 290,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 11264,
+        "potential_parallel_width": 20,
+        "reasoning_input_bytes": 13595,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 20,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 273,
+      "evidence_dispersion": 0.1,
+      "raw_bytes": 11264,
+      "raw_evidence_ratio": 41.26007326007326
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1031.7456,
+          "modeled_cross_site_bytes": 11264,
+          "modeled_network_ms": 404.5056,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2253.1158666666665,
+          "modeled_cross_site_bytes": 273,
+          "modeled_network_ms": 60.1092,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 627.24,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2193.0066666666667,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "musique",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "musique:ans-v1.0:dev:2hop__191125_781346",
+      "screening_only": true,
+      "task_id": "musique:ans-v1.0:dev:2hop__191125_781346",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "paragraph-0000": "A4",
+            "paragraph-0001": "A5",
+            "paragraph-0002": "A28",
+            "paragraph-0003": "A4",
+            "paragraph-0004": "A5",
+            "paragraph-0005": "A28",
+            "paragraph-0006": "A4",
+            "paragraph-0007": "A5",
+            "paragraph-0008": "A28",
+            "paragraph-0009": "A4",
+            "paragraph-0010": "A5",
+            "paragraph-0011": "A28",
+            "paragraph-0012": "A4",
+            "paragraph-0013": "A5",
+            "paragraph-0014": "A28",
+            "paragraph-0015": "A4",
+            "paragraph-0016": "A5",
+            "paragraph-0017": "A28",
+            "paragraph-0018": "A4",
+            "paragraph-0019": "A5"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "paragraph-0000": "cloud",
+            "paragraph-0001": "cloud",
+            "paragraph-0002": "cloud",
+            "paragraph-0003": "cloud",
+            "paragraph-0004": "cloud",
+            "paragraph-0005": "cloud",
+            "paragraph-0006": "cloud",
+            "paragraph-0007": "cloud",
+            "paragraph-0008": "cloud",
+            "paragraph-0009": "cloud",
+            "paragraph-0010": "cloud",
+            "paragraph-0011": "cloud",
+            "paragraph-0012": "cloud",
+            "paragraph-0013": "cloud",
+            "paragraph-0014": "cloud",
+            "paragraph-0015": "cloud",
+            "paragraph-0016": "cloud",
+            "paragraph-0017": "cloud",
+            "paragraph-0018": "cloud",
+            "paragraph-0019": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "musique:ans-v1.0:dev:2hop__191125_781346",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 7.888365183465753,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "musique:ans-v1.0:dev:2hop__191125_781346"
+  },
+  {
+    "dataset": "musique",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 10567,
+        "artifact_bytes_produced": 24,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 10623,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 10567,
+        "artifact_bytes_produced": 337,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 10567,
+        "potential_parallel_width": 20,
+        "reasoning_input_bytes": 12056,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 20,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 313,
+      "evidence_dispersion": 0.1,
+      "raw_bytes": 10567,
+      "raw_evidence_ratio": 33.760383386581466
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1016.6868000000001,
+          "modeled_cross_site_bytes": 10567,
+          "modeled_network_ms": 404.2268,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2251.6085333333335,
+          "modeled_cross_site_bytes": 313,
+          "modeled_network_ms": 60.1252,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 612.46,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2191.4833333333336,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "musique",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "musique:ans-v1.0:dev:2hop__249867_557232",
+      "screening_only": true,
+      "task_id": "musique:ans-v1.0:dev:2hop__249867_557232",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "paragraph-0000": "A4",
+            "paragraph-0001": "A5",
+            "paragraph-0002": "A28",
+            "paragraph-0003": "A4",
+            "paragraph-0004": "A5",
+            "paragraph-0005": "A28",
+            "paragraph-0006": "A4",
+            "paragraph-0007": "A5",
+            "paragraph-0008": "A28",
+            "paragraph-0009": "A4",
+            "paragraph-0010": "A5",
+            "paragraph-0011": "A28",
+            "paragraph-0012": "A4",
+            "paragraph-0013": "A5",
+            "paragraph-0014": "A28",
+            "paragraph-0015": "A4",
+            "paragraph-0016": "A5",
+            "paragraph-0017": "A28",
+            "paragraph-0018": "A4",
+            "paragraph-0019": "A5"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "paragraph-0000": "cloud",
+            "paragraph-0001": "cloud",
+            "paragraph-0002": "cloud",
+            "paragraph-0003": "cloud",
+            "paragraph-0004": "cloud",
+            "paragraph-0005": "cloud",
+            "paragraph-0006": "cloud",
+            "paragraph-0007": "cloud",
+            "paragraph-0008": "cloud",
+            "paragraph-0009": "cloud",
+            "paragraph-0010": "cloud",
+            "paragraph-0011": "cloud",
+            "paragraph-0012": "cloud",
+            "paragraph-0013": "cloud",
+            "paragraph-0014": "cloud",
+            "paragraph-0015": "cloud",
+            "paragraph-0016": "cloud",
+            "paragraph-0017": "cloud",
+            "paragraph-0018": "cloud",
+            "paragraph-0019": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "musique:ans-v1.0:dev:2hop__249867_557232",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 7.693000767593203,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "musique:ans-v1.0:dev:2hop__249867_557232"
+  },
+  {
+    "dataset": "musique",
+    "demands": {
+      "centralized_raw": {
+        "artifact_bytes_consumed": 15562,
+        "artifact_bytes_produced": 21,
+        "dependency_pattern": "raw_fan_in",
+        "local_preprocessing_bytes": 0,
+        "potential_parallel_width": 1,
+        "reasoning_input_bytes": 15685,
+        "reasoning_stages": 1,
+        "strategy_id": "centralized_raw"
+      },
+      "distributed_reduction": {
+        "artifact_bytes_consumed": 15562,
+        "artifact_bytes_produced": 487,
+        "dependency_pattern": "parallel_map_then_reduce",
+        "local_preprocessing_bytes": 15562,
+        "potential_parallel_width": 20,
+        "reasoning_input_bytes": 18611,
+        "reasoning_stages": 2,
+        "strategy_id": "distributed_reduction"
+      }
+    },
+    "features": {
+      "artifact_count": 20,
+      "deterministic_evaluator": true,
+      "evidence_artifact_count": 2,
+      "evidence_bytes": 466,
+      "evidence_dispersion": 0.1,
+      "raw_bytes": 15562,
+      "raw_evidence_ratio": 33.39484978540773
+    },
+    "modeled_screening": {
+      "admission": false,
+      "costs": [
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 1119.9248,
+          "modeled_cross_site_bytes": 15562,
+          "modeled_network_ms": 406.2248,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2271.3797333333337,
+          "modeled_cross_site_bytes": 466,
+          "modeled_network_ms": 60.1864,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_distributed"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 713.7,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "centralized_raw",
+          "world_id": "H_colocated"
+        },
+        {
+          "assumptions": {
+            "central_reasoning_base_ms": 400.0,
+            "central_reasoning_bytes_per_s": 50000.0,
+            "local_reducer_replicas": 3.0,
+            "reduction_base_ms": 250.0,
+            "reduction_bytes_per_s": 100000.0,
+            "synthesis_base_ms": 400.0
+          },
+          "estimated_cost_ms": 2211.1933333333336,
+          "modeled_cross_site_bytes": 0,
+          "modeled_network_ms": 0.0,
+          "strategy_id": "distributed_reduction",
+          "world_id": "H_colocated"
+        }
+      ],
+      "dataset": "musique",
+      "evidence_compression_estimate": "offline optimistic lower bound from hidden benchmark evidence size; not an executable reduction output and never used to select artifacts",
+      "modeled_reversal": false,
+      "recommended_infra_perturbation": "artifact locality and bandwidth/RTT",
+      "scenario_id": "musique:ans-v1.0:dev:2hop__61318_362941",
+      "screening_only": true,
+      "task_id": "musique:ans-v1.0:dev:2hop__61318_362941",
+      "winner_by_world": {
+        "H_colocated": "centralized_raw",
+        "H_distributed": "centralized_raw"
+      },
+      "worlds": [
+        {
+          "artifact_sites": {
+            "paragraph-0000": "A4",
+            "paragraph-0001": "A5",
+            "paragraph-0002": "A28",
+            "paragraph-0003": "A4",
+            "paragraph-0004": "A5",
+            "paragraph-0005": "A28",
+            "paragraph-0006": "A4",
+            "paragraph-0007": "A5",
+            "paragraph-0008": "A28",
+            "paragraph-0009": "A4",
+            "paragraph-0010": "A5",
+            "paragraph-0011": "A28",
+            "paragraph-0012": "A4",
+            "paragraph-0013": "A5",
+            "paragraph-0014": "A28",
+            "paragraph-0015": "A4",
+            "paragraph-0016": "A5",
+            "paragraph-0017": "A28",
+            "paragraph-0018": "A4",
+            "paragraph-0019": "A5"
+          },
+          "bandwidth_mbps": 20.0,
+          "basis": "Existing infra-bench constrained-link profile: 20 Mbps and 20 ms RTT; documents round-robin across A4/A5/A28 with cloud synthesis.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "A4",
+            "A5",
+            "A28"
+          ],
+          "rtt_ms": 20.0,
+          "world_id": "H_distributed"
+        },
+        {
+          "artifact_sites": {
+            "paragraph-0000": "cloud",
+            "paragraph-0001": "cloud",
+            "paragraph-0002": "cloud",
+            "paragraph-0003": "cloud",
+            "paragraph-0004": "cloud",
+            "paragraph-0005": "cloud",
+            "paragraph-0006": "cloud",
+            "paragraph-0007": "cloud",
+            "paragraph-0008": "cloud",
+            "paragraph-0009": "cloud",
+            "paragraph-0010": "cloud",
+            "paragraph-0011": "cloud",
+            "paragraph-0012": "cloud",
+            "paragraph-0013": "cloud",
+            "paragraph-0014": "cloud",
+            "paragraph-0015": "cloud",
+            "paragraph-0016": "cloud",
+            "paragraph-0017": "cloud",
+            "paragraph-0018": "cloud",
+            "paragraph-0019": "cloud"
+          },
+          "bandwidth_mbps": 10000.0,
+          "basis": "Existing infra-bench high-bandwidth profile: inputs colocated with the cloud reasoner; 10 Gbps/0.1 ms values document the local-link envelope.",
+          "reasoner_site": "cloud",
+          "reduction_sites": [
+            "cloud"
+          ],
+          "rtt_ms": 0.1,
+          "world_id": "H_colocated"
+        }
+      ]
+    },
+    "queue": "strong_candidate",
+    "scenario_id": "musique:ans-v1.0:dev:2hop__61318_362941",
+    "shortlist_reason": "passes the fixed multi-source/compressible/verifiable/realizable gates",
+    "shortlist_score": 7.682429275353812,
+    "strategy_multiplicity": {
+      "centralized_raw_realizable": true,
+      "distributed_reduction_realizable": true,
+      "reasons": [],
+      "strategy_multiplicity": true
+    },
+    "task_id": "musique:ans-v1.0:dev:2hop__61318_362941"
+  }
+]

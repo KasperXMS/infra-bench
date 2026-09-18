@@ -1,0 +1,25 @@
+{
+  "datasets": {
+    "2wikimultihopqa": {
+      "raw_candidates": 37,
+      "rejected": 475,
+      "shortlist": 12,
+      "strong_candidate": 12101,
+      "total": 12576
+    },
+    "longbench-v2": {
+      "evidence_unknown": 208,
+      "raw_candidates": 0,
+      "shortlist": 0,
+      "total": 208
+    },
+    "musique": {
+      "raw_candidates": 3,
+      "rejected": 106,
+      "shortlist": 3,
+      "strong_candidate": 2311,
+      "total": 2417
+    }
+  },
+  "total_scenarios": 15201
+}

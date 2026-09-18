@@ -18,6 +18,17 @@ from .interaction import (
 )
 from .profile import OperatorProfile
 from .result import EvaluationResult, ExecutionMetrics, ExecutionResult, PlannerDecision
+from .scenario import (
+    InfrastructureCandidate,
+    ModeledStrategyCost,
+    ScenarioArtifact,
+    ScenarioEvaluator,
+    ScenarioEvidence,
+    ScenarioRecord,
+    SceneFeatures,
+    StrategyMultiplicity,
+    WorkflowDemandTemplate,
+)
 from .task import PlannerTaskInteractionSpec, PlannerTaskRecord, TaskRecord
 from .workflow import WorkflowEdge, WorkflowNode, WorkflowRecord
 
@@ -31,6 +42,8 @@ __all__ = [
     "ExternalEvaluatorSpec",
     "InfraState",
     "InitialArtifactSpec",
+    "InfrastructureCandidate",
+    "ModeledStrategyCost",
     "NetworkLink",
     "ObservationSpec",
     "OperatorDefinition",
@@ -41,13 +54,20 @@ __all__ = [
     "PlannerTaskInteractionSpec",
     "PlannerTaskRecord",
     "RuntimeVerifierSpec",
+    "ScenarioArtifact",
+    "ScenarioEvaluator",
+    "ScenarioEvidence",
+    "ScenarioRecord",
+    "SceneFeatures",
     "Site",
     "TaskRecord",
     "TaskInteractionSpec",
+    "StrategyMultiplicity",
     "WorkflowEdge",
     "WorkflowNode",
     "WorkflowRecord",
     "WorkflowRealizability",
+    "WorkflowDemandTemplate",
     "DEFAULT_OPERATOR_REGISTRY",
     "CURRENT_MAS_OPERATOR_BINDINGS",
     "CODE_MAS_OPERATOR_BINDINGS",

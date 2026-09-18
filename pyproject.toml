@@ -16,6 +16,7 @@ dependencies = [
 [project.optional-dependencies]
 llm = ["openai>=2.0,<3"]
 real-video = ["numpy>=2,<3", "opencv-python-headless>=4.12,<5", "pandas>=2.3,<4"]
+scenario-mining = ["pyarrow>=18,<24"]
 
 [dependency-groups]
 dev = ["pyright>=1.1.400", "pytest>=7.4,<9", "ruff>=0.11"]
