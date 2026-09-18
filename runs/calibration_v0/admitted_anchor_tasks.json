@@ -1,0 +1,19 @@
+{
+  "schema_version": "calibration-v0-anchor-list-v1",
+  "tasks": [
+    {
+      "bandwidth_star_mbps": 4.720016,
+      "h1_margin": 0.386143,
+      "h2_margin": 3.603559,
+      "task_id": "video_mme:795",
+      "workflows": [
+        "centralized_raw",
+        "local_reduction"
+      ],
+      "worlds": [
+        "H1_distributed_constrained",
+        "H2_distributed_favorable"
+      ]
+    }
+  ]
+}

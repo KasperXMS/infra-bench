@@ -1,0 +1,41 @@
+workflows:
+  - schema_version: calibration-v0-workflow-v1
+    workflow_id: centralized_raw
+    description: Move all three fixed raw video chunks to 4090 and invoke the strong VLM once.
+    steps:
+      - step_id: centralized_fixed_sampling
+        operator_id: sample_frames
+        execution_role: reasoning_4090
+        input_kinds: [raw_video_chunk]
+        output_kinds: [sampled_frames]
+      - step_id: reason_over_raw_chunks
+        operator_id: invoke_model
+        execution_role: reasoning_4090
+        input_kinds: [raw_video_chunk, sampled_frames]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false
+
+  - schema_version: calibration-v0-workflow-v1
+    workflow_id: local_reduction
+    description: Run the same generic lightweight VLM reduction on each artifact-local Orin, then move compact semantic evidence to 4090 for final reasoning.
+    steps:
+      - step_id: local_fixed_sampling
+        operator_id: sample_frames
+        execution_role: artifact_local_agent
+        input_kinds: [raw_video_chunk]
+        output_kinds: [sampled_frames]
+      - step_id: local_generic_reduction
+        operator_id: invoke_model
+        execution_role: artifact_local_agent
+        input_kinds: [raw_video_chunk, sampled_frames]
+        output_kinds: [semantic_evidence]
+      - step_id: reason_over_reduced_evidence
+        operator_id: invoke_model
+        execution_role: reasoning_4090
+        input_kinds: [semantic_evidence]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false

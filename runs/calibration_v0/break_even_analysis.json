@@ -1,0 +1,189 @@
+{
+  "measured_inputs_only": true,
+  "method": "For each workflow, base_ms is the median measured E2E minus its observed network critical path. centralized_raw uses max(link latency), max(chunk bytes), and one parallel RTT; local_reduction uses the measured serial evidence-transfer sum, total evidence bytes, and transfer_count RTTs. The modeled network term is round_trips*RTT_ms + path_bytes*8/(bandwidth_Mbps*1000). RTT is configured added delay plus the measured physical-baseline representative stored in world metadata. Measured local preprocessing and remote model service are reported separately and are included, not treated as free, in the E2E-derived base.",
+  "schema_version": "calibration-v0-break-even-v1",
+  "tasks": [
+    {
+      "added_rtt_ms": 50.0,
+      "bandwidth_star_mbps": 4.718615,
+      "centralized_base_ms": 15393.834944,
+      "centralized_local_preprocessing_ms": 0.0,
+      "centralized_network_path_bytes": 99396939.0,
+      "centralized_network_round_trips": 1.0,
+      "centralized_remote_model_ms": 1643.25503,
+      "centralized_transfer_bytes": 282444860.0,
+      "centralized_transfer_count": 3.0,
+      "local_reduction_base_ms": 183739.533798,
+      "local_reduction_local_preprocessing_ms": 533223.409614,
+      "local_reduction_network_path_bytes": 4217.0,
+      "local_reduction_network_round_trips": 3.0,
+      "local_reduction_remote_model_ms": 1878.977128,
+      "local_reduction_transfer_bytes": 4217.0,
+      "local_reduction_transfer_count": 3.0,
+      "physical_baseline_rtt_ms": 33.0,
+      "reason": null,
+      "rtt_ms": 83.0,
+      "sweep": [
+        {
+          "bandwidth_mbps": 1.0,
+          "centralized_raw_ms": 810652.346944,
+          "local_reduction_ms": 184022.269798,
+          "winner": "local_reduction"
+        },
+        {
+          "bandwidth_mbps": 2.0,
+          "centralized_raw_ms": 413064.590944,
+          "local_reduction_ms": 184005.401798,
+          "winner": "local_reduction"
+        },
+        {
+          "bandwidth_mbps": 4.718615,
+          "centralized_raw_ms": 183995.683354,
+          "local_reduction_ms": 183995.683354,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 5.0,
+          "centralized_raw_ms": 174511.937344,
+          "local_reduction_ms": 183995.280998,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 10.0,
+          "centralized_raw_ms": 94994.386144,
+          "local_reduction_ms": 183991.907398,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 20.0,
+          "centralized_raw_ms": 55235.610544,
+          "local_reduction_ms": 183990.220598,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 50.0,
+          "centralized_raw_ms": 31380.345184,
+          "local_reduction_ms": 183989.208518,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 100.0,
+          "centralized_raw_ms": 23428.590064,
+          "local_reduction_ms": 183988.871158,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 200.0,
+          "centralized_raw_ms": 19452.712504,
+          "local_reduction_ms": 183988.702478,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 500.0,
+          "centralized_raw_ms": 17067.185968,
+          "local_reduction_ms": 183988.60127,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 1000.0,
+          "centralized_raw_ms": 16272.010456,
+          "local_reduction_ms": 183988.567534,
+          "winner": "centralized_raw"
+        }
+      ],
+      "task_id": "video_mme:795",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "added_rtt_ms": 0.0,
+      "bandwidth_star_mbps": 4.721417,
+      "centralized_base_ms": 15393.834944,
+      "centralized_local_preprocessing_ms": 0.0,
+      "centralized_network_path_bytes": 99396939.0,
+      "centralized_network_round_trips": 1.0,
+      "centralized_remote_model_ms": 1643.25503,
+      "centralized_transfer_bytes": 282444860.0,
+      "centralized_transfer_count": 3.0,
+      "local_reduction_base_ms": 183739.533798,
+      "local_reduction_local_preprocessing_ms": 533223.409614,
+      "local_reduction_network_path_bytes": 4217.0,
+      "local_reduction_network_round_trips": 3.0,
+      "local_reduction_remote_model_ms": 1878.977128,
+      "local_reduction_transfer_bytes": 4217.0,
+      "local_reduction_transfer_count": 3.0,
+      "physical_baseline_rtt_ms": 33.0,
+      "reason": null,
+      "rtt_ms": 33.0,
+      "sweep": [
+        {
+          "bandwidth_mbps": 1.0,
+          "centralized_raw_ms": 810602.346944,
+          "local_reduction_ms": 183872.269798,
+          "winner": "local_reduction"
+        },
+        {
+          "bandwidth_mbps": 2.0,
+          "centralized_raw_ms": 413014.590944,
+          "local_reduction_ms": 183855.401798,
+          "winner": "local_reduction"
+        },
+        {
+          "bandwidth_mbps": 4.721417,
+          "centralized_raw_ms": 183845.679111,
+          "local_reduction_ms": 183845.679111,
+          "winner": "local_reduction"
+        },
+        {
+          "bandwidth_mbps": 5.0,
+          "centralized_raw_ms": 174461.937344,
+          "local_reduction_ms": 183845.280998,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 10.0,
+          "centralized_raw_ms": 94944.386144,
+          "local_reduction_ms": 183841.907398,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 20.0,
+          "centralized_raw_ms": 55185.610544,
+          "local_reduction_ms": 183840.220598,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 50.0,
+          "centralized_raw_ms": 31330.345184,
+          "local_reduction_ms": 183839.208518,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 100.0,
+          "centralized_raw_ms": 23378.590064,
+          "local_reduction_ms": 183838.871158,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 200.0,
+          "centralized_raw_ms": 19402.712504,
+          "local_reduction_ms": 183838.702478,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 500.0,
+          "centralized_raw_ms": 17017.185968,
+          "local_reduction_ms": 183838.60127,
+          "winner": "centralized_raw"
+        },
+        {
+          "bandwidth_mbps": 1000.0,
+          "centralized_raw_ms": 16222.010456,
+          "local_reduction_ms": 183838.567534,
+          "winner": "centralized_raw"
+        }
+      ],
+      "task_id": "video_mme:795",
+      "world_id": "H2_distributed_favorable"
+    }
+  ]
+}

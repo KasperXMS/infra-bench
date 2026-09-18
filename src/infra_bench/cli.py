@@ -2,6 +2,7 @@ import argparse
 import json
 import subprocess
 from pathlib import Path
+from typing import Any
 
 from .adapters import SweBenchVerifiedAdapter, VideoMMEV2Adapter
 from .config import load_operator_profiles, load_yaml
@@ -22,12 +23,26 @@ from .integration.report import write_mas_report
 from .integration.smoke import V1_GROUP_ID, build_v1_smoke_cases
 from .io import read_jsonl, write_json, write_jsonl
 from .planners import LLMSelector, OraclePlanner, RandomPlanner, ResourceBlindPlanner
-from .real_tasks import run_swebench_workflows, run_video_mme_workflows
+from .real_tasks import (
+    run_swebench_workflows,
+    run_video_mme_workflows,
+    write_calibration_report,
+)
 from .real_tasks.admission_search import build_trace_admission_search_report
 from .real_tasks.report import build_admission_report
 from .real_tasks.swebench import build_swebench_predictions
 from .scenario_mining.runner import run_scenario_mining
-from .schemas import BenchmarkCase, EvaluationResult, TaskRecord, WorkflowRecord
+from .schemas import (
+    BenchmarkCase,
+    CalibrationEvaluatorRecord,
+    CalibrationRun,
+    CalibrationTask,
+    CalibrationWorkflow,
+    CalibrationWorld,
+    EvaluationResult,
+    TaskRecord,
+    WorkflowRecord,
+)
 from .task_evaluation import build_swebench_command, run_swebench_evaluation, score_video_mme
 from .trajectories import build_workflow_bank, read_trajectories
 
@@ -60,6 +75,20 @@ def _configured_path(config_path: Path, value: str) -> Path:
         return path
     relative = config_path.parent / path
     return relative if relative.exists() else path
+
+
+def _read_calibration_records(path: str, model: Any, envelope_key: str) -> list[Any]:
+    source = Path(path)
+    if source.suffix == ".jsonl":
+        return read_jsonl(source, model)
+    if source.suffix in {".yaml", ".yml"}:
+        payload = load_yaml(source)
+    else:
+        payload = json.loads(source.read_text(encoding="utf-8"))
+    records = payload.get(envelope_key, []) if isinstance(payload, dict) else payload
+    if not isinstance(records, list):
+        raise ValueError(f"{source} must contain a list or a {envelope_key!r} list")
+    return [model.model_validate(item) for item in records]
 
 
 def _generate(args: argparse.Namespace) -> int:
@@ -390,6 +419,34 @@ def _prepare_mas_smoke(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report_calibration_v0(args: argparse.Namespace) -> int:
+    tasks = _read_calibration_records(args.tasks, CalibrationTask, "tasks")
+    evaluators = _read_calibration_records(
+        args.evaluators, CalibrationEvaluatorRecord, "records"
+    )
+    worlds = _read_calibration_records(args.worlds, CalibrationWorld, "worlds")
+    workflows = _read_calibration_records(
+        args.workflows, CalibrationWorkflow, "workflows"
+    )
+    runs = read_jsonl(args.runs, CalibrationRun)
+    summary, analysis = write_calibration_report(
+        tasks,
+        evaluators,
+        worlds,
+        workflows,
+        runs,
+        Path(args.output_dir),
+        minimum_repeats=args.minimum_repeats,
+        anchor_margin=args.anchor_margin,
+    )
+    print(json.dumps(summary.totals, indent=2, sort_keys=True))
+    print(
+        f"wrote calibration_v0 report and {len(analysis.tasks)} break-even curves "
+        f"to {Path(args.output_dir).resolve()}"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="infra-bench")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -477,6 +534,20 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("results", nargs="+")
     report.add_argument("--output-dir", default="data/results/report")
     report.set_defaults(handler=_report)
+
+    report_calibration = subparsers.add_parser(
+        "report-calibration-v0",
+        help="quality-gate calibration_v0 runs and estimate bandwidth break-even points",
+    )
+    report_calibration.add_argument("--tasks", required=True)
+    report_calibration.add_argument("--evaluators", required=True)
+    report_calibration.add_argument("--worlds", required=True)
+    report_calibration.add_argument("--workflows", required=True)
+    report_calibration.add_argument("--runs", required=True)
+    report_calibration.add_argument("--output-dir", default="runs/calibration_v0")
+    report_calibration.add_argument("--minimum-repeats", type=int, default=3)
+    report_calibration.add_argument("--anchor-margin", type=float, default=0.10)
+    report_calibration.set_defaults(handler=_report_calibration_v0)
 
     grade = subparsers.add_parser("grade", help="run original task correctness evaluators")
     grade_subparsers = grade.add_subparsers(dest="grade_source", required=True)

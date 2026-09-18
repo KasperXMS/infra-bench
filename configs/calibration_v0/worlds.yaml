@@ -1,0 +1,42 @@
+worlds:
+  - schema_version: calibration-v0-world-v1
+    world_id: H1_distributed_constrained
+    network:
+      bandwidth_mbps: 3.0
+      rtt_ms: 50.0
+    local_sites: [A4, A5, A28]
+    reasoning_site: "4090"
+    local_model_id: local-video-vlm
+    strong_model_id: strong-video-vlm
+    device_fingerprints:
+      A4: orin-a4
+      A5: orin-a5
+      A28: orin-a28
+      "4090": dual-rtx4090
+    metadata:
+      description: Constrained distributed network condition.
+      network_emulation: application_layer_throttle
+      rtt_semantics: added_delay_above_shared_physical_baseline
+      observed_physical_baseline_rtt_ms: 25-41
+      break_even_physical_baseline_rtt_ms: 33.0
+
+  - schema_version: calibration-v0-world-v1
+    world_id: H2_distributed_favorable
+    network:
+      bandwidth_mbps: 100.0
+      rtt_ms: 0.0
+    local_sites: [A4, A5, A28]
+    reasoning_site: "4090"
+    local_model_id: local-video-vlm
+    strong_model_id: strong-video-vlm
+    device_fingerprints:
+      A4: orin-a4
+      A5: orin-a5
+      A28: orin-a28
+      "4090": dual-rtx4090
+    metadata:
+      description: Favorable native distributed network condition without added delay.
+      network_emulation: application_layer_throttle
+      rtt_semantics: added_delay_above_shared_physical_baseline
+      observed_physical_baseline_rtt_ms: 25-41
+      break_even_physical_baseline_rtt_ms: 33.0

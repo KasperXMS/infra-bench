@@ -1,0 +1,25 @@
+{
+  "schema_version": "calibration-v0-evaluator-set-v1",
+  "records": [
+    {
+      "schema_version": "calibration-v0-evaluator-v1",
+      "task_id": "video_mme:795",
+      "evaluator_id": "video_mme_multiple_choice",
+      "answers": [
+        {"question_id": "795-1", "correct_option": "B"},
+        {"question_id": "795-2", "correct_option": "C"},
+        {"question_id": "795-3", "correct_option": "A"}
+      ]
+    },
+    {
+      "schema_version": "calibration-v0-evaluator-v1",
+      "task_id": "video_mme:848",
+      "evaluator_id": "video_mme_multiple_choice",
+      "answers": [
+        {"question_id": "848-1", "correct_option": "D"},
+        {"question_id": "848-2", "correct_option": "C"},
+        {"question_id": "848-3", "correct_option": "A"}
+      ]
+    }
+  ]
+}

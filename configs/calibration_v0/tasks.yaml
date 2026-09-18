@@ -1,0 +1,159 @@
+tasks:
+  - schema_version: calibration-v0-task-v1
+    task_id: video_mme:795
+    benchmark: Video-MME
+    instruction: >-
+      Watch the complete video and answer all three multiple-choice questions using
+      evidence across the video. 795-1: What is this video mainly about? A: Several
+      magic tricks and magicians' past journey. B: A magician reveals the secrets
+      behind several magic tricks. C: A magician shows tricks he is good at. D:
+      Dangerous stunts. 795-2: In which order do these events occur: (a) bend a
+      straw with spirits; (b) two snacks are poured from a bag; (c) two coins on a
+      plate turn into seven; (d) coins are drilled into a cup from the bottom? A:
+      dabc. B: dcab. C: cdab. D: cadb. 795-3: Which tool is used in the first magic?
+      A: String. B: Coin. C: Hat. D: Glasses. Return only a JSON object mapping each
+      question ID to one option letter, for example {"795-1":"A","795-2":"B","795-3":"C"}.
+    duration_s: 2495.121
+    evaluator_id: video_mme_multiple_choice
+    question_count: 3
+    sample_count_per_chunk: 12
+    questions:
+      - question_id: 795-1
+        prompt: What is this video mainly about?
+        options:
+          A: Several magic tricks and magicians' past journey.
+          B: A magician reveals the secrets behind several magic tricks.
+          C: A magician shows tricks he is good at.
+          D: Dangerous stunts.
+      - question_id: 795-2
+        prompt: >-
+          In which order do these events occur: (a) bend a straw with spirits;
+          (b) two snacks are poured from a bag; (c) two coins on a plate turn into
+          seven; (d) coins are drilled into a cup from the bottom?
+        options:
+          A: dabc
+          B: dcab
+          C: cdab
+          D: cadb
+      - question_id: 795-3
+        prompt: Which tool is used in the first magic?
+        options:
+          A: String
+          B: Coin
+          C: Hat
+          D: Glasses
+    quality_metric: accuracy
+    quality_threshold: 0.6666666666666666
+    segmentation: fixed_uniform_3
+    chunks:
+      - artifact_id: video_mme:795:chunk:0
+        chunk_index: 0
+        start_s: 0.0
+        end_s: 831.707
+        duration_s: 831.707
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/795/chunk-0.mp4
+        site_id: A4
+        raw_bytes: 93677242
+      - artifact_id: video_mme:795:chunk:1
+        chunk_index: 1
+        start_s: 831.707
+        end_s: 1663.414
+        duration_s: 831.707
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/795/chunk-1.mp4
+        site_id: A5
+        raw_bytes: 99396939
+      - artifact_id: video_mme:795:chunk:2
+        chunk_index: 2
+        start_s: 1663.414
+        end_s: 2495.121
+        duration_s: 831.707
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/795/chunk-2.mp4
+        site_id: A28
+        raw_bytes: 89370679
+    metadata:
+      dataset: Video-MME
+      dataset_split: long
+      video_id: 795
+      youtube_id: D97vMwfWxvI
+      evidence_requirement: multi_event_order_and_global_theme
+      frame_width_px: 320
+
+  - schema_version: calibration-v0-task-v1
+    task_id: video_mme:848
+    benchmark: Video-MME
+    instruction: >-
+      Watch the complete video and answer all three multiple-choice questions using
+      evidence across the video. 848-1: In which order do these chapters occur:
+      (a) Scaling Up One Plus One; (b) Public Eye; (c) Broken Trust; (d) Revenge?
+      A: badc. B: dbca. C: abcd. D: acdb. 848-2: How many major setbacks are
+      discussed? A: 0. B: 2. C: 4. D: 6. 848-3: What triggered the 1971 name change
+      to Nike? A: Negotiations with Onitsuka failed. B: Blue Ribbon went bankrupt.
+      C: The Olympics required it. D: Phil disliked the old name. Return only a JSON
+      object mapping each question ID to one option letter, for example
+      {"848-1":"A","848-2":"B","848-3":"C"}.
+    duration_s: 2037.781
+    evaluator_id: video_mme_multiple_choice
+    question_count: 3
+    sample_count_per_chunk: 12
+    questions:
+      - question_id: 848-1
+        prompt: >-
+          In which order do these chapters occur: (a) Scaling Up One Plus One;
+          (b) Public Eye; (c) Broken Trust; (d) Revenge?
+        options:
+          A: badc
+          B: dbca
+          C: abcd
+          D: acdb
+      - question_id: 848-2
+        prompt: How many major setbacks are discussed?
+        options:
+          A: "0"
+          B: "2"
+          C: "4"
+          D: "6"
+      - question_id: 848-3
+        prompt: What triggered the 1971 name change to Nike?
+        options:
+          A: Negotiations with Onitsuka failed.
+          B: Blue Ribbon went bankrupt.
+          C: The Olympics required it.
+          D: Phil disliked the old name.
+    quality_metric: accuracy
+    quality_threshold: 0.6666666666666666
+    segmentation: fixed_uniform_3
+    chunks:
+      - artifact_id: video_mme:848:chunk:0
+        chunk_index: 0
+        start_s: 0.0
+        end_s: 679.260
+        duration_s: 679.260
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/848/chunk-0.mp4
+        site_id: A4
+        raw_bytes: 71923528
+      - artifact_id: video_mme:848:chunk:1
+        chunk_index: 1
+        start_s: 679.260
+        end_s: 1358.521
+        duration_s: 679.261
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/848/chunk-1.mp4
+        site_id: A5
+        raw_bytes: 42891104
+      - artifact_id: video_mme:848:chunk:2
+        chunk_index: 2
+        start_s: 1358.521
+        end_s: 2037.781
+        duration_s: 679.260
+        source_ref: /home/edge/xiaoming/calibration_v0/artifacts/848/chunk-2.mp4
+        site_id: A28
+        raw_bytes: 45271930
+    metadata:
+      dataset: Video-MME
+      dataset_split: long
+      video_id: 848
+      youtube_id: gHXaUDx7P0Y
+      source_duration_s: 2037.781
+      source_bytes: 160083738
+      source_sha256_prefix: 41e26d
+      evidence_requirement: multi_chapter_order_and_cross_video_events
+      frame_width_px: 320
