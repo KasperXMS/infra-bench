@@ -29,6 +29,7 @@ from .real_tasks import (
     write_calibration_report,
 )
 from .real_tasks.admission_search import build_trace_admission_search_report
+from .real_tasks.measurement import build_trace_metrics_report
 from .real_tasks.report import build_admission_report
 from .real_tasks.swebench import build_swebench_predictions
 from .scenario_mining.runner import run_scenario_mining
@@ -40,6 +41,7 @@ from .schemas import (
     CalibrationWorkflow,
     CalibrationWorld,
     EvaluationResult,
+    RealizedWorkflowTrace,
     TaskRecord,
     WorkflowRecord,
 )
@@ -447,6 +449,15 @@ def _report_calibration_v0(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report_realized_traces(args: argparse.Namespace) -> int:
+    traces = read_jsonl(args.traces, RealizedWorkflowTrace)
+    report = build_trace_metrics_report(traces)
+    write_json(args.output, report.model_dump(mode="json"))
+    print(json.dumps(report.totals, indent=2, sort_keys=True))
+    print(f"wrote realized-workflow measurement report to {Path(args.output).resolve()}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="infra-bench")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -548,6 +559,16 @@ def build_parser() -> argparse.ArgumentParser:
     report_calibration.add_argument("--minimum-repeats", type=int, default=3)
     report_calibration.add_argument("--anchor-margin", type=float, default=0.10)
     report_calibration.set_defaults(handler=_report_calibration_v0)
+
+    report_traces = subparsers.add_parser(
+        "report-realized-traces",
+        help="reconstruct sums, lineage, and critical paths from generic realized traces",
+    )
+    report_traces.add_argument("--traces", required=True)
+    report_traces.add_argument(
+        "--output", default="data/results/realized_trace_metrics.json"
+    )
+    report_traces.set_defaults(handler=_report_realized_traces)
 
     grade = subparsers.add_parser("grade", help="run original task correctness evaluators")
     grade_subparsers = grade.add_subparsers(dest="grade_source", required=True)

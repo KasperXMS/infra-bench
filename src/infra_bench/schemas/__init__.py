@@ -42,6 +42,13 @@ from .interaction import (
     basic_task_interaction_spec,
     runtime_bindings_for_task,
 )
+from .measurement import (
+    ArtifactLineageRecord,
+    CriticalPathReport,
+    RealizedWorkflowTrace,
+    ReconstructedWorkflowMetrics,
+    WorkflowTraceSpan,
+)
 from .profile import OperatorProfile
 from .result import EvaluationResult, ExecutionMetrics, ExecutionResult, PlannerDecision
 from .scenario import (
@@ -59,6 +66,7 @@ from .task import PlannerTaskInteractionSpec, PlannerTaskRecord, TaskRecord
 from .workflow import WorkflowEdge, WorkflowNode, WorkflowRecord
 
 __all__ = [
+    "ArtifactLineageRecord",
     "BenchmarkCase",
     "CalibrationAnchorTask",
     "CalibrationAnswer",
@@ -84,6 +92,7 @@ __all__ = [
     "CalibrationWorkflow",
     "CalibrationWorkflowStep",
     "CalibrationWorld",
+    "CriticalPathReport",
     "DataArtifact",
     "EvaluationResult",
     "ExecutionMetrics",
@@ -103,6 +112,8 @@ __all__ = [
     "PlannerInput",
     "PlannerTaskInteractionSpec",
     "PlannerTaskRecord",
+    "RealizedWorkflowTrace",
+    "ReconstructedWorkflowMetrics",
     "RuntimeVerifierSpec",
     "ScenarioArtifact",
     "ScenarioEvaluator",
@@ -118,6 +129,7 @@ __all__ = [
     "WorkflowRecord",
     "WorkflowRealizability",
     "WorkflowDemandTemplate",
+    "WorkflowTraceSpan",
     "DEFAULT_OPERATOR_REGISTRY",
     "CURRENT_MAS_OPERATOR_BINDINGS",
     "CODE_MAS_OPERATOR_BINDINGS",

@@ -1,0 +1,150 @@
+{
+  "success": true,
+  "profile": {
+    "schema_version": "calibration-v0-local-profile-v1",
+    "task_id": "video_mme:857",
+    "profile_run_id": "local-profile-video_mme-857-a14b110f",
+    "strong_node_used": false,
+    "profile_wall_ms": 222372.47719999868,
+    "local_preprocessing_sum_ms": 538563.675600104,
+    "local_preprocessing_critical_ms": 222372.38409998827,
+    "critical_worker_id": "a4",
+    "raw_bytes": 215488462,
+    "contact_sheet_bytes": 2299255,
+    "evidence_bytes": 7035,
+    "evidence_tokens": 1631,
+    "raw_to_evidence_ratio": 3.2646759528127314e-05,
+    "reduction_factor": 30630.91144278607,
+    "branches": [
+      {
+        "task_id": "video_mme:857",
+        "worker_id": "a4",
+        "site_id": "A4",
+        "artifact_id": "candidate-screen/video_mme-857/chunk-0.mp4",
+        "video_duration_s": 663.441,
+        "input_bytes": 66928570,
+        "local_operator_sequence": [
+          "sample_frames",
+          "invoke_model"
+        ],
+        "local_model_calls": 1,
+        "local_tool_calls": 1,
+        "preprocessing_wall_ms": 222372.38409998827,
+        "model_service_ms": 134019.11947102053,
+        "tool_service_ms": 88211.226711981,
+        "stage_latencies": [
+          {
+            "operator": "sample_frames",
+            "service_ms": 88211.226711981,
+            "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+            "end_timestamp": "2026-09-18T17:25:37.034459+00:00",
+            "output_bytes": 635354
+          },
+          {
+            "operator": "invoke_model",
+            "service_ms": 134019.11947102053,
+            "start_timestamp": "2026-09-18T17:25:37.034459+00:00",
+            "end_timestamp": "2026-09-18T17:27:51.142622+00:00",
+            "output_bytes": 4605
+          }
+        ],
+        "selected_frame_count": 12,
+        "selected_clip_count": 0,
+        "selected_clip_bytes": 0,
+        "contact_sheet_bytes": 635354,
+        "evidence_artifact_id": "local-profile-video_mme-857-a14b110f/output-f6eff10cdcbc482ab5911cc9c3c64bd4",
+        "evidence_bytes": 4605,
+        "evidence_tokens": 1024,
+        "model_input_tokens": 3798,
+        "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+        "end_timestamp": "2026-09-18T17:27:51.142622+00:00"
+      },
+      {
+        "task_id": "video_mme:857",
+        "worker_id": "a5",
+        "site_id": "A5",
+        "artifact_id": "candidate-screen/video_mme-857/chunk-1.mp4",
+        "video_duration_s": 667.972,
+        "input_bytes": 80415132,
+        "local_operator_sequence": [
+          "sample_frames",
+          "invoke_model"
+        ],
+        "local_model_calls": 1,
+        "local_tool_calls": 1,
+        "preprocessing_wall_ms": 156915.0757000316,
+        "model_service_ms": 67744.49890688993,
+        "tool_service_ms": 89028.51098193787,
+        "stage_latencies": [
+          {
+            "operator": "sample_frames",
+            "service_ms": 89028.51098193787,
+            "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+            "end_timestamp": "2026-09-18T17:25:37.876505+00:00",
+            "output_bytes": 829975
+          },
+          {
+            "operator": "invoke_model",
+            "service_ms": 67744.49890688993,
+            "start_timestamp": "2026-09-18T17:25:37.876505+00:00",
+            "end_timestamp": "2026-09-18T17:26:45.686178+00:00",
+            "output_bytes": 1173
+          }
+        ],
+        "selected_frame_count": 12,
+        "selected_clip_count": 0,
+        "selected_clip_bytes": 0,
+        "contact_sheet_bytes": 829975,
+        "evidence_artifact_id": "local-profile-video_mme-857-a14b110f/output-54630fd24dec44a195708a1cde616d88",
+        "evidence_bytes": 1173,
+        "evidence_tokens": 263,
+        "model_input_tokens": 3798,
+        "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+        "end_timestamp": "2026-09-18T17:26:45.686178+00:00"
+      },
+      {
+        "task_id": "video_mme:857",
+        "worker_id": "a28",
+        "site_id": "A28",
+        "artifact_id": "candidate-screen/video_mme-857/chunk-2.mp4",
+        "video_duration_s": 657.625,
+        "input_bytes": 68144760,
+        "local_operator_sequence": [
+          "sample_frames",
+          "invoke_model"
+        ],
+        "local_model_calls": 1,
+        "local_tool_calls": 1,
+        "preprocessing_wall_ms": 159276.21580008417,
+        "model_service_ms": 72036.94584686309,
+        "tool_service_ms": 87148.03698495962,
+        "stage_latencies": [
+          {
+            "operator": "sample_frames",
+            "service_ms": 87148.03698495962,
+            "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+            "end_timestamp": "2026-09-18T17:25:35.965068+00:00",
+            "output_bytes": 833926
+          },
+          {
+            "operator": "invoke_model",
+            "service_ms": 72036.94584686309,
+            "start_timestamp": "2026-09-18T17:25:35.965068+00:00",
+            "end_timestamp": "2026-09-18T17:26:48.047468+00:00",
+            "output_bytes": 1257
+          }
+        ],
+        "selected_frame_count": 12,
+        "selected_clip_count": 0,
+        "selected_clip_bytes": 0,
+        "contact_sheet_bytes": 833926,
+        "evidence_artifact_id": "local-profile-video_mme-857-a14b110f/output-228f34010cdc433584fd1a59b58b6fe2",
+        "evidence_bytes": 1257,
+        "evidence_tokens": 344,
+        "model_input_tokens": 3798,
+        "start_timestamp": "2026-09-18T17:24:08.770705+00:00",
+        "end_timestamp": "2026-09-18T17:26:48.047468+00:00"
+      }
+    ]
+  }
+}

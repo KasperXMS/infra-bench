@@ -1,6 +1,6 @@
 {
   "measured_inputs_only": true,
-  "method": "For each workflow, base_ms is the median measured E2E minus its observed network critical path. centralized_raw uses max(link latency), max(chunk bytes), and one parallel RTT; local_reduction uses the measured serial evidence-transfer sum, total evidence bytes, and transfer_count RTTs. The modeled network term is round_trips*RTT_ms + path_bytes*8/(bandwidth_Mbps*1000). RTT is configured added delay plus the measured physical-baseline representative stored in world metadata. Measured local preprocessing and remote model service are reported separately and are included, not treated as free, in the E2E-derived base.",
+  "method": "This bandwidth-sensitivity estimate is distinct from measured critical-path reporting. For each workflow, base_ms is median measured E2E minus a fixed reference-workflow network-overlap assumption: centralized_raw assumes its three raw transfers overlap (max link latency/bytes and one RTT), while local_reduction assumes measured evidence transfers serialize. These assumptions are not labeled as observed critical time. The modeled network term is round_trips*RTT_ms + path_bytes*8/(bandwidth_Mbps*1000). RTT is configured added delay plus the measured physical-baseline representative stored in world metadata. Measured local preprocessing and remote model service are reported separately and are included, not treated as free, in the E2E-derived base.",
   "schema_version": "calibration-v0-break-even-v1",
   "tasks": [
     {

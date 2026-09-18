@@ -52,6 +52,28 @@ uv run infra-bench report-calibration-v0 `
   --output-dir runs/calibration_v0
 ```
 
-The command validates the controlled design and writes `summary.json`,
-`summary.md`, `break_even_analysis.json`, and `admitted_anchor_tasks.json` while
-normalizing the raw rows back to `raw_runs.jsonl`.
+The command treats `raw_runs.jsonl` as immutable runtime evidence. It writes
+gold-scored copies to `evaluated_runs.jsonl`, plus `summary.json`, `summary.md`,
+`break_even_analysis.json`, `critical_path_report.json`, and
+`admitted_anchor_tasks.json`; it never rewrites the raw runtime rows.
+
+Timing fields use explicit semantics. `*_sum_ms` is aggregate measured work and
+may exceed E2E when calls or transfers overlap. `*_critical_ms` is calculated
+only from a complete timestamped dependency trace. If timestamps, dependencies,
+artifact producer/consumer lineage, or trace coverage are insufficient, the
+critical value is `null`/unavailable rather than approximated from an aggregate.
+`e2e_latency_ms` is always the observed runtime wall-clock interval and remains
+the performance-comparison metric. Historical fields `local_preprocessing_ms`,
+`transfer_latency_ms`, and `service_total_ms` are deprecated aggregate aliases.
+
+Future realized workflows can emit `realized-workflow-trace-v1` JSONL records
+without using either calibration reference workflow. Each trace records arbitrary
+planner/action/transfer spans, timestamps, dependencies, artifact
+producer/consumer lineage, bytes, sites, tokens, E2E, and quality. Reconstruct
+them with:
+
+```powershell
+uv run infra-bench report-realized-traces `
+  --traces path/to/realized_traces.jsonl `
+  --output path/to/trace_metrics.json
+```

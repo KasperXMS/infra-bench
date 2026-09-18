@@ -7,7 +7,7 @@ import statistics
 from collections import defaultdict
 from collections.abc import Iterable, Sequence
 from pathlib import Path
-from typing import Any, cast
+from typing import Any, Literal, cast
 
 from ..io import write_json, write_jsonl
 from ..schemas.calibration_v0 import (
@@ -26,6 +26,11 @@ from ..schemas.calibration_v0 import (
     CalibrationWorkflowStep,
     CalibrationWorld,
     CalibrationWorldId,
+)
+from .measurement import (
+    METRIC_SEMANTICS,
+    build_critical_path_report,
+    reconstruct_calibration_run,
 )
 
 H1 = "H1_distributed_constrained"
@@ -226,8 +231,10 @@ def _cell_result(
         for run in completed
     )
     eligible = len(completed) >= minimum_repeats and quality_gate_passed
-    medians: dict[str, float] = {}
+    medians: dict[str, float | None] = {}
+    availability: dict[str, Literal["available", "unavailable"]] = {}
     if completed:
+        reconstructed = [reconstruct_calibration_run(run) for run in completed]
         medians = {
             "raw_artifact_bytes": _median(
                 run.artifacts.raw_bytes for run in completed if run.artifacts
@@ -262,7 +269,40 @@ def _cell_result(
             "e2e_latency_ms": _median(
                 run.e2e_latency_ms for run in completed if run.e2e_latency_ms is not None
             ),
+            "local_preprocessing_sum_ms": _median(
+                item.local_preprocessing_sum_ms for item in reconstructed
+            ),
+            "transfer_sum_ms": _median(item.transfer_sum_ms for item in reconstructed),
+            "service_sum_ms": _median(item.service_sum_ms for item in reconstructed),
+            "remote_service_sum_ms": _median(
+                item.remote_service_sum_ms for item in reconstructed
+            ),
         }
+        critical_available = all(
+            item.critical_path_availability == "available" for item in reconstructed
+        )
+        critical_fields = {
+            "local_preprocessing_critical_ms": [
+                item.local_preprocessing_critical_ms for item in reconstructed
+            ],
+            "transfer_critical_ms": [item.transfer_critical_ms for item in reconstructed],
+            "service_critical_ms": [item.service_critical_ms for item in reconstructed],
+            "planner_critical_ms": [item.planner_critical_ms for item in reconstructed],
+            "critical_path_ms": [item.critical_path_ms for item in reconstructed],
+        }
+        for name, values in critical_fields.items():
+            available_values = [value for value in values if value is not None]
+            is_available = critical_available and len(available_values) == len(values)
+            medians[name] = _median(available_values) if is_available else None
+            availability[name] = "available" if is_available else "unavailable"
+        for name in (
+            "local_preprocessing_sum_ms",
+            "transfer_sum_ms",
+            "service_sum_ms",
+            "remote_service_sum_ms",
+            "e2e_latency_ms",
+        ):
+            availability[name] = "available"
         quality_values = [run.quality.score for run in completed if run.quality]
         if quality_values:
             medians["task_quality"] = _median(quality_values)
@@ -283,6 +323,7 @@ def _cell_result(
         quality_gate_passed=quality_gate_passed,
         eligible_for_comparison=eligible,
         medians=medians,
+        metric_availability=availability,
     )
 
 
@@ -291,6 +332,8 @@ def _winner_and_margin(
 ) -> tuple[CalibrationWorkflowId, float]:
     first_ms = first.medians["e2e_latency_ms"]
     second_ms = second.medians["e2e_latency_ms"]
+    if first_ms is None or second_ms is None:
+        raise ValueError("eligible calibration cells require measured E2E latency")
     if first_ms <= second_ms:
         return first.workflow_id, round((second_ms - first_ms) / first_ms, 6)
     return second.workflow_id, round((first_ms - second_ms) / second_ms, 6)
@@ -408,6 +451,7 @@ def summarize_calibration(
             "anchor_minimum_relative_margin": anchor_margin,
             "relative_margin_formula": "(loser_e2e - winner_e2e) / winner_e2e",
         },
+        metric_definitions=METRIC_SEMANTICS,
         cells=cells,
         tasks=task_results,
         totals={
@@ -613,10 +657,12 @@ def analyze_break_even(
             )
     return CalibrationBreakEvenAnalysis(
         method=(
-            "For each workflow, base_ms is the median measured E2E minus its observed "
-            "network critical path. centralized_raw uses max(link latency), max(chunk bytes), "
-            "and one parallel RTT; local_reduction uses the measured serial evidence-transfer "
-            "sum, total evidence bytes, and transfer_count RTTs. The modeled network term is "
+            "This bandwidth-sensitivity estimate is distinct from measured critical-path "
+            "reporting. For each workflow, base_ms is median measured E2E minus a fixed "
+            "reference-workflow network-overlap assumption: centralized_raw assumes its three "
+            "raw transfers overlap (max link latency/bytes and one RTT), while local_reduction "
+            "assumes measured evidence transfers serialize. These assumptions are not labeled "
+            "as observed critical time. The modeled network term is "
             "round_trips*RTT_ms + path_bytes*8/(bandwidth_Mbps*1000). "
             "RTT is configured added delay plus the measured physical-baseline "
             "representative stored in world metadata. "
@@ -650,19 +696,41 @@ def _markdown(summary: CalibrationSummary, analysis: CalibrationBreakEvenAnalysi
             "",
             "## Measured cells",
             "",
-            "| Task | World | Workflow | Completed | Quality pass rate | Median E2E ms | Transfer bytes | Local preprocessing ms |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
+            "`sum` metrics are aggregate work and may exceed E2E under concurrency. "
+            "`critical` metrics require complete timestamps, dependencies, and trace coverage; "
+            "a dash means the trace cannot support that claim.",
+            "",
+            "| Task | World | Workflow | Completed | Quality pass rate | E2E ms | Local sum ms | Local critical ms | Transfer sum ms | Transfer critical ms | Service sum ms | Service critical ms |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for cell in summary.cells:
         metrics = cell.medians
+        local_critical = metrics.get("local_preprocessing_critical_ms")
+        transfer_critical = metrics.get("transfer_critical_ms")
+        service_critical = metrics.get("service_critical_ms")
         lines.append(
             f"| {cell.task_id} | {cell.world_id} | {cell.workflow_id} | "
             f"{cell.completed_runs} | {cell.quality_pass_rate:.3f} | "
             f"{metrics.get('e2e_latency_ms', '-')} | "
-            f"{metrics.get('cross_agent_transfer_bytes', '-')} | "
-            f"{metrics.get('local_preprocessing_ms', '-')} |"
+            f"{metrics.get('local_preprocessing_sum_ms', '-')} | "
+            f"{'-' if local_critical is None else local_critical} | "
+            f"{metrics.get('transfer_sum_ms', '-')} | "
+            f"{'-' if transfer_critical is None else transfer_critical} | "
+            f"{metrics.get('service_sum_ms', '-')} | "
+            f"{'-' if service_critical is None else service_critical} |"
         )
+    lines.extend(
+        [
+            "",
+            "## Metric semantics",
+            "",
+            "- `local_preprocessing_ms`, `transfer_latency_ms`, and `service_total_ms` are retained as deprecated aggregate aliases.",
+            "- `*_sum_ms` is total measured work across calls/links and is not a wall-clock critical path.",
+            "- `*_critical_ms` is emitted only when timestamps, dependency evidence, and trace coverage are complete.",
+            "- `e2e_latency_ms` is the observed runtime wall clock and remains the workflow-comparison metric.",
+        ]
+    )
     lines.extend(["", "## Break-even estimates", ""])
     if not analysis.tasks:
         lines.append("No quality-gated task currently has enough measurements for BW* estimation.")
@@ -701,11 +769,18 @@ def write_calibration_report(
     analysis = analyze_break_even(
         summary, worlds, evaluated_runs, sweep_mbps=sweep_mbps
     )
+    critical_path_report = build_critical_path_report(evaluated_runs)
     output_dir.mkdir(parents=True, exist_ok=True)
-    write_jsonl(output_dir / "raw_runs.jsonl", evaluated_runs)
+    # The runtime-owned raw file is immutable evaluator input. Gold-derived quality is
+    # written separately so reporting never rewrites raw_runs.jsonl.
+    write_jsonl(output_dir / "evaluated_runs.jsonl", evaluated_runs)
     write_json(output_dir / "summary.json", summary.model_dump(mode="json"))
     write_json(
         output_dir / "break_even_analysis.json", analysis.model_dump(mode="json")
+    )
+    write_json(
+        output_dir / "critical_path_report.json",
+        critical_path_report.model_dump(mode="json"),
     )
     point_by_task: dict[str, list[float]] = defaultdict(list)
     for point in analysis.tasks:

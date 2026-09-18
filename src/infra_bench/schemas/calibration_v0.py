@@ -6,6 +6,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from .measurement import RealizedWorkflowTrace
+
 CalibrationWorkflowId = Literal["centralized_raw", "local_reduction"]
 CalibrationWorldId = Literal[
     "H1_distributed_constrained", "H2_distributed_favorable"
@@ -260,6 +262,11 @@ class CalibrationTransfer(BaseModel):
     dst_site: CalibrationSiteId
     bytes: int = Field(ge=0)
     latency_ms: float = Field(ge=0.0)
+    started_at: str | float | None = None
+    finished_at: str | float | None = None
+    depends_on: list[str] = Field(default_factory=list)
+    producer_action_id: str | None = None
+    consumer_action_id: str | None = None
 
 
 class CalibrationTransferMetrics(BaseModel):
@@ -316,6 +323,14 @@ class CalibrationExecution(BaseModel):
     service_ms: float = Field(ge=0.0)
     input_bytes: int = Field(ge=0)
     output_bytes: int = Field(ge=0)
+    started_at: str | float | None = None
+    finished_at: str | float | None = None
+    depends_on: list[str] = Field(default_factory=list)
+    input_artifacts: list[str] = Field(default_factory=list)
+    output_artifacts: list[str] = Field(default_factory=list)
+    model_id: str | None = None
+    input_tokens: int = Field(default=0, ge=0)
+    output_tokens: int = Field(default=0, ge=0)
 
 
 class CalibrationRun(BaseModel):
@@ -342,6 +357,7 @@ class CalibrationRun(BaseModel):
     final_answer: str | None = None
     answer: str | None = None
     error: str | None = None
+    trace: RealizedWorkflowTrace | None = None
     metadata: dict[str, Any] = Field(default_factory=dict)
 
     @model_validator(mode="after")
@@ -382,7 +398,10 @@ class CalibrationCellResult(BaseModel):
     quality_pass_rate: float = Field(ge=0.0, le=1.0)
     quality_gate_passed: bool
     eligible_for_comparison: bool
-    medians: dict[str, float]
+    medians: dict[str, float | None]
+    metric_availability: dict[str, Literal["available", "unavailable"]] = Field(
+        default_factory=dict
+    )
 
 
 class CalibrationTaskResult(BaseModel):
@@ -403,10 +422,11 @@ class CalibrationTaskResult(BaseModel):
 class CalibrationSummary(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["calibration-v0-summary-v1"] = (
-        "calibration-v0-summary-v1"
+    schema_version: Literal["calibration-v0-summary-v2"] = (
+        "calibration-v0-summary-v2"
     )
     policy: dict[str, Any]
+    metric_definitions: dict[str, str]
     cells: list[CalibrationCellResult]
     tasks: list[CalibrationTaskResult]
     totals: dict[str, int]

@@ -1,0 +1,259 @@
+{
+  "schema_version": "calibration-v0-network-microbench-summary-v1",
+  "workers": [
+    "a4",
+    "a5",
+    "a28"
+  ],
+  "rtt_by_direction": {
+    "a4->a5": {
+      "min_ms": 1.572,
+      "avg_ms": 25.638,
+      "max_ms": 94.34,
+      "jitter_ms": 33.39
+    },
+    "a4->a28": {
+      "min_ms": 1.558,
+      "avg_ms": 24.449,
+      "max_ms": 103.13,
+      "jitter_ms": 36.126
+    },
+    "a5->a4": {
+      "min_ms": 1.413,
+      "avg_ms": 18.425,
+      "max_ms": 88.76,
+      "jitter_ms": 32.164
+    },
+    "a5->a28": {
+      "min_ms": 1.506,
+      "avg_ms": 31.697,
+      "max_ms": 138.388,
+      "jitter_ms": 47.321
+    },
+    "a28->a4": {
+      "min_ms": 1.442,
+      "avg_ms": 27.444,
+      "max_ms": 104.957,
+      "jitter_ms": 38.885
+    },
+    "a28->a5": {
+      "min_ms": 1.405,
+      "avg_ms": 36.232,
+      "max_ms": 136.762,
+      "jitter_ms": 46.051
+    }
+  },
+  "measurement_count": 90,
+  "completed_count": 90,
+  "failed_count": 0,
+  "aggregates": [
+    {
+      "scenario": "physical_baseline",
+      "mode": "single",
+      "payload_bytes": 1048576,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 64.07827400611244,
+      "aggregate_effective_throughput_mbps": 384.46964403667465,
+      "max_transfer_latency_ms": 222.2992090974003
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "single",
+      "payload_bytes": 10485760,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 124.31475204362302,
+      "aggregate_effective_throughput_mbps": 745.8885122617381,
+      "max_transfer_latency_ms": 1304.4667018111795
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "single",
+      "payload_bytes": 104857600,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 143.47839141842022,
+      "aggregate_effective_throughput_mbps": 860.8703485105214,
+      "max_transfer_latency_ms": 9749.439632025314
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "single",
+      "payload_bytes": 314572800,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 130.38952498817287,
+      "aggregate_effective_throughput_mbps": 782.3371499290372,
+      "max_transfer_latency_ms": 36559.923714987235
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "concurrent",
+      "payload_bytes": 1048576,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 36.67230628336718,
+      "aggregate_effective_throughput_mbps": 110.01691885010153,
+      "max_transfer_latency_ms": 609.4131949939765
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "concurrent",
+      "payload_bytes": 10485760,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 45.99309600240273,
+      "aggregate_effective_throughput_mbps": 137.9792880072082,
+      "max_transfer_latency_ms": 3629.823273047805
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "concurrent",
+      "payload_bytes": 104857600,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 69.56823266655398,
+      "aggregate_effective_throughput_mbps": 208.70469799966196,
+      "max_transfer_latency_ms": 24750.33037600224
+    },
+    {
+      "scenario": "physical_baseline",
+      "mode": "concurrent",
+      "payload_bytes": 314572800,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 53.88087237964703,
+      "aggregate_effective_throughput_mbps": 161.6426171389411,
+      "max_transfer_latency_ms": 75921.35232401779
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "single",
+      "payload_bytes": 1048576,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 57.78725378768964,
+      "aggregate_effective_throughput_mbps": 346.72352272613784,
+      "max_transfer_latency_ms": 173.6107300966978
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "single",
+      "payload_bytes": 10485760,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 69.74584404140812,
+      "aggregate_effective_throughput_mbps": 418.4750642484487,
+      "max_transfer_latency_ms": 1599.4252230157144
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "single",
+      "payload_bytes": 104857600,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 70.89493832830445,
+      "aggregate_effective_throughput_mbps": 425.3696299698267,
+      "max_transfer_latency_ms": 15986.681770009454
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "single",
+      "payload_bytes": 314572800,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 78.2572857602047,
+      "aggregate_effective_throughput_mbps": 469.54371456122817,
+      "max_transfer_latency_ms": 36692.69474802422
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "concurrent",
+      "payload_bytes": 1048576,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 41.18835707251252,
+      "aggregate_effective_throughput_mbps": 123.56507121753755,
+      "max_transfer_latency_ms": 263.4144990006462
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "concurrent",
+      "payload_bytes": 10485760,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 42.52812320625625,
+      "aggregate_effective_throughput_mbps": 127.58436961876875,
+      "max_transfer_latency_ms": 3315.9153560118284
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "concurrent",
+      "payload_bytes": 104857600,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 64.04646409662993,
+      "aggregate_effective_throughput_mbps": 192.1393922898898,
+      "max_transfer_latency_ms": 21020.44659497915
+    },
+    {
+      "scenario": "H2_distributed_favorable",
+      "mode": "concurrent",
+      "payload_bytes": 314572800,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 51.301600986329014,
+      "aggregate_effective_throughput_mbps": 153.90480295898703,
+      "max_transfer_latency_ms": 68671.85589901055
+    },
+    {
+      "scenario": "H1_distributed_constrained",
+      "mode": "single",
+      "payload_bytes": 1048576,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 2.8990454853078043,
+      "aggregate_effective_throughput_mbps": 17.394272911846826,
+      "max_transfer_latency_ms": 2913.7029419944156
+    },
+    {
+      "scenario": "H1_distributed_constrained",
+      "mode": "single",
+      "payload_bytes": 10485760,
+      "flow_count": 6,
+      "mean_effective_throughput_mbps": 2.9685280398330565,
+      "aggregate_effective_throughput_mbps": 17.811168238998338,
+      "max_transfer_latency_ms": 28327.76975701563
+    },
+    {
+      "scenario": "H1_distributed_constrained",
+      "mode": "concurrent",
+      "payload_bytes": 1048576,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 2.895390550740627,
+      "aggregate_effective_throughput_mbps": 8.68617165222188,
+      "max_transfer_latency_ms": 2909.057024982758
+    },
+    {
+      "scenario": "H1_distributed_constrained",
+      "mode": "concurrent",
+      "payload_bytes": 10485760,
+      "flow_count": 3,
+      "mean_effective_throughput_mbps": 2.969752769219671,
+      "aggregate_effective_throughput_mbps": 8.909258307659012,
+      "max_transfer_latency_ms": 28293.99922816083
+    }
+  ],
+  "environment": {
+    "interface": "wlP1p1s0",
+    "qdisc_before": "mq with fq_codel child queues",
+    "qdisc_after": "mq with fq_codel child queues",
+    "tc_netem_installed": false,
+    "shaping_layer": "worker_application_layer_wall_clock"
+  },
+  "interpretation": {
+    "h1_accuracy": "2.90 Mbps at 1 MiB and 2.97 Mbps at 10 MiB versus configured 3 Mbps",
+    "h2_accuracy": "physical WLAN limited: 70.89/78.26 Mbps mean at 100/300 MiB versus 100 Mbps cap",
+    "directional_rtt_mean_range_ms": [18.425, 36.232],
+    "directional_rtt_max_range_ms": [88.76, 138.388],
+    "directional_jitter_range_ms": [32.164, 47.321],
+    "concurrency_effect_300_mib": "mean per-flow 130.39 to 53.88 Mbps; critical latency 36.56 to 75.92 s",
+    "simple_transfer_formula": "useful configured lower-bound model but invalid as a complete predictor under physical contention and jitter"
+  },
+  "unavailable_measurements": [
+    {
+      "scenario": "H1_distributed_constrained",
+      "payload_mib": 100,
+      "reason": "3 Mbps expected duration exceeds or approaches the deployed Worker's 300 s source-read timeout"
+    },
+    {
+      "scenario": "H1_distributed_constrained",
+      "payload_mib": 300,
+      "reason": "3 Mbps expected duration exceeds or approaches the deployed Worker's 300 s source-read timeout"
+    }
+  ]
+}

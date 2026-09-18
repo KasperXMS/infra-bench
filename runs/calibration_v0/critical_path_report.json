@@ -1,0 +1,1557 @@
+{
+  "metric_semantics": {
+    "critical_path_ms": "Longest dependency-path sum of observed span wall-clock durations. It excludes untraced orchestration gaps and is never inferred from sums alone.",
+    "e2e_latency_ms": "Observed run wall-clock latency from runtime start to final result.",
+    "legacy_aggregate_fields": "local_preprocessing_ms, transfer_latency_ms, and service_total_ms are deprecated aggregate aliases for the corresponding *_sum_ms metrics.",
+    "local_preprocessing_critical_ms": "Local-action duration on the timestamped dependency critical path; unavailable unless timestamps, dependencies, and trace coverage are complete.",
+    "local_preprocessing_sum_ms": "Sum of measured local action service durations. This is aggregate work and may exceed E2E when local actions run concurrently.",
+    "service_critical_ms": "Action service duration on the timestamped dependency critical path.",
+    "service_sum_ms": "Sum of measured action service durations across all sites; aggregate work, not wall-clock latency.",
+    "transfer_critical_ms": "Transfer duration on the timestamped dependency critical path; unavailable unless timestamps, dependencies, and trace coverage are complete.",
+    "transfer_sum_ms": "Sum of individual cross-site transfer durations. This is aggregate link work and may exceed E2E when transfers overlap."
+  },
+  "runs": [
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 300948.02730198717,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 61296.8410049798,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-centralized_raw-r1-0b699465",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 61296.8410049798,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 762121.7702699942,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 204172.69909294555,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13085,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 594118.1208033231,
+      "local_service_sum_ms": 594118.1208033231,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1144,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243322,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 1832.5862680212595,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-local_reduction-r1-36ecfecd",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 595950.7070713444,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4060,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 945
+      },
+      "transfer_sum_ms": 289.22376391710714,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 283013.61026999075,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 43263.63395998487,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-centralized_raw-r2-199e5cd3",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 43263.63395998487,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 761428.6827250035,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 221274.13510001497,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13089,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 593294.9713473499,
+      "local_service_sum_ms": 593294.9713473499,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1144,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243322,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 17541.287138010375,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-local_reduction-r2-6b23082d",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 610836.2584853603,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4060,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 945
+      },
+      "transfer_sum_ms": 594.6227060048841,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 284723.21087901946,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 44858.82279102225,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-centralized_raw-r3-ee9c45e1",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 44858.82279102225,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 761346.9360919553,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 205406.82138799457,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13082,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 592442.5238326658,
+      "local_service_sum_ms": 592442.5238326658,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1144,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243322,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 1836.8389909737743,
+      "run_id": "calibration-v0-video_mme-795-H1_distributed_constrained-local_reduction-r3-c4ea29d0",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 594279.3628236395,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4060,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 945
+      },
+      "transfer_sum_ms": 306.0179110034369,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 33052.08377400413,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 43283.77732401714,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-centralized_raw-r1-b658bf4a",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 43283.77732401714,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 38365.69608800346,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 160578.2457430032,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13166,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 472108.5379042197,
+      "local_service_sum_ms": 472108.5379042197,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1221,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243636,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 1890.673675981816,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-local_reduction-r1-b3116fc6",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 473999.2115802015,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4374,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 1259
+      },
+      "transfer_sum_ms": 125.25678897509351,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 34926.80609499803,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 45044.14503602311,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-centralized_raw-r2-6c76deb0",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 45044.14503602311,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 40596.654238936026,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 160787.6205710345,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13165,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 473493.33130192827,
+      "local_service_sum_ms": 473493.33130192827,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1221,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243636,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 1893.5847909888253,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-local_reduction-r2-fa9321da",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 475386.9160929171,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4374,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 1259
+      },
+      "transfer_sum_ms": 224.19125703163445,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 36543.10415801592,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3155,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 37,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 466376,
+      "quality": 1.0,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 45310.65859796945,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-centralized_raw-r3-104f171b",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 45310.65859796945,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 282444860,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 89370679,
+        "A4->4090": 93677242,
+        "A5->4090": 99396939
+      },
+      "transfer_sum_ms": 43614.95063803159,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 164223.05836703163,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13159,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 474004.2953948141,
+      "local_service_sum_ms": 474004.2953948141,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1221,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1243636,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 282444860,
+      "remote_service_sum_ms": 1867.2805800451897,
+      "run_id": "calibration-v0-video_mme-795-H2_distributed_favorable-local_reduction-r3-b5a00edb",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 475871.5759748593,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:795",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4374,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1535,
+        "A4->4090": 1580,
+        "A5->4090": 1259
+      },
+      "transfer_sum_ms": 627.466100093443,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 210068.9310680027,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 36148.79426400876,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-centralized_raw-r1-36919057",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 36148.79426400876,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 431682.27664602455,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 153872.5589599926,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13147,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 416039.5167481911,
+      "local_service_sum_ms": 416039.5167481911,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1287,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1215382,
+      "quality": 1.0,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1869.0799829782918,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 417908.5967311694,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4087,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1116,
+        "A4->4090": 1552,
+        "A5->4090": 1419
+      },
+      "transfer_sum_ms": 330.09327098261565,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 209030.5266440264,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 35617.43834707886,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-centralized_raw-r2-2df1f7c7",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 35617.43834707886,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 432067.7566129016,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 157365.83362601232,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13192,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 407944.00376584963,
+      "local_service_sum_ms": 407944.00376584963,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1332,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1215587,
+      "quality": 1.0,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1927.703817957081,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 409871.7075838067,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 4292,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1116,
+        "A4->4090": 1552,
+        "A5->4090": 1624
+      },
+      "transfer_sum_ms": 287.9975870018825,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 208705.44340304332,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 35040.43561802246,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-centralized_raw-r3-665f16fa",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 35040.43561802246,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 432033.49540993804,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 153749.99223300256,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 12968,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 388699.73844705964,
+      "local_service_sum_ms": 388699.73844705964,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1115,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1214753,
+      "quality": 0.3333333333333333,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1838.0648319725879,
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 390537.80327903223,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 3458,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1116,
+        "A4->4090": 923,
+        "A5->4090": 1419
+      },
+      "transfer_sum_ms": 221.83659800793976,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 22157.681272015907,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 32039.58684601821,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-centralized_raw-r1-94c651ce",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 32039.58684601821,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 23264.899394998793,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 114950.47803700436,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13027,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 307837.22334113554,
+      "local_service_sum_ms": 307837.22334113554,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1167,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1214993,
+      "quality": 1.0,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1853.292009967845,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-local_reduction-r1-cce71b52",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 309690.5153511034,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 3698,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1151,
+        "A4->4090": 923,
+        "A5->4090": 1624
+      },
+      "transfer_sum_ms": 251.91149907186627,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 24046.566820994485,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 32037.2030659928,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-centralized_raw-r2-44ed220d",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 32037.2030659928,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 26047.636710922234,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 115111.76608799724,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13028,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 308807.4513559113,
+      "local_service_sum_ms": 308807.4513559113,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1167,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1214993,
+      "quality": 1.0,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1850.0185009907,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-local_reduction-r2-96daad5d",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 310657.469856902,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 3698,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1151,
+        "A4->4090": 923,
+        "A5->4090": 1624
+      },
+      "transfer_sum_ms": 387.41460104938596,
+      "workflow_id": "local_reduction"
+    },
+    {
+      "action_count": 4,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 22239.816334971692,
+      "executor_action_counts": {
+        "strong-4090-vlm": 1,
+        "strong-4090:sample_frames": 3
+      },
+      "input_tokens": 3135,
+      "invocation_count": 1,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 0.0,
+      "local_service_sum_ms": 0.0,
+      "model_counts": {
+        "unknown_legacy_row": 1
+      },
+      "operator_counts": {
+        "invoke_model": 1,
+        "sample_frames": 3
+      },
+      "output_tokens": 31,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 541889,
+      "quality": 0.6666666666666666,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 32337.45891007129,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-centralized_raw-r3-11bf8969",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 32337.45891007129,
+      "site_action_counts": {
+        "4090": 4
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 160086562,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 45271930,
+        "A4->4090": 71923528,
+        "A5->4090": 42891104
+      },
+      "transfer_sum_ms": 22468.148144020233,
+      "workflow_id": "centralized_raw"
+    },
+    {
+      "action_count": 7,
+      "artifact_lineage": [],
+      "artifact_lineage_availability": "unavailable",
+      "critical_path_availability": "unavailable",
+      "critical_path_ms": null,
+      "critical_path_span_ids": [],
+      "critical_path_unavailable_reasons": [
+        "runtime_row_has_no_realized_trace",
+        "timestamp_evidence_unavailable",
+        "dependency_evidence_unavailable",
+        "artifact_lineage_unavailable"
+      ],
+      "dependencies": [],
+      "dependency_evidence": "unavailable",
+      "e2e_latency_ms": 114751.34307699045,
+      "executor_action_counts": {
+        "a28-vlm": 1,
+        "a28:sample_frames": 1,
+        "a4-vlm": 1,
+        "a4:sample_frames": 1,
+        "a5-vlm": 1,
+        "a5:sample_frames": 1,
+        "strong-4090-vlm": 1
+      },
+      "input_tokens": 13028,
+      "invocation_count": 4,
+      "local_preprocessing_critical_ms": null,
+      "local_preprocessing_sum_ms": 318853.8590169046,
+      "local_service_sum_ms": 318853.8590169046,
+      "model_counts": {
+        "unknown_legacy_row": 4
+      },
+      "operator_counts": {
+        "invoke_model": 4,
+        "sample_frames": 3
+      },
+      "output_tokens": 1167,
+      "planner_critical_ms": null,
+      "planner_sum_ms": null,
+      "produced_bytes": 1214993,
+      "quality": 1.0,
+      "raw_input_bytes": 160086562,
+      "remote_service_sum_ms": 1859.729953983333,
+      "run_id": "calibration-v0-video_mme-848-H2_distributed_favorable-local_reduction-r3-7389c988",
+      "schema_version": "reconstructed-workflow-metrics-v1",
+      "service_critical_ms": null,
+      "service_sum_ms": 320713.58897088794,
+      "site_action_counts": {
+        "4090": 1,
+        "A28": 2,
+        "A4": 2,
+        "A5": 2
+      },
+      "task_id": "video_mme:848",
+      "timestamp_evidence": "unavailable",
+      "trace_coverage": "partial",
+      "transfer_bytes": 3698,
+      "transfer_count": 3,
+      "transfer_critical_ms": null,
+      "transfer_site_pair_bytes": {
+        "A28->4090": 1151,
+        "A4->4090": 923,
+        "A5->4090": 1624
+      },
+      "transfer_sum_ms": 161.8697990779765,
+      "workflow_id": "local_reduction"
+    }
+  ],
+  "schema_version": "critical-path-report-v1",
+  "totals": {
+    "completed_run_count": 24,
+    "critical_path_available_count": 0,
+    "critical_path_unavailable_count": 24
+  }
+}

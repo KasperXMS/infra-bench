@@ -1,0 +1,143 @@
+{
+  "schema_version": "calibration-v0-candidate-screen-v1",
+  "selection_rule": "real Video-MME long videos with fixed uniform three-way splits, multi-event or multi-time-span questions, and high measured raw-byte savings relative to Jetson critical preprocessing time",
+  "strong_4090_used": false,
+  "quality_policy": "Existing evaluator results are retained for 795/848. New-task quality is pending because no strong final reasoner or evaluator run was available; no quality value is invented.",
+  "candidates": [
+    {
+      "task_id": "video_mme:795",
+      "video_duration_s": 2495.13,
+      "split_policy": "fixed_uniform_three_way",
+      "raw_bytes": 282444860,
+      "local_preprocessing_sum_ms": 592164.8765,
+      "local_preprocessing_critical_ms": 201818.531,
+      "critical_worker_id": "a4",
+      "reduced_bytes": 4060,
+      "reduced_tokens": 1104,
+      "reduction_factor": 69567.7,
+      "saved_bytes": 282440800,
+      "saved_bytes_per_critical_second": 1399469.2,
+      "evidence_stability": {
+        "status": "stable_within_world",
+        "observations": 6,
+        "details": "H1 is 4060 bytes in all three repeats; H2 is 4374 bytes in all three repeats. World-specific semantic wording differs."
+      },
+      "quality": {
+        "status": "passed_existing_gate",
+        "score": 0.666667,
+        "note": "Already admitted as the calibration anchor; not a new tomorrow candidate."
+      }
+    },
+    {
+      "task_id": "video_mme:848",
+      "video_duration_s": 2037.783,
+      "split_policy": "fixed_uniform_three_way",
+      "raw_bytes": 160086562,
+      "local_preprocessing_sum_ms": 402065.4953,
+      "local_preprocessing_critical_ms": 139274.8946,
+      "critical_worker_id": "a4",
+      "reduced_bytes": 4087,
+      "reduced_tokens": 1247,
+      "reduction_factor": 39169.7,
+      "saved_bytes": 160082475,
+      "saved_bytes_per_critical_second": 1149428.1,
+      "evidence_stability": {
+        "status": "unstable_H1",
+        "observations": 6,
+        "details": "H1 reduced sizes are 4087/4292/3458 bytes and quality is 3/3, 3/3, 1/3; H2 is 3698 bytes in all repeats."
+      },
+      "quality": {
+        "status": "failed_existing_gate",
+        "score": null,
+        "note": "Retained for quality-risk analysis only; not recommended for admission."
+      }
+    },
+    {
+      "task_id": "video_mme:857",
+      "video_duration_s": 1989.038,
+      "split_policy": "fixed_uniform_three_way",
+      "raw_bytes": 215488462,
+      "local_preprocessing_sum_ms": 415527.7989,
+      "local_preprocessing_critical_ms": 179527.425,
+      "critical_worker_id": "a4",
+      "reduced_bytes": 7200,
+      "reduced_tokens": 1674,
+      "reduction_factor": 29928.95,
+      "saved_bytes": 215481262,
+      "saved_bytes_per_critical_second": 1200269.3,
+      "evidence_stability": {
+        "status": "two_of_three_exact",
+        "observations": 3,
+        "details": "A4 evidence is byte-identical 3/3. A5 and A28 differ in repeat 1, then are byte-identical in repeats 2/3; total evidence is 7035/7200/7200 bytes."
+      },
+      "quality": {
+        "status": "pending_strong_evaluator",
+        "score": null
+      }
+    },
+    {
+      "task_id": "video_mme:747",
+      "video_duration_s": 3277.643,
+      "split_policy": "fixed_uniform_three_way",
+      "raw_bytes": 330076886,
+      "local_preprocessing_sum_ms": 339434.078,
+      "local_preprocessing_critical_ms": 127512.0033,
+      "critical_worker_id": "a28",
+      "reduced_bytes": 3739,
+      "reduced_tokens": 1194,
+      "reduction_factor": 88279.46,
+      "saved_bytes": 330073147,
+      "saved_bytes_per_critical_second": 2588565.1,
+      "evidence_stability": {
+        "status": "unavailable_single_profile",
+        "observations": 1
+      },
+      "quality": {
+        "status": "pending_strong_evaluator",
+        "score": null
+      }
+    },
+    {
+      "task_id": "video_mme:865",
+      "video_duration_s": 2527.885,
+      "split_policy": "fixed_uniform_three_way",
+      "raw_bytes": 123466172,
+      "local_preprocessing_sum_ms": 394206.4421,
+      "local_preprocessing_critical_ms": 137803.0489,
+      "critical_worker_id": "a28",
+      "reduced_bytes": 3075,
+      "reduced_tokens": 953,
+      "reduction_factor": 40151.6,
+      "saved_bytes": 123463097,
+      "saved_bytes_per_critical_second": 895935.9,
+      "evidence_stability": {
+        "status": "unavailable_single_profile",
+        "observations": 1
+      },
+      "quality": {
+        "status": "pending_strong_evaluator",
+        "score": null
+      }
+    }
+  ],
+  "recommended_for_next_4090_window": [
+    {
+      "task_id": "video_mme:747",
+      "reason": "Largest measured raw payload (330 MB), highest byte reduction factor (88279x), and lowest measured critical preprocessing cost per saved byte; counting and full-game evidence make quality validation nontrivial."
+    },
+    {
+      "task_id": "video_mme:857",
+      "reason": "Already staged, three Jetson repeats completed, 215 MB reduced to about 7.2 KB, and questions require daily-life ordering plus separated events."
+    }
+  ],
+  "deferred": [
+    {
+      "task_id": "video_mme:865",
+      "reason": "Useful temporal/counting task, but lower absolute saved bytes and only one evidence profile so far."
+    },
+    {
+      "task_id": "video_mme:848",
+      "reason": "Existing strict quality gate failure."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+mode: jetson_only_local_profile
+task_id: video_mme:747
+strong_node_used: false
+operators:
+- sample_frames
+- invoke_model

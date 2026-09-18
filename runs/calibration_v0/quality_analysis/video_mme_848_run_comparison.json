@@ -1,0 +1,661 @@
+{
+  "schema_version": "calibration-v0-quality-run-comparison-v1",
+  "scope": {
+    "task_id": "video_mme:848",
+    "world_id": "H1_distributed_constrained",
+    "workflow_id": "local_reduction",
+    "completed_run_count": 3,
+    "source_raw_runs": "../raw_runs.jsonl",
+    "source_raw_runs_sha256_before_analysis": "1D03098F5D3C7B8590A2BD32DFA8884C58E21BAE8BCBE789B6C24040447732C8",
+    "constraints": [
+      "No rerun",
+      "No evidence editing",
+      "No gold-guided model call",
+      "No evaluator change",
+      "No 4090 connection or use"
+    ]
+  },
+  "taxonomy": [
+    "temporal evidence missed",
+    "frame/clip selection missed",
+    "OCR/detail loss",
+    "local VLM perception error",
+    "semantic reduction information loss",
+    "final reasoning error",
+    "stochastic output variance",
+    "other"
+  ],
+  "task": {
+    "instruction": "Watch the complete video and answer all three multiple-choice questions using evidence across the video. 848-1: In which order do these chapters occur: (a) Scaling Up One Plus One; (b) Public Eye; (c) Broken Trust; (d) Revenge? A: badc. B: dbca. C: abcd. D: acdb. 848-2: How many major setbacks are discussed? A: 0. B: 2. C: 4. D: 6. 848-3: What triggered the 1971 name change to Nike? A: Negotiations with Onitsuka failed. B: Blue Ribbon went bankrupt. C: The Olympics required it. D: Phil disliked the old name. Return only a JSON object mapping each question ID to one option letter, for example {\"848-1\":\"A\",\"848-2\":\"B\",\"848-3\":\"C\"}.",
+    "evaluator_id": "video_mme_multiple_choice",
+    "gold": {
+      "848-1": "D",
+      "848-2": "C",
+      "848-3": "A"
+    },
+    "questions": [
+      {
+        "question_id": "848-1",
+        "question": "In which order do the chapters occur?",
+        "choices": {
+          "A": "badc",
+          "B": "dbca",
+          "C": "abcd",
+          "D": "acdb"
+        },
+        "required_evidence": "The four named chapter/title occurrences and their chronology across the video.",
+        "gold": "D"
+      },
+      {
+        "question_id": "848-2",
+        "question": "How many major setbacks are discussed?",
+        "choices": {
+          "A": "0",
+          "B": "2",
+          "C": "4",
+          "D": "6"
+        },
+        "required_evidence": "A complete enumeration or reliable count of all major setbacks.",
+        "gold": "C"
+      },
+      {
+        "question_id": "848-3",
+        "question": "What triggered the 1971 name change to Nike?",
+        "choices": {
+          "A": "Negotiations with Onitsuka failed",
+          "B": "Blue Ribbon went bankrupt",
+          "C": "The Olympics required it",
+          "D": "Phil disliked the old name"
+        },
+        "required_evidence": "Direct evidence that failed Onitsuka negotiations triggered the change.",
+        "gold": "A"
+      }
+    ]
+  },
+  "cross_run_controls": {
+    "fixed_uniform_sample_count_per_chunk": 12,
+    "fixed_frame_width": 320,
+    "contact_sheet_identity": {
+      "A4": {
+        "sha256": "6e162da2881a3c761f9542501b712a47fbf8ea711ac0a89be42e8ae90b75d3ab",
+        "identical_across_repeats": true
+      },
+      "A5": {
+        "sha256": "091ff77b9c9c4ecdb2e4ca18b481576d3a2487e1d06081615adc0e9bfdab9",
+        "identical_across_repeats": true
+      },
+      "A28": {
+        "sha256": "038703ba63b71e39435b3072680cb0948bc776e9ac499a9b6f3a87c914343726",
+        "identical_across_repeats": true
+      }
+    },
+    "evidence_identity": {
+      "A4": "r1 == r2; r3 is a shorter wording variant with the same observed OCR facts and the same explicit uncertainty",
+      "A5": "r1 == r3 byte-for-byte; r2 is a more detailed wording variant with the same semantic gist",
+      "A28": "r1 == r2 == r3 byte-for-byte"
+    }
+  },
+  "runs": [
+    {
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd",
+      "repeat": 1,
+      "status": "completed",
+      "measured_quality": {
+        "score": 1,
+        "passed": true,
+        "evaluator_id": "video_mme_multiple_choice",
+        "details": {
+          "correct_count": 3,
+          "question_count": 3,
+          "parse_valid": true
+        }
+      },
+      "e2e_latency_ms": 153872.5589599926,
+      "final_reasoning_service_ms": 1869.0799829782918,
+      "reduced_bytes": 4087,
+      "final_answer_raw": "{\n  \"848-1\": \"D\",\n  \"848-2\": \"C\",\n  \"848-3\": \"A\"\n}",
+      "final_answer_parsed": {
+        "848-1": "D",
+        "848-2": "C",
+        "848-3": "A"
+      },
+      "per_question": [
+        {
+          "question_id": "848-1",
+          "predicted": "D",
+          "gold": "D",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: no artifact identifies all four requested chapter titles or their order"
+        },
+        {
+          "question_id": "848-2",
+          "predicted": "C",
+          "gold": "C",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: no artifact enumerates or explicitly counts four major setbacks"
+        },
+        {
+          "question_id": "848-3",
+          "predicted": "A",
+          "gold": "A",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: chunks 1-2 mention Blue Ribbon/Onitsuka and a partnership, but no artifact states that failed negotiations triggered the 1971 name change"
+        }
+      ],
+      "local_semantic_evidence": [
+        {
+          "chunk": 1,
+          "site_id": "A4",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-5aa1872c8fe3441aa2f74b572078b055",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a4/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-5aa1872c8fe3441aa2f74b572078b055",
+          "bytes": 1552,
+          "sha256": "48eca44bd12d7db238a864ba16e2d9d2a8bb920ab837095a06a78e1da7672cff",
+          "source_frame_contact_sheet_sha256": "6e162da2881a3c761f9542501b712a47fbf8ea711ac0a89be42e8ae90b75d3ab",
+          "raw_text": "{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: No text or context.\",\n    \"sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.\",\n    \"sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.\",\n    \"sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.\",\n    \"sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.\",\n    \"sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.\",\n    \"sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.\",\n    \"sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.\",\n    \"sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.\",\n    \"sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp.\"\n  ],\n  \"uncertainty\": \"No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions.\"\n}",
+          "parsed_content": {
+            "chunk": "1",
+            "observations": [
+              "sample 01 @ 28 sec: No text or context.",
+              "sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.",
+              "sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.",
+              "sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.",
+              "sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.",
+              "sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.",
+              "sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.",
+              "sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.",
+              "sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.",
+              "sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.",
+              "sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.",
+              "sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp."
+            ],
+            "uncertainty": "No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions."
+          }
+        },
+        {
+          "chunk": 2,
+          "site_id": "A5",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-56be16b4ee6d4930a008646cfa594c0b",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a5/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-56be16b4ee6d4930a008646cfa594c0b",
+          "bytes": 1419,
+          "sha256": "5f1720390165168f8dda515802d92aea059626965f4eabd3a225d8dd10b605ce",
+          "source_frame_contact_sheet_sha256": "091ff77b9c9c4ecdb2e4ca18b481576d3a2487e1d06081615adc0e9bfdab9",
+          "raw_text": "{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown.\",\n    \"Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.\",\n    \"Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.\",\n    \"Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos is shown.\"\n  ],\n  \"uncertainty\": \"No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger.\"\n}",
+          "parsed_content": {
+            "chunk": "2",
+            "observations": [
+              "Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.",
+              "Sample 02 @ 85 sec: A man in a suit and purple cap is shown.",
+              "Sample 03 @ 142 sec: A hand is shown counting money.",
+              "Sample 04 @ 198 sec: A woman in a suit is shown.",
+              "Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.",
+              "Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.",
+              "Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.",
+              "Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.",
+              "Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.",
+              "Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.",
+              "Sample 11 @ 595 sec: A bald man in a suit is shown.",
+              "Sample 12 @ 652 sec: A world map with Nike logos is shown."
+            ],
+            "uncertainty": "No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger."
+          }
+        },
+        {
+          "chunk": 3,
+          "site_id": "A28",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-acecf028d8334f62b132a081586061f7",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a28/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r1-962377bd/output-acecf028d8334f62b132a081586061f7",
+          "bytes": 1116,
+          "sha256": "4137c534aca5134e985896a9e6c5eed943c5f06462056e5d1b29c0cfc7cca1b5",
+          "source_frame_contact_sheet_sha256": "038703ba63b71e39435b3072680cb0948bc776e9ac499a9b6f3a87c914343726",
+          "raw_text": "{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}",
+          "parsed_content": {
+            "chunk": "3",
+            "observations": [
+              "Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)",
+              "Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'",
+              "Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back",
+              "Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below",
+              "Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'",
+              "Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'",
+              "Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot",
+              "Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest"
+            ],
+            "uncertainty": "No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible."
+          }
+        }
+      ],
+      "final_reasoning_input": {
+        "reconstruction": "exact message structure from OpenAICompatibleBackend.infer; evidence bytes read from the source Orin artifact stores; no model call was made",
+        "system_message": {
+          "role": "system",
+          "content": "Reason over the three chronological evidence artifacts. Reconcile events across time spans, respect uncertainty, and return only the exact JSON object requested by the task, without explanation."
+        },
+        "user_message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Watch the complete video and answer all three multiple-choice questions using evidence across the video. 848-1: In which order do these chapters occur: (a) Scaling Up One Plus One; (b) Public Eye; (c) Broken Trust; (d) Revenge? A: badc. B: dbca. C: abcd. D: acdb. 848-2: How many major setbacks are discussed? A: 0. B: 2. C: 4. D: 6. 848-3: What triggered the 1971 name change to Nike? A: Negotiations with Onitsuka failed. B: Blue Ribbon went bankrupt. C: The Olympics required it. D: Phil disliked the old name. Return only a JSON object mapping each question ID to one option letter, for example {\"848-1\":\"A\",\"848-2\":\"B\",\"848-3\":\"C\"}."
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-5aa1872c8fe3441aa2f74b572078b055:\n{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: No text or context.\",\n    \"sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.\",\n    \"sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.\",\n    \"sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.\",\n    \"sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.\",\n    \"sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.\",\n    \"sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.\",\n    \"sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.\",\n    \"sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.\",\n    \"sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp.\"\n  ],\n  \"uncertainty\": \"No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-56be16b4ee6d4930a008646cfa594c0b:\n{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown.\",\n    \"Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.\",\n    \"Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.\",\n    \"Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos is shown.\"\n  ],\n  \"uncertainty\": \"No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-acecf028d8334f62b132a081586061f7:\n{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}"
+            }
+          ]
+        }
+      },
+      "attribution": {
+        "primary": null,
+        "contributing": [],
+        "shared_upstream_risks": [
+          "frame/clip selection missed",
+          "semantic reduction information loss"
+        ],
+        "outcome_label": "correct_but_not_semantically_sufficient",
+        "explanation": "All three answers match gold, but the preserved evidence explicitly says it lacks direct support for chapter order, setback count, and name-change trigger. Treat this as a correct outcome under insufficient evidence, not proof that local semantic evidence was sufficient."
+      }
+    },
+    {
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b",
+      "repeat": 2,
+      "status": "completed",
+      "measured_quality": {
+        "score": 1,
+        "passed": true,
+        "evaluator_id": "video_mme_multiple_choice",
+        "details": {
+          "correct_count": 3,
+          "question_count": 3,
+          "parse_valid": true
+        }
+      },
+      "e2e_latency_ms": 157365.83362601232,
+      "final_reasoning_service_ms": 1927.703817957081,
+      "reduced_bytes": 4292,
+      "final_answer_raw": "{\n  \"848-1\": \"D\",\n  \"848-2\": \"C\",\n  \"848-3\": \"A\"\n}",
+      "final_answer_parsed": {
+        "848-1": "D",
+        "848-2": "C",
+        "848-3": "A"
+      },
+      "per_question": [
+        {
+          "question_id": "848-1",
+          "predicted": "D",
+          "gold": "D",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: no artifact identifies all four requested chapter titles or their order"
+        },
+        {
+          "question_id": "848-2",
+          "predicted": "C",
+          "gold": "C",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: no artifact enumerates or explicitly counts four major setbacks"
+        },
+        {
+          "question_id": "848-3",
+          "predicted": "A",
+          "gold": "A",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: chunks 1-2 mention Blue Ribbon/Onitsuka and a partnership, but no artifact states that failed negotiations triggered the 1971 name change"
+        }
+      ],
+      "local_semantic_evidence": [
+        {
+          "chunk": 1,
+          "site_id": "A4",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-80b2168ae05f4de8848d53261b0ad640",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a4/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-80b2168ae05f4de8848d53261b0ad640",
+          "bytes": 1552,
+          "sha256": "48eca44bd12d7db238a864ba16e2d9d2a8bb920ab837095a06a78e1da7672cff",
+          "source_frame_contact_sheet_sha256": "6e162da2881a3c761f9542501b712a47fbf8ea711ac0a89be42e8ae90b75d3ab",
+          "raw_text": "{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: No text or context.\",\n    \"sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.\",\n    \"sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.\",\n    \"sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.\",\n    \"sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.\",\n    \"sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.\",\n    \"sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.\",\n    \"sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.\",\n    \"sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.\",\n    \"sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp.\"\n  ],\n  \"uncertainty\": \"No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions.\"\n}",
+          "parsed_content": {
+            "chunk": "1",
+            "observations": [
+              "sample 01 @ 28 sec: No text or context.",
+              "sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.",
+              "sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.",
+              "sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.",
+              "sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.",
+              "sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.",
+              "sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.",
+              "sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.",
+              "sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.",
+              "sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.",
+              "sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.",
+              "sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp."
+            ],
+            "uncertainty": "No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions."
+          }
+        },
+        {
+          "chunk": 2,
+          "site_id": "A5",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-1331556b805d4d85abbb2a8a5c337828",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a5/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-1331556b805d4d85abbb2a8a5c337828",
+          "bytes": 1624,
+          "sha256": "76584d8c0ab547d828c7f6a9f1e45f61dfd7e93757fbc62883b22ef002309698",
+          "source_frame_contact_sheet_sha256": "091ff77b9c9c4ecdb2e4ca18b481576d3a2487e1d06081615adc0e9bfdab9",
+          "raw_text": "{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown, with a man in a suit holding a knife in the background.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money on a wooden table.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown standing in a room with a table and a plate of food.\",\n    \"Sample 05 @ 255 sec: A white shoe with blue and red stripes is shown with text: 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES'.\",\n    \"Sample 06 @ 312 sec: A large warehouse filled with shoes is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text: 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and a shoe, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit in a room with a desk and a chair.\",\n    \"Sample 10 @ 538 sec: A white shoe with blue and red stripes is shown again.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown standing in a room with lamps.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos on continents is shown.\"\n  ],\n  \"uncertainty\": \"No direct textual evidence for chapter order, number of setbacks, or trigger for the 1971 name change is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, shoe design, and global expansion, but does not explicitly mention the chapters or setbacks referenced in the questions.\"\n}",
+          "parsed_content": {
+            "chunk": "2",
+            "observations": [
+              "Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.",
+              "Sample 02 @ 85 sec: A man in a suit and purple cap is shown, with a man in a suit holding a knife in the background.",
+              "Sample 03 @ 142 sec: A hand is shown counting money on a wooden table.",
+              "Sample 04 @ 198 sec: A woman in a suit is shown standing in a room with a table and a plate of food.",
+              "Sample 05 @ 255 sec: A white shoe with blue and red stripes is shown with text: 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES'.",
+              "Sample 06 @ 312 sec: A large warehouse filled with shoes is shown.",
+              "Sample 07 @ 368 sec: A man in a tuxedo is shown with text: 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.",
+              "Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and a shoe, indicating a partnership.",
+              "Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit in a room with a desk and a chair.",
+              "Sample 10 @ 538 sec: A white shoe with blue and red stripes is shown again.",
+              "Sample 11 @ 595 sec: A bald man in a suit is shown standing in a room with lamps.",
+              "Sample 12 @ 652 sec: A world map with Nike logos on continents is shown."
+            ],
+            "uncertainty": "No direct textual evidence for chapter order, number of setbacks, or trigger for the 1971 name change is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, shoe design, and global expansion, but does not explicitly mention the chapters or setbacks referenced in the questions."
+          }
+        },
+        {
+          "chunk": 3,
+          "site_id": "A28",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-cf26842d5dec427184d3f7dd87f36c52",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a28/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r2-10c58b2b/output-cf26842d5dec427184d3f7dd87f36c52",
+          "bytes": 1116,
+          "sha256": "4137c534aca5134e985896a9e6c5eed943c5f06462056e5d1b29c0cfc7cca1b5",
+          "source_frame_contact_sheet_sha256": "038703ba63b71e39435b3072680cb0948bc776e9ac499a9b6f3a87c914343726",
+          "raw_text": "{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}",
+          "parsed_content": {
+            "chunk": "3",
+            "observations": [
+              "Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)",
+              "Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'",
+              "Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back",
+              "Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below",
+              "Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'",
+              "Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'",
+              "Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot",
+              "Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest"
+            ],
+            "uncertainty": "No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible."
+          }
+        }
+      ],
+      "final_reasoning_input": {
+        "reconstruction": "exact message structure from OpenAICompatibleBackend.infer; evidence bytes read from the source Orin artifact stores; no model call was made",
+        "system_message": {
+          "role": "system",
+          "content": "Reason over the three chronological evidence artifacts. Reconcile events across time spans, respect uncertainty, and return only the exact JSON object requested by the task, without explanation."
+        },
+        "user_message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Watch the complete video and answer all three multiple-choice questions using evidence across the video. 848-1: In which order do these chapters occur: (a) Scaling Up One Plus One; (b) Public Eye; (c) Broken Trust; (d) Revenge? A: badc. B: dbca. C: abcd. D: acdb. 848-2: How many major setbacks are discussed? A: 0. B: 2. C: 4. D: 6. 848-3: What triggered the 1971 name change to Nike? A: Negotiations with Onitsuka failed. B: Blue Ribbon went bankrupt. C: The Olympics required it. D: Phil disliked the old name. Return only a JSON object mapping each question ID to one option letter, for example {\"848-1\":\"A\",\"848-2\":\"B\",\"848-3\":\"C\"}."
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-80b2168ae05f4de8848d53261b0ad640:\n{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: No text or context.\",\n    \"sample 02 @ 85 sec: Text 'JOURNALISM biggest shoe company' over a grayscale image of a shoe.\",\n    \"sample 03 @ 142 sec: A purple running shoe with 'running shoes' text and small Nike logos on the tongue.\",\n    \"sample 04 @ 198 sec: A person in a blue shirt pointing to a large book with text 'They getting jobs in Honolulu'.\",\n    \"sample 05 @ 255 sec: A sign reading 'BLUE RIBBON SPORTS TIGER SHOES' with a '$500' graphic.\",\n    \"sample 06 @ 312 sec: A man in an orange suit with 'Onitsuka Tiger' logo and text 'SELLING' on a sign.\",\n    \"sample 07 @ 368 sec: A man in a suit with text 'PHIL DIDN'T HAVE A COMPANY'.\",\n    \"sample 08 @ 425 sec: A man with text 'TO BECOME A REALITY... UNITED STATES' and a map of the US.\",\n    \"sample 09 @ 482 sec: A man in a suit with a 'BLUE RIBBON' logo and a 'TIGER SHOES' sign.\",\n    \"sample 10 @ 538 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 11 @ 595 sec: A stadium with 'AND FANS' text and a 'BLUE RIBBON' logo on a desk with a lamp.\",\n    \"sample 12 @ 652 sec: A 'BLUE RIBBON' logo on a desk with a lamp.\"\n  ],\n  \"uncertainty\": \"No direct textual or visual evidence in this chunk confirms the order of chapters, the number of setbacks, or the trigger for the 1971 name change. The video appears to be a montage of promotional or historical imagery related to Nike's origins, but no explicit timestamps or narrative markers are provided to answer the questions.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-1331556b805d4d85abbb2a8a5c337828:\n{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown, with a man in a suit holding a knife in the background.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money on a wooden table.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown standing in a room with a table and a plate of food.\",\n    \"Sample 05 @ 255 sec: A white shoe with blue and red stripes is shown with text: 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES'.\",\n    \"Sample 06 @ 312 sec: A large warehouse filled with shoes is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text: 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and a shoe, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit in a room with a desk and a chair.\",\n    \"Sample 10 @ 538 sec: A white shoe with blue and red stripes is shown again.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown standing in a room with lamps.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos on continents is shown.\"\n  ],\n  \"uncertainty\": \"No direct textual evidence for chapter order, number of setbacks, or trigger for the 1971 name change is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, shoe design, and global expansion, but does not explicitly mention the chapters or setbacks referenced in the questions.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-cf26842d5dec427184d3f7dd87f36c52:\n{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}"
+            }
+          ]
+        }
+      },
+      "attribution": {
+        "primary": null,
+        "contributing": [],
+        "shared_upstream_risks": [
+          "frame/clip selection missed",
+          "semantic reduction information loss"
+        ],
+        "outcome_label": "correct_but_not_semantically_sufficient",
+        "explanation": "All three answers match gold, but the preserved evidence explicitly says it lacks direct support for chapter order, setback count, and name-change trigger. Treat this as a correct outcome under insufficient evidence, not proof that local semantic evidence was sufficient."
+      }
+    },
+    {
+      "run_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd",
+      "repeat": 3,
+      "status": "completed",
+      "measured_quality": {
+        "score": 0.3333333333333333,
+        "passed": false,
+        "evaluator_id": "video_mme_multiple_choice",
+        "details": {
+          "correct_count": 1,
+          "question_count": 3,
+          "parse_valid": true
+        }
+      },
+      "e2e_latency_ms": 153749.99223300256,
+      "final_reasoning_service_ms": 1838.0648319725879,
+      "reduced_bytes": 3458,
+      "final_answer_raw": "{\n  \"848-1\": \"C\",\n  \"848-2\": \"C\",\n  \"848-3\": \"D\"\n}",
+      "final_answer_parsed": {
+        "848-1": "C",
+        "848-2": "C",
+        "848-3": "D"
+      },
+      "per_question": [
+        {
+          "question_id": "848-1",
+          "predicted": "C",
+          "gold": "D",
+          "correct": false,
+          "semantic_support_assessment": "insufficient: no artifact identifies all four requested chapter titles or their order"
+        },
+        {
+          "question_id": "848-2",
+          "predicted": "C",
+          "gold": "C",
+          "correct": true,
+          "semantic_support_assessment": "insufficient: no artifact enumerates or explicitly counts four major setbacks"
+        },
+        {
+          "question_id": "848-3",
+          "predicted": "D",
+          "gold": "A",
+          "correct": false,
+          "semantic_support_assessment": "insufficient: chunks 1-2 mention Blue Ribbon/Onitsuka and a partnership, but no artifact states that failed negotiations triggered the 1971 name change"
+        }
+      ],
+      "local_semantic_evidence": [
+        {
+          "chunk": 1,
+          "site_id": "A4",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-3b36e31741ab4a929cf8d1269da088df",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a4/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-3b36e31741ab4a929cf8d1269da088df",
+          "bytes": 923,
+          "sha256": "7568d45be11d40be266b54c530b58b2ffa3c795fdc0a09bd0d9f926641664317",
+          "source_frame_contact_sheet_sha256": "6e162da2881a3c761f9542501b712a47fbf8ea711ac0a89be42e8ae90b75d3ab",
+          "raw_text": "{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: JOURNALISM biggest shoe company\",\n    \"sample 02 @ 85 sec: JOURNALISM biggest shoe company\",\n    \"sample 03 @ 142 sec: running shoes\",\n    \"sample 04 @ 198 sec: They getting jobs in Honolulu\",\n    \"sample 05 @ 255 sec: BLUE RIBBON SPORTS TIGER SHOES\",\n    \"sample 06 @ 312 sec: Onitsuka Tiger\",\n    \"sample 07 @ 368 sec: PHIL DIDN'T HAVE A COMPANY\",\n    \"sample 08 @ 425 sec: TO BECOME A REALITY UNITED STATES\",\n    \"sample 09 @ 482 sec: $500\",\n    \"sample 10 @ 538 sec: AND FANS\",\n    \"sample 11 @ 595 sec: BLUE RIBBON SPORTS\",\n    \"sample 12 @ 652 sec: BLUE RIBBON SPORTS\"\n  ],\n  \"uncertainty\": \"No explicit chapter titles or timestamps for the three chapters (Scaling Up One Plus One, Public Eye, Broken Trust, Revenge) are provided in this chunk. No explicit count of major setbacks is provided. No explicit trigger for the 1971 name change is provided.\"\n}",
+          "parsed_content": {
+            "chunk": "1",
+            "observations": [
+              "sample 01 @ 28 sec: JOURNALISM biggest shoe company",
+              "sample 02 @ 85 sec: JOURNALISM biggest shoe company",
+              "sample 03 @ 142 sec: running shoes",
+              "sample 04 @ 198 sec: They getting jobs in Honolulu",
+              "sample 05 @ 255 sec: BLUE RIBBON SPORTS TIGER SHOES",
+              "sample 06 @ 312 sec: Onitsuka Tiger",
+              "sample 07 @ 368 sec: PHIL DIDN'T HAVE A COMPANY",
+              "sample 08 @ 425 sec: TO BECOME A REALITY UNITED STATES",
+              "sample 09 @ 482 sec: $500",
+              "sample 10 @ 538 sec: AND FANS",
+              "sample 11 @ 595 sec: BLUE RIBBON SPORTS",
+              "sample 12 @ 652 sec: BLUE RIBBON SPORTS"
+            ],
+            "uncertainty": "No explicit chapter titles or timestamps for the three chapters (Scaling Up One Plus One, Public Eye, Broken Trust, Revenge) are provided in this chunk. No explicit count of major setbacks is provided. No explicit trigger for the 1971 name change is provided."
+          }
+        },
+        {
+          "chunk": 2,
+          "site_id": "A5",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-86f7d54f7faf417a81d54d8efeb864f2",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a5/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-86f7d54f7faf417a81d54d8efeb864f2",
+          "bytes": 1419,
+          "sha256": "5f1720390165168f8dda515802d92aea059626965f4eabd3a225d8dd10b605ce",
+          "source_frame_contact_sheet_sha256": "091ff77b9c9c4ecdb2e4ca18b481576d3a2487e1d06081615adc0e9bfdab9",
+          "raw_text": "{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown.\",\n    \"Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.\",\n    \"Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.\",\n    \"Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos is shown.\"\n  ],\n  \"uncertainty\": \"No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger.\"\n}",
+          "parsed_content": {
+            "chunk": "2",
+            "observations": [
+              "Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.",
+              "Sample 02 @ 85 sec: A man in a suit and purple cap is shown.",
+              "Sample 03 @ 142 sec: A hand is shown counting money.",
+              "Sample 04 @ 198 sec: A woman in a suit is shown.",
+              "Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.",
+              "Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.",
+              "Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.",
+              "Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.",
+              "Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.",
+              "Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.",
+              "Sample 11 @ 595 sec: A bald man in a suit is shown.",
+              "Sample 12 @ 652 sec: A world map with Nike logos is shown."
+            ],
+            "uncertainty": "No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger."
+          }
+        },
+        {
+          "chunk": 3,
+          "site_id": "A28",
+          "artifact_id": "calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-dde7b06110ae4af693430bf3edeafa87",
+          "remote_source_path": "/mnt/ssd/infra-aware-mas/data/calibration_v0/a28/artifacts/calibration-v0-video_mme-848-H1_distributed_constrained-local_reduction-r3-dfe373cd/output-dde7b06110ae4af693430bf3edeafa87",
+          "bytes": 1116,
+          "sha256": "4137c534aca5134e985896a9e6c5eed943c5f06462056e5d1b29c0cfc7cca1b5",
+          "source_frame_contact_sheet_sha256": "038703ba63b71e39435b3072680cb0948bc776e9ac499a9b6f3a87c914343726",
+          "raw_text": "{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}",
+          "parsed_content": {
+            "chunk": "3",
+            "observations": [
+              "Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)",
+              "Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'",
+              "Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back",
+              "Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below",
+              "Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'",
+              "Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'",
+              "Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot",
+              "Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest"
+            ],
+            "uncertainty": "No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible."
+          }
+        }
+      ],
+      "final_reasoning_input": {
+        "reconstruction": "exact message structure from OpenAICompatibleBackend.infer; evidence bytes read from the source Orin artifact stores; no model call was made",
+        "system_message": {
+          "role": "system",
+          "content": "Reason over the three chronological evidence artifacts. Reconcile events across time spans, respect uncertainty, and return only the exact JSON object requested by the task, without explanation."
+        },
+        "user_message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "Watch the complete video and answer all three multiple-choice questions using evidence across the video. 848-1: In which order do these chapters occur: (a) Scaling Up One Plus One; (b) Public Eye; (c) Broken Trust; (d) Revenge? A: badc. B: dbca. C: abcd. D: acdb. 848-2: How many major setbacks are discussed? A: 0. B: 2. C: 4. D: 6. 848-3: What triggered the 1971 name change to Nike? A: Negotiations with Onitsuka failed. B: Blue Ribbon went bankrupt. C: The Olympics required it. D: Phil disliked the old name. Return only a JSON object mapping each question ID to one option letter, for example {\"848-1\":\"A\",\"848-2\":\"B\",\"848-3\":\"C\"}."
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-3b36e31741ab4a929cf8d1269da088df:\n{\n  \"chunk\": \"1\",\n  \"observations\": [\n    \"sample 01 @ 28 sec: JOURNALISM biggest shoe company\",\n    \"sample 02 @ 85 sec: JOURNALISM biggest shoe company\",\n    \"sample 03 @ 142 sec: running shoes\",\n    \"sample 04 @ 198 sec: They getting jobs in Honolulu\",\n    \"sample 05 @ 255 sec: BLUE RIBBON SPORTS TIGER SHOES\",\n    \"sample 06 @ 312 sec: Onitsuka Tiger\",\n    \"sample 07 @ 368 sec: PHIL DIDN'T HAVE A COMPANY\",\n    \"sample 08 @ 425 sec: TO BECOME A REALITY UNITED STATES\",\n    \"sample 09 @ 482 sec: $500\",\n    \"sample 10 @ 538 sec: AND FANS\",\n    \"sample 11 @ 595 sec: BLUE RIBBON SPORTS\",\n    \"sample 12 @ 652 sec: BLUE RIBBON SPORTS\"\n  ],\n  \"uncertainty\": \"No explicit chapter titles or timestamps for the three chapters (Scaling Up One Plus One, Public Eye, Broken Trust, Revenge) are provided in this chunk. No explicit count of major setbacks is provided. No explicit trigger for the 1971 name change is provided.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-86f7d54f7faf417a81d54d8efeb864f2:\n{\n  \"chunk\": \"2\",\n  \"observations\": [\n    \"Sample 01 @ 28 sec: Text overlay reads 'BOWERMANN WAS BASICALLY NOW DESIGNING ONI'.\",\n    \"Sample 02 @ 85 sec: A man in a suit and purple cap is shown.\",\n    \"Sample 03 @ 142 sec: A hand is shown counting money.\",\n    \"Sample 04 @ 198 sec: A woman in a suit is shown.\",\n    \"Sample 05 @ 255 sec: Text overlay reads 'THEY RESPECTED THE QUALITY OF THE JAPANESE BRAND' and 'AND OF COURSE IT SEEMED WIN-WIN FOR BOTH SIDES', with an Onitsuka Tiger shoe image.\",\n    \"Sample 06 @ 312 sec: A large warehouse or storage area with many shelves is shown.\",\n    \"Sample 07 @ 368 sec: A man in a tuxedo is shown with text overlay 'AND IT WAS BECOMING INCREASINGLY CLEAR THAT'.\",\n    \"Sample 08 @ 425 sec: A diagram shows 'Onitsuka Tiger' with a handshake and two houses, indicating a partnership.\",\n    \"Sample 09 @ 482 sec: A man in a suit is speaking to a woman in a suit.\",\n    \"Sample 10 @ 538 sec: A close-up of an Onitsuka Tiger shoe is shown.\",\n    \"Sample 11 @ 595 sec: A bald man in a suit is shown.\",\n    \"Sample 12 @ 652 sec: A world map with Nike logos is shown.\"\n  ],\n  \"uncertainty\": \"No direct evidence for chapter order, number of setbacks, or 1971 name change trigger is present in this chunk. The chunk focuses on the Onitsuka Tiger partnership, design changes, and global expansion, but does not explicitly mention the chapters, setbacks, or the name change trigger.\"\n}"
+            },
+            {
+              "type": "text",
+              "text": "Input artifact output-dde7b06110ae4af693430bf3edeafa87:\n{\n  \"chunk\": \"3\",\n  \"observations\": [\n    \"Sample 05 @ 254 sec: Chapter 1: Turning Controversy into Millions (title card)\",\n    \"Sample 06 @ 311 sec: Text overlay: 'NIKE IS SIMPLY AN INCREDIBLE BUSINESS SUCCESS STORY'\",\n    \"Sample 07 @ 367 sec: Image of factory workers in uniform, with a purple overlay on a person's back\",\n    \"Sample 08 @ 424 sec: TV screen showing a news anchor with 'FORCED LABOUR' and 'NIKE' logo, with 'EXPLOITATION' text below\",\n    \"Sample 09 @ 480 sec: Web page from 'Business & Human Rights Resource Centre' with article headline: 'Human rights violations off the rack; Dutch and US brands allegedly rely on forced labor'\",\n    \"Sample 10 @ 536 sec: Chapter 1 title card again, with Nike logo and text 'TURNING CONTROVERSY INTO MILLIONS'\",\n    \"Sample 11 @ 593 sec: Close-up of a white Nike shoe on a person's foot\",\n    \"Sample 12 @ 649 sec: Black and white images of two men, one with a Nike logo on his chest\"\n  ],\n  \"uncertainty\": \"No explicit chapter order or count of setbacks is provided. No direct evidence of the 1971 name change or Phil's dislike of the old name is visible.\"\n}"
+            }
+          ]
+        }
+      },
+      "attribution": {
+        "primary": "final reasoning error",
+        "contributing": [
+          "stochastic output variance"
+        ],
+        "shared_upstream_risks": [
+          "frame/clip selection missed",
+          "semantic reduction information loss"
+        ],
+        "not_supported_as_repeat_3_specific_causes": [
+          "OCR/detail loss",
+          "local VLM perception error",
+          "other"
+        ],
+        "explanation": "The final reasoner changed 848-1 from gold D to C and 848-3 from gold A to D even though two of three evidence artifacts are byte-identical to successful run 1, all sampled contact sheets are byte-identical across repeats, and no run had semantically sufficient evidence for either answer. The failure is therefore at final choice synthesis under insufficient evidence; stochastic sensitivity to modest wording/length variation is contributing. The fixed sampler's sparse coverage and the semantic bottleneck are shared upstream risks, not repeat-3-specific causes."
+      }
+    }
+  ],
+  "comparison": {
+    "outcomes": [
+      {
+        "repeat": 1,
+        "score": 1,
+        "answers": {
+          "848-1": "D",
+          "848-2": "C",
+          "848-3": "A"
+        },
+        "label": "correct_but_not_semantically_sufficient"
+      },
+      {
+        "repeat": 2,
+        "score": 1,
+        "answers": {
+          "848-1": "D",
+          "848-2": "C",
+          "848-3": "A"
+        },
+        "label": "correct_but_not_semantically_sufficient"
+      },
+      {
+        "repeat": 3,
+        "score": 0.3333333333333333,
+        "answers": {
+          "848-1": "C",
+          "848-2": "C",
+          "848-3": "D"
+        },
+        "label": "failed"
+      }
+    ],
+    "failed_questions": [
+      "848-1",
+      "848-3"
+    ],
+    "stable_question": "848-2",
+    "primary_failure_attribution": "final reasoning error",
+    "contributing_failure_attribution": [
+      "stochastic output variance"
+    ],
+    "shared_upstream_risks": [
+      "frame/clip selection missed",
+      "semantic reduction information loss"
+    ],
+    "semantic_sufficiency": false,
+    "causal_summary": "The fixed visual inputs are identical across all repeats. Most evidence is also identical: A28 is identical in all runs and A5 in failed r3 equals successful r1. The only success-correlated change is A4's more verbose wording in r1/r2, but neither the verbose nor terse A4 evidence contains the missing chapter order or name-change trigger. Therefore evidence variation may perturb the reasoner but cannot ground the successful answers. The two 3/3 runs are fragile correct guesses/inferences under an evidence gap; r3 exposes final-answer instability rather than a transfer, evaluator, or execution failure.",
+    "evaluator_integrity": {
+      "unchanged": true,
+      "parse_valid_all_runs": true,
+      "quality_gate_not_relaxed": true
+    }
+  }
+}

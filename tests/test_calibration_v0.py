@@ -269,6 +269,20 @@ def test_failed_run_is_valid_but_completed_run_requires_measurements() -> None:
         )
 
 
+def test_completed_runtime_row_accepts_pending_evaluator_quality() -> None:
+    pending = _run(
+        "video-795",
+        "centralized_raw",
+        "H1_distributed_constrained",
+        1,
+        e2e_ms=2_000,
+        transfer_ms=1_000,
+    ).model_copy(update={"quality": None})
+    restored = CalibrationRun.model_validate_json(pending.model_dump_json())
+    assert restored.status == "completed"
+    assert restored.quality is None
+
+
 def test_failed_attempt_may_be_retried_with_same_repeat_number() -> None:
     tasks, worlds, workflows, runs = _experiment()
     failed = CalibrationRun(
@@ -351,27 +365,41 @@ def test_evaluator_overrides_reported_quality_and_fails_closed() -> None:
 
 def test_report_writes_requested_artifacts(tmp_path) -> None:
     tasks, worlds, workflows, runs = _experiment()
+    output_dir = tmp_path / "calibration_v0"
+    output_dir.mkdir()
+    raw_path = output_dir / "raw_runs.jsonl"
+    raw_path.write_text("runtime-owned-sentinel\n", encoding="utf-8")
     summary, _ = write_calibration_report(
         tasks,
         _evaluators(tasks),
         worlds,
         workflows,
         runs,
-        tmp_path / "calibration_v0",
+        output_dir,
     )
     assert summary.totals["anchor_candidate_count"] == 2
     expected = {
         "raw_runs.jsonl",
+        "evaluated_runs.jsonl",
         "summary.json",
         "summary.md",
         "break_even_analysis.json",
+        "critical_path_report.json",
         "admitted_anchor_tasks.json",
     }
-    assert {path.name for path in (tmp_path / "calibration_v0").iterdir()} == expected
+    assert {path.name for path in output_dir.iterdir()} == expected
+    assert raw_path.read_text(encoding="utf-8") == "runtime-owned-sentinel\n"
     admitted = json.loads(
-        (tmp_path / "calibration_v0" / "admitted_anchor_tasks.json").read_text()
+        (output_dir / "admitted_anchor_tasks.json").read_text()
     )
     assert len(admitted["tasks"]) == 2
+    critical = json.loads((output_dir / "critical_path_report.json").read_text())
+    assert critical["totals"]["critical_path_available_count"] == 0
+    assert all(
+        run["critical_path_ms"] is None
+        and run["critical_path_availability"] == "unavailable"
+        for run in critical["runs"]
+    )
 
 
 def test_checked_in_manifests_are_valid_and_keep_answers_separate() -> None:
