@@ -18,6 +18,10 @@ OperatorId = Literal[
     "submit_patch",
     "read_artifact",
     "sample_frames",
+    "make_contact_sheet",
+    "extract_clip",
+    "process_local_artifact",
+    "aggregate_artifacts",
 ]
 
 
@@ -128,6 +132,22 @@ DEFAULT_OPERATOR_REGISTRY = OperatorRegistry(
         ),
         OperatorDefinition(operator_id="read_artifact", description="Inspect a text artifact."),
         OperatorDefinition(operator_id="sample_frames", description="Sample video frames."),
+        OperatorDefinition(
+            operator_id="make_contact_sheet",
+            description="Compose sampled visual evidence into a contact sheet.",
+        ),
+        OperatorDefinition(
+            operator_id="extract_clip",
+            description="Extract a bounded clip from a media artifact.",
+        ),
+        OperatorDefinition(
+            operator_id="process_local_artifact",
+            description="Run generic artifact-local preprocessing or perception.",
+        ),
+        OperatorDefinition(
+            operator_id="aggregate_artifacts",
+            description="Aggregate multiple derived artifacts for downstream reasoning.",
+        ),
     ]
 )
 
@@ -146,7 +166,16 @@ CODE_MAS_OPERATOR_BINDINGS = frozenset(
         "submit_patch",
     }
 )
-GENERAL_MAS_OPERATOR_BINDINGS = frozenset({"invoke_model", "read_artifact"})
+GENERAL_MAS_OPERATOR_BINDINGS = frozenset(
+    {
+        "invoke_model",
+        "read_artifact",
+        "make_contact_sheet",
+        "extract_clip",
+        "process_local_artifact",
+        "aggregate_artifacts",
+    }
+)
 CURRENT_MAS_OPERATOR_BINDINGS = (
     CODE_MAS_OPERATOR_BINDINGS | GENERAL_MAS_OPERATOR_BINDINGS
 )

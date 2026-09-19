@@ -39,3 +39,23 @@ workflows:
     metadata:
       reference_workflow: true
       dataset_specific_operator: false
+
+  - schema_version: calibration-v0-workflow-v1
+    workflow_id: visual_reduction
+    description: Create task-independent contact-sheet evidence through artifact-local frame sampling, then reason over it on 4090.
+    steps:
+      - step_id: local_visual_sampling
+        operator_id: sample_frames
+        execution_role: artifact_local_agent
+        input_kinds: [raw_video_chunk]
+        output_kinds: [contact_sheet]
+      - step_id: reason_over_visual_evidence
+        operator_id: invoke_model
+        execution_role: reasoning_4090
+        input_kinds: [contact_sheet]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false
+      anchor_admission_arm: false
+      reporting_role: independent_quality_pareto

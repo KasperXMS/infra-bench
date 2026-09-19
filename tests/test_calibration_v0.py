@@ -102,8 +102,9 @@ def _run(
     e2e_ms: float,
     transfer_ms: float,
     quality_passed: bool = True,
+    warmup: bool = False,
 ) -> CalibrationRun:
-    is_local = workflow_id == "local_reduction"
+    is_local = workflow_id in {"local_reduction", "visual_reduction"}
     transfer_bytes = 3_000_000 if is_local else 300_000_000
     records = [
         CalibrationTransfer(
@@ -148,6 +149,9 @@ def _run(
         workflow_id=workflow_id,
         world_id=world_id,
         repeat=repeat,
+        warmup=warmup,
+        measurement_series_id="formal-series-v1",
+        protocol_id="steady_state_1_warmup_3_measured_v1",
         status="completed",
         quality=CalibrationQuality(
             score=1.0 if quality_passed else 1 / 3,
@@ -157,6 +161,12 @@ def _run(
         artifacts=CalibrationArtifactMetrics(
             raw_bytes=300_000_000,
             reduced_bytes=3_000_000 if is_local else 0,
+            reduced_visual_bytes=(
+                3_000_000 if workflow_id == "visual_reduction" else 0
+            ),
+            semantic_evidence_bytes=(
+                3_000_000 if workflow_id == "local_reduction" else 0
+            ),
             reduction_ratio=0.01 if is_local else 0.0,
         ),
         transfers=CalibrationTransferMetrics(
@@ -196,6 +206,64 @@ def _experiment():
     workflows = reference_workflows()
     runs = []
     for task in tasks:
+        runs.extend(
+            [
+                _run(
+                    task.task_id,
+                    "centralized_raw",
+                    "H1_distributed_constrained",
+                    0,
+                    e2e_ms=2_100,
+                    transfer_ms=1_050,
+                    warmup=True,
+                ),
+                _run(
+                    task.task_id,
+                    "local_reduction",
+                    "H1_distributed_constrained",
+                    0,
+                    e2e_ms=1_500,
+                    transfer_ms=110,
+                    warmup=True,
+                ),
+                _run(
+                    task.task_id,
+                    "visual_reduction",
+                    "H1_distributed_constrained",
+                    0,
+                    e2e_ms=1_300,
+                    transfer_ms=105,
+                    warmup=True,
+                ),
+                _run(
+                    task.task_id,
+                    "centralized_raw",
+                    "H2_distributed_favorable",
+                    0,
+                    e2e_ms=600,
+                    transfer_ms=110,
+                    warmup=True,
+                ),
+                _run(
+                    task.task_id,
+                    "local_reduction",
+                    "H2_distributed_favorable",
+                    0,
+                    e2e_ms=1_500,
+                    transfer_ms=110,
+                    warmup=True,
+                ),
+                _run(
+                    task.task_id,
+                    "visual_reduction",
+                    "H2_distributed_favorable",
+                    0,
+                    e2e_ms=900,
+                    transfer_ms=105,
+                    warmup=True,
+                ),
+            ]
+        )
         for repeat in range(1, 4):
             runs.extend(
                 [
@@ -217,6 +285,14 @@ def _experiment():
                     ),
                     _run(
                         task.task_id,
+                        "visual_reduction",
+                        "H1_distributed_constrained",
+                        repeat,
+                        e2e_ms=1_200,
+                        transfer_ms=95,
+                    ),
+                    _run(
+                        task.task_id,
                         "centralized_raw",
                         "H2_distributed_favorable",
                         repeat,
@@ -231,6 +307,14 @@ def _experiment():
                         e2e_ms=1_400,
                         transfer_ms=100,
                     ),
+                    _run(
+                        task.task_id,
+                        "visual_reduction",
+                        "H2_distributed_favorable",
+                        repeat,
+                        e2e_ms=800,
+                        transfer_ms=95,
+                    ),
                 ]
             )
     return tasks, worlds, workflows, runs
@@ -241,6 +325,37 @@ def test_schema_rejects_gold_and_nonuniform_chunks() -> None:
     payload["metadata"] = {"gold_answer": "A"}
     with pytest.raises(ValidationError, match="must not expose evaluator answers"):
         CalibrationTask.model_validate(payload)
+
+
+def test_reduced_byte_categories_must_sum_to_reduced_bytes() -> None:
+    with pytest.raises(ValidationError, match="must equal"):
+        CalibrationArtifactMetrics(
+            raw_bytes=100,
+            reduced_bytes=20,
+            reduced_visual_bytes=12,
+            semantic_evidence_bytes=9,
+            reduction_ratio=0.2,
+        )
+    legacy = CalibrationArtifactMetrics(
+        raw_bytes=100,
+        reduced_bytes=20,
+        reduction_ratio=0.2,
+    )
+    assert legacy.reduced_visual_bytes == 0
+    assert legacy.semantic_evidence_bytes == 20
+
+    visual_payload = _run(
+        "video-795",
+        "visual_reduction",
+        "H1_distributed_constrained",
+        1,
+        e2e_ms=1_200,
+        transfer_ms=95,
+    ).model_dump()
+    visual_payload["artifacts"].pop("reduced_visual_bytes")
+    visual_payload["artifacts"].pop("semantic_evidence_bytes")
+    with pytest.raises(ValidationError, match="reduced_visual_bytes"):
+        CalibrationRun.model_validate(visual_payload)
     payload = _task("video").model_dump()
     payload["chunks"][0]["end_s"] = 500
     with pytest.raises(ValidationError, match="duration_s|contiguous"):
@@ -254,6 +369,8 @@ def test_failed_run_is_valid_but_completed_run_requires_measurements() -> None:
         workflow_id="centralized_raw",
         world_id="H1_distributed_constrained",
         repeat=1,
+        measurement_series_id="formal-series-v1",
+        protocol_id="steady_state_1_warmup_3_measured_v1",
         status="failed",
         error="remote model timed out",
     )
@@ -281,6 +398,26 @@ def test_completed_runtime_row_accepts_pending_evaluator_quality() -> None:
     restored = CalibrationRun.model_validate_json(pending.model_dump_json())
     assert restored.status == "completed"
     assert restored.quality is None
+    assert json.loads(restored.model_dump_json())["warmup"] is False
+
+
+def test_warmup_and_measured_repeat_numbers_are_explicit() -> None:
+    measured = _run(
+        "video-795",
+        "centralized_raw",
+        "H1_distributed_constrained",
+        1,
+        e2e_ms=2_000,
+        transfer_ms=1_000,
+    )
+    with pytest.raises(ValidationError, match="warm-up runs must use repeat=0"):
+        CalibrationRun.model_validate(
+            measured.model_dump() | {"warmup": True, "repeat": 1}
+        )
+    with pytest.raises(ValidationError, match="measured runs must use repeat>=1"):
+        CalibrationRun.model_validate(
+            measured.model_dump() | {"warmup": False, "repeat": 0}
+        )
 
 
 def test_failed_attempt_may_be_retried_with_same_repeat_number() -> None:
@@ -297,13 +434,14 @@ def test_failed_attempt_may_be_retried_with_same_repeat_number() -> None:
 
     summary = summarize_calibration(tasks, worlds, workflows, [failed, *runs])
 
-    assert summary.totals["raw_run_count"] == 25
+    assert summary.totals["raw_run_count"] == 49
     assert summary.totals["failed_run_count"] == 1
 
 
 def test_design_allows_only_network_contrast() -> None:
     tasks, worlds, workflows, _ = _experiment()
     validate_calibration_design(tasks, worlds, workflows)
+    validate_calibration_design(tasks[:1], worlds, workflows)
     changed = worlds[1].model_copy(update={"strong_model_id": "other-model"})
     with pytest.raises(ValueError, match="only in network"):
         validate_calibration_design(tasks, [worlds[0], changed], workflows)
@@ -312,10 +450,17 @@ def test_design_allows_only_network_contrast() -> None:
 def test_quality_gated_reversal_and_measured_break_even() -> None:
     tasks, worlds, workflows, runs = _experiment()
     summary = summarize_calibration(tasks, worlds, workflows, runs)
-    assert summary.totals["raw_run_count"] == 24
+    assert summary.totals["raw_run_count"] == 48
+    assert summary.totals["warmup_run_count"] == 12
+    assert all(cell.completed_warmups == 1 for cell in summary.cells)
+    assert all(cell.completed_runs == 3 for cell in summary.cells)
     assert summary.totals["anchor_candidate_count"] == 2
     assert all(task.h1_winner == "local_reduction" for task in summary.tasks)
     assert all(task.h2_winner == "centralized_raw" for task in summary.tasks)
+    visual_cells = [cell for cell in summary.cells if cell.workflow_id == "visual_reduction"]
+    assert len(visual_cells) == 4
+    assert all(cell.quality_gate_passed for cell in visual_cells)
+    assert all(cell.pareto_optimal is True for cell in visual_cells)
     analysis = analyze_break_even(summary, worlds, runs)
     assert len(analysis.tasks) == 4
     assert all(point.bandwidth_star_mbps is not None for point in analysis.tasks)
@@ -324,7 +469,16 @@ def test_quality_gated_reversal_and_measured_break_even() -> None:
 
 def test_quality_failure_suppresses_system_comparison() -> None:
     tasks, worlds, workflows, runs = _experiment()
-    runs[0] = _run(
+    target = next(
+        index
+        for index, run in enumerate(runs)
+        if not run.warmup
+        and run.task_id == "video-795"
+        and run.workflow_id == "centralized_raw"
+        and run.world_id == "H1_distributed_constrained"
+        and run.repeat == 1
+    )
+    runs[target] = _run(
         "video-795",
         "centralized_raw",
         "H1_distributed_constrained",
@@ -338,6 +492,156 @@ def test_quality_failure_suppresses_system_comparison() -> None:
     assert failed.quality_gate_passed is False
     assert failed.comparison_eligible is False
     assert failed.h1_winner is None
+
+
+def test_visual_quality_failure_does_not_change_two_arm_anchor_admission() -> None:
+    tasks, worlds, workflows, runs = _experiment()
+    target = next(
+        index
+        for index, run in enumerate(runs)
+        if not run.warmup
+        and run.task_id == "video-795"
+        and run.workflow_id == "visual_reduction"
+        and run.world_id == "H1_distributed_constrained"
+        and run.repeat == 1
+    )
+    runs[target] = runs[target].model_copy(
+        update={
+            "quality": CalibrationQuality(
+                score=1 / 3,
+                passed=False,
+                evaluator_id="video_mme_multiple_choice",
+            )
+        }
+    )
+    summary = summarize_calibration(tasks, worlds, workflows, runs)
+    task = next(item for item in summary.tasks if item.task_id == "video-795")
+    visual = next(
+        cell
+        for cell in summary.cells
+        if cell.task_id == "video-795"
+        and cell.workflow_id == "visual_reduction"
+        and cell.world_id == "H1_distributed_constrained"
+    )
+    assert visual.quality_gate_passed is False
+    assert visual.pareto_optimal is None
+    assert task.infra_sensitive_anchor_candidate is True
+
+
+def test_visual_cells_are_only_emitted_for_tasks_with_visual_runs() -> None:
+    tasks, worlds, workflows, runs = _experiment()
+    runs = [
+        run
+        for run in runs
+        if not (
+            run.task_id == "video-857" and run.workflow_id == "visual_reduction"
+        )
+    ]
+    summary = summarize_calibration(tasks, worlds, workflows, runs)
+    assert not any(
+        cell.task_id == "video-857" and cell.workflow_id == "visual_reduction"
+        for cell in summary.cells
+    )
+    assert sum(
+        cell.task_id == "video-795" and cell.workflow_id == "visual_reduction"
+        for cell in summary.cells
+    ) == 2
+
+
+def test_warmup_is_excluded_from_medians_quality_and_admission() -> None:
+    tasks, worlds, workflows, runs = _experiment()
+    warmup = next(run for run in runs if run.warmup)
+    replacement = warmup.model_copy(
+        update={
+            "e2e_latency_ms": 99_999_999.0,
+            "quality": CalibrationQuality(
+                score=0.0,
+                passed=False,
+                evaluator_id="video_mme_multiple_choice",
+            ),
+        }
+    )
+    runs[runs.index(warmup)] = replacement
+    summary = summarize_calibration(tasks, worlds, workflows, runs)
+    cell = next(
+        item
+        for item in summary.cells
+        if item.task_id == warmup.task_id
+        and item.workflow_id == warmup.workflow_id
+        and item.world_id == warmup.world_id
+    )
+    assert cell.profiling_protocol_passed is True
+    assert cell.quality_pass_rate == 1.0
+    assert cell.medians["e2e_latency_ms"] == 2_000
+    assert summary.totals["anchor_candidate_count"] == 2
+    assert len(analyze_break_even(summary, worlds, runs).tasks) == 4
+
+
+def test_missing_warmup_blocks_formal_admission_but_legacy_rows_still_parse() -> None:
+    tasks, worlds, workflows, runs = _experiment()
+    legacy_measured = [run.model_copy(update={"warmup": False}) for run in runs if not run.warmup]
+    summary = summarize_calibration(tasks, worlds, workflows, legacy_measured)
+    assert all(not cell.profiling_protocol_passed for cell in summary.cells)
+    assert summary.totals["anchor_candidate_count"] == 0
+    legacy_payload = legacy_measured[0].model_dump(exclude={"warmup"})
+    assert CalibrationRun.model_validate(legacy_payload).warmup is False
+
+
+def test_report_selects_latest_complete_formal_series_without_mixing_repeats() -> None:
+    tasks, worlds, workflows, runs = _experiment()
+    first_cell = [
+        run
+        for run in runs
+        if run.task_id == "video-795"
+        and run.workflow_id == "centralized_raw"
+        and run.world_id == "H1_distributed_constrained"
+    ]
+    replacement_series = [
+        run.model_copy(
+            update={
+                "run_id": f"{run.run_id}-series-v2",
+                "measurement_series_id": "formal-series-v2",
+                "e2e_latency_ms": 1_234.0,
+            }
+        )
+        for run in first_cell
+    ]
+    summary = summarize_calibration(
+        tasks, worlds, workflows, [*runs, *replacement_series]
+    )
+    cell = next(
+        item
+        for item in summary.cells
+        if item.task_id == "video-795"
+        and item.workflow_id == "centralized_raw"
+        and item.world_id == "H1_distributed_constrained"
+    )
+    assert cell.selected_measurement_series_id == "formal-series-v2"
+    assert cell.selected_protocol_id == "steady_state_1_warmup_3_measured_v1"
+    assert cell.completed_runs == 3
+    assert cell.medians["e2e_latency_ms"] == 1_234.0
+
+
+def test_runtime_metadata_series_fields_are_accepted() -> None:
+    run = _run(
+        "video-795",
+        "centralized_raw",
+        "H1_distributed_constrained",
+        1,
+        e2e_ms=2_000,
+        transfer_ms=1_000,
+    )
+    payload = run.model_dump(exclude={"measurement_series_id", "protocol_id"})
+    payload["metadata"] = {
+        "measurement_series_id": "calibration-v0-795-all-workflows",
+        "measurement_protocol": "steady_state_1_warmup_3_measured_v1",
+        "run_prefix": "calibration-v0-795-all-workflows",
+    }
+    parsed = CalibrationRun.model_validate(payload)
+    assert parsed.measurement_series_id is None
+    assert parsed.metadata["measurement_protocol"] == (
+        "steady_state_1_warmup_3_measured_v1"
+    )
 
 
 def test_evaluator_overrides_reported_quality_and_fails_closed() -> None:
@@ -410,8 +714,21 @@ def test_checked_in_manifests_are_valid_and_keep_answers_separate() -> None:
         str(root / "workflows.yaml"), type(reference_workflows()[0]), "workflows"
     )
     validate_calibration_design(tasks, worlds, workflows)
-    assert [task.task_id for task in tasks] == ["video_mme:795", "video_mme:848"]
+    assert [workflow.model_dump() for workflow in workflows] == [
+        workflow.model_dump() for workflow in reference_workflows()
+    ]
+    assert {workflow.workflow_id for workflow in workflows} == {
+        "centralized_raw",
+        "local_reduction",
+        "visual_reduction",
+    }
+    assert [task.task_id for task in tasks] == [
+        "video_mme:795",
+        "video_mme:848",
+        "video_mme:747",
+    ]
     assert [[chunk.site_id for chunk in task.chunks] for task in tasks] == [
+        ["A4", "A5", "A28"],
         ["A4", "A5", "A28"],
         ["A4", "A5", "A28"],
     ]
@@ -421,6 +738,13 @@ def test_checked_in_manifests_are_valid_and_keep_answers_separate() -> None:
         "added_delay_above_shared_physical_baseline"
     )
     assert all(task.sample_count_per_chunk == 12 for task in tasks)
+    task_747 = next(task for task in tasks if task.task_id == "video_mme:747")
+    assert sum(chunk.raw_bytes for chunk in task_747.chunks) == 330076886
+    assert [chunk.observed_duration_s for chunk in task_747.chunks] == [
+        1091.341,
+        1092.547,
+        1093.755,
+    ]
 
     answer_payload = json.loads(
         (root / "evaluator_only" / "answers.json").read_text(encoding="utf-8")
@@ -435,3 +759,8 @@ def test_checked_in_manifests_are_valid_and_keep_answers_separate() -> None:
             answer.question_id for answer in answers.answers
         }
         assert "correct_option" not in task.model_dump_json()
+
+    evaluator_747 = next(
+        record for record in answer_records if record.task_id == "video_mme:747"
+    )
+    assert [answer.correct_option for answer in evaluator_747.answers] == ["D", "A", "D"]

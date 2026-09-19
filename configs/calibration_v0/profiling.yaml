@@ -1,0 +1,8 @@
+schema_version: calibration-v0-profiling-v1
+warmup_runs: 1
+measured_runs: 3
+estimator: median
+serving_mode: steady_state
+exclude_warmup_from_quality: true
+exclude_warmup_from_metrics: true
+exclude_warmup_from_admission: true

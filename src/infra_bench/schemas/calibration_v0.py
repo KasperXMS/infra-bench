@@ -2,19 +2,46 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .measurement import RealizedWorkflowTrace
 
-CalibrationWorkflowId = Literal["centralized_raw", "local_reduction"]
+CalibrationWorkflowId = Literal[
+    "centralized_raw", "local_reduction", "visual_reduction"
+]
 CalibrationWorldId = Literal[
     "H1_distributed_constrained", "H2_distributed_favorable"
 ]
 CalibrationSiteId = Literal["A4", "A5", "A28", "4090"]
-CalibrationOperatorId = Literal["read_artifact", "sample_frames", "invoke_model"]
+CalibrationOperatorId = Literal[
+    "read_artifact",
+    "sample_frames",
+    "invoke_model",
+    "make_contact_sheet",
+    "extract_clip",
+    "process_local_artifact",
+    "aggregate_artifacts",
+]
 AnswerOption = Literal["A", "B", "C", "D"]
+
+
+class CalibrationProfilingProtocol(BaseModel):
+    """Fixed steady-state serving protocol used for every calibration cell."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["calibration-v0-profiling-v1"] = (
+        "calibration-v0-profiling-v1"
+    )
+    warmup_runs: Literal[1] = 1
+    measured_runs: Literal[3] = 3
+    estimator: Literal["median"] = "median"
+    serving_mode: Literal["steady_state"] = "steady_state"
+    exclude_warmup_from_quality: Literal[True] = True
+    exclude_warmup_from_metrics: Literal[True] = True
+    exclude_warmup_from_admission: Literal[True] = True
 
 
 class CalibrationQuestion(BaseModel):
@@ -41,6 +68,7 @@ class CalibrationChunk(BaseModel):
     start_s: float = Field(ge=0.0)
     end_s: float = Field(gt=0.0)
     duration_s: float = Field(gt=0.0)
+    observed_duration_s: float | None = Field(default=None, gt=0.0)
     source_ref: str
     site_id: Literal["A4", "A5", "A28"]
     raw_bytes: int = Field(gt=0)
@@ -212,6 +240,22 @@ class CalibrationWorkflow(BaseModel):
                 raise ValueError(
                     "local_reduction requires generic sample_frames or invoke_model local steps"
                 )
+        if self.workflow_id == "visual_reduction":
+            if not any(
+                step.operator_id == "sample_frames"
+                and step.execution_role == "artifact_local_agent"
+                for step in self.steps
+            ):
+                raise ValueError(
+                    "visual_reduction requires artifact-local generic sample_frames"
+                )
+            if any(
+                step.operator_id not in {"sample_frames", "make_contact_sheet"}
+                for step in local_steps
+            ):
+                raise ValueError(
+                    "visual_reduction local steps may only sample frames or make a contact sheet"
+                )
         return self
 
 
@@ -228,7 +272,15 @@ class CalibrationArtifactMeasurement(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     artifact_id: str
-    kind: Literal["raw_video_chunk", "reduced_clip", "sampled_frames", "semantic_evidence"]
+    kind: Literal[
+        "raw_video_chunk",
+        "reduced_clip",
+        "sampled_frames",
+        "semantic_evidence",
+        "contact_sheet",
+        "visual_evidence",
+        "aggregated_visual_evidence",
+    ]
     site_id: CalibrationSiteId
     bytes: int = Field(ge=0)
 
@@ -238,13 +290,41 @@ class CalibrationArtifactMetrics(BaseModel):
 
     raw_bytes: int = Field(ge=0)
     reduced_bytes: int = Field(ge=0)
+    reduced_visual_bytes: int | None = Field(default=None, ge=0)
+    semantic_evidence_bytes: int | None = Field(default=None, ge=0)
     reduction_ratio: float | None = Field(default=None, ge=0.0)
     records: list[CalibrationArtifactMeasurement] = Field(
         default_factory=list[CalibrationArtifactMeasurement]
     )
 
+    @model_validator(mode="before")
+    @classmethod
+    def upgrade_legacy_reduced_byte_categories(cls, value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+        raw = cast(dict[object, object], value)
+        upgraded: dict[str, Any] = {str(key): item for key, item in raw.items()}
+        reduced = int(upgraded.get("reduced_bytes", 0))
+        visual = upgraded.get("reduced_visual_bytes")
+        semantic = upgraded.get("semantic_evidence_bytes")
+        if visual is None and semantic is None:
+            # Historical calibration rows only contained semantic evidence.
+            upgraded["reduced_visual_bytes"] = 0
+            upgraded["semantic_evidence_bytes"] = reduced
+        elif visual is None:
+            upgraded["reduced_visual_bytes"] = reduced - int(cast(int, semantic))
+        elif semantic is None:
+            upgraded["semantic_evidence_bytes"] = reduced - int(cast(int, visual))
+        return upgraded
+
     @model_validator(mode="after")
     def validate_ratio(self) -> CalibrationArtifactMetrics:
+        assert self.reduced_visual_bytes is not None
+        assert self.semantic_evidence_bytes is not None
+        if self.reduced_visual_bytes + self.semantic_evidence_bytes != self.reduced_bytes:
+            raise ValueError(
+                "reduced_bytes must equal reduced_visual_bytes + semantic_evidence_bytes"
+            )
         expected = self.reduced_bytes / self.raw_bytes if self.raw_bytes else None
         if self.reduction_ratio is not None and (
             expected is None or abs(self.reduction_ratio - expected) > 1e-6
@@ -343,7 +423,10 @@ class CalibrationRun(BaseModel):
     task_id: str
     workflow_id: CalibrationWorkflowId
     world_id: CalibrationWorldId
-    repeat: int = Field(ge=1)
+    repeat: int = Field(ge=0)
+    warmup: bool = False
+    measurement_series_id: str | None = None
+    protocol_id: str | None = None
     status: Literal["completed", "failed"]
     quality: CalibrationQuality | None = None
     artifacts: CalibrationArtifactMetrics | None = None
@@ -362,6 +445,24 @@ class CalibrationRun(BaseModel):
 
     @model_validator(mode="after")
     def validate_status_payload(self) -> CalibrationRun:
+        metadata_series = self.metadata.get("measurement_series_id")
+        metadata_protocol = self.metadata.get("measurement_protocol")
+        if (
+            self.measurement_series_id is not None
+            and metadata_series is not None
+            and self.measurement_series_id != metadata_series
+        ):
+            raise ValueError("top-level and metadata measurement_series_id disagree")
+        if (
+            self.protocol_id is not None
+            and metadata_protocol is not None
+            and self.protocol_id != metadata_protocol
+        ):
+            raise ValueError("top-level protocol_id and metadata measurement_protocol disagree")
+        if self.warmup and self.repeat != 0:
+            raise ValueError("warm-up runs must use repeat=0")
+        if not self.warmup and self.repeat < 1:
+            raise ValueError("measured runs must use repeat>=1")
         measured = (
             self.artifacts,
             self.transfers,
@@ -375,14 +476,31 @@ class CalibrationRun(BaseModel):
             raise ValueError("completed calibration runs require executor/site measurements")
         if self.status == "failed" and not self.error:
             raise ValueError("failed calibration runs require an error")
-        if self.workflow_id == "local_reduction" and self.status == "completed":
+        if self.workflow_id in {"local_reduction", "visual_reduction"} and self.status == "completed":
             assert self.service is not None
+            assert self.artifacts is not None
             if self.service.local_preprocessing_ms <= 0.0:
-                raise ValueError("local_reduction must measure non-zero local preprocessing")
+                raise ValueError(
+                    f"{self.workflow_id} must measure non-zero local preprocessing"
+                )
             sites = {execution.site_id for execution in self.executions}
             if "4090" not in sites or not sites.intersection({"A4", "A5", "A28"}):
                 raise ValueError(
-                    "local_reduction executions must include a local Orin and 4090"
+                    f"{self.workflow_id} executions must include a local Orin and 4090"
+                )
+            if (
+                self.workflow_id == "local_reduction"
+                and not self.artifacts.semantic_evidence_bytes
+            ):
+                raise ValueError(
+                    "local_reduction must report non-zero semantic_evidence_bytes"
+                )
+            if (
+                self.workflow_id == "visual_reduction"
+                and not self.artifacts.reduced_visual_bytes
+            ):
+                raise ValueError(
+                    "visual_reduction must report non-zero reduced_visual_bytes"
                 )
         return self
 
@@ -393,11 +511,21 @@ class CalibrationCellResult(BaseModel):
     task_id: str
     workflow_id: CalibrationWorkflowId
     world_id: CalibrationWorldId
+    selected_measurement_series_id: str | None = None
+    selected_protocol_id: str | None = None
     attempted_runs: int = Field(ge=0)
+    warmup_attempts: int = Field(ge=0)
+    completed_warmups: int = Field(ge=0)
+    measured_attempts: int = Field(ge=0)
     completed_runs: int = Field(ge=0)
+    profiling_protocol_passed: bool
     quality_pass_rate: float = Field(ge=0.0, le=1.0)
     quality_gate_passed: bool
     eligible_for_comparison: bool
+    pareto_optimal: bool | None = None
+    pareto_dominated_by: list[CalibrationWorkflowId] = Field(
+        default_factory=list[CalibrationWorkflowId]
+    )
     medians: dict[str, float | None]
     metric_availability: dict[str, Literal["available", "unavailable"]] = Field(
         default_factory=dict

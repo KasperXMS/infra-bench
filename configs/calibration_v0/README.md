@@ -1,14 +1,18 @@
 # calibration_v0 experiment manifest
 
-This directory defines the controlled, two-task long-video calibration experiment.
-It is intentionally separate from the large benchmark generation and open-ended
-Planner paths.
+This directory defines the controlled long-video calibration experiment. The
+initial 795/848 pair is retained while independently screened real tasks may be
+added as incremental candidates. It is intentionally separate from the large
+benchmark generation and open-ended Planner paths.
 
 ## Controls
 
 - Each complete source video is split into exactly three contiguous, near-equal
   wall-clock intervals. Boundaries are calculated before and without consulting
   question answers or evidence timestamps.
+- `duration_s` on each chunk is the logical fixed-interval duration. When a
+  stream-copy container lands on nearby keyframes, `observed_duration_s` records
+  the actual artifact duration without redefining the evidence-independent split.
 - Chunks 0, 1, and 2 are placed on A4, A5, and A28 respectively. The strong VLM
   and final reasoning service run at the 4090 site.
 - H1 and H2 use identical tasks, placement, devices, and logical model IDs. Only
@@ -37,6 +41,27 @@ scores it with the evaluator-only key. Missing or malformed JSON, missing/extra
 question IDs, and invalid option labels fail closed at zero accuracy. Any
 runtime-reported quality is checked for consistency but never trusted as the
 source of the quality gate.
+
+## Steady-state profiling protocol
+
+Every `(task, workflow, world)` cell follows `profiling.yaml`: one warm-up run
+with `warmup: true` and `repeat: 0`, followed by three measured runs with
+`warmup: false` and repeats 1, 2, and 3. The warm-up exercises model loading,
+service initialization, caches, and the fixed serving path, but is excluded from
+quality rates, all reported medians, break-even inputs, workflow preference, and
+anchor admission. Admission therefore describes steady-state serving, not cold
+start behavior. Formal rows carry one `measurement_series_id` and protocol ID
+`steady_state_1_warmup_3_measured_v1` (top-level fields or the runtime metadata
+keys `measurement_series_id`/`measurement_protocol`). The reporter selects the
+most recently appended complete formal series per cell and requires all four
+anchor cells for a task to use the same series. This prevents repeated IDs from
+different collection windows from being mixed. Historical unscoped rows remain
+readable but do not by themselves satisfy the formal protocol.
+
+`visual_reduction` is a third, generic visual-evidence arm. It receives its own
+quality gate and per-world Pareto status over quality, E2E, and transfer bytes.
+It is deliberately excluded from the anchor reversal decision, which remains
+the fixed `centralized_raw` versus `local_reduction` comparison.
 
 ## Reporting
 

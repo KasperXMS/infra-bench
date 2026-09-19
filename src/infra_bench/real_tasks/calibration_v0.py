@@ -33,10 +33,12 @@ from .measurement import (
     reconstruct_calibration_run,
 )
 
-H1 = "H1_distributed_constrained"
-H2 = "H2_distributed_favorable"
-CENTRALIZED = "centralized_raw"
-LOCAL = "local_reduction"
+H1: CalibrationWorldId = "H1_distributed_constrained"
+H2: CalibrationWorldId = "H2_distributed_favorable"
+CENTRALIZED: CalibrationWorkflowId = "centralized_raw"
+LOCAL: CalibrationWorkflowId = "local_reduction"
+VISUAL: CalibrationWorkflowId = "visual_reduction"
+FORMAL_PROTOCOL_ID = "steady_state_1_warmup_3_measured_v1"
 DEFAULT_SWEEP_MBPS = (1.0, 2.0, 5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0, 1000.0)
 
 
@@ -139,43 +141,97 @@ def evaluate_calibration_runs(
 
 
 def reference_workflows() -> list[CalibrationWorkflow]:
-    """Return the two dataset-independent workflows on the generic operator surface."""
+    """Return the three dataset-independent workflows on the generic operator surface."""
     return [
         CalibrationWorkflow(
             workflow_id=CENTRALIZED,
-            description="Move all fixed raw chunks to 4090 and invoke the strong VLM once.",
+            description=(
+                "Move all three fixed raw video chunks to 4090 and invoke the strong "
+                "VLM once."
+            ),
             steps=[
+                CalibrationWorkflowStep(
+                    step_id="centralized_fixed_sampling",
+                    operator_id="sample_frames",
+                    execution_role="reasoning_4090",
+                    input_kinds=["raw_video_chunk"],
+                    output_kinds=["sampled_frames"],
+                ),
                 CalibrationWorkflowStep(
                     step_id="reason_over_raw_chunks",
                     operator_id="invoke_model",
                     execution_role="reasoning_4090",
-                    input_kinds=["raw_video_chunk"],
+                    input_kinds=["raw_video_chunk", "sampled_frames"],
                     output_kinds=["final_answer"],
                 )
             ],
+            metadata={
+                "reference_workflow": True,
+                "dataset_specific_operator": False,
+            },
         ),
         CalibrationWorkflow(
             workflow_id=LOCAL,
             description=(
-                "Run generic fixed-policy frame/clip sampling at each artifact-local agent, "
-                "then move reduced evidence to 4090 for final reasoning."
+                "Run the same generic lightweight VLM reduction on each artifact-local "
+                "Orin, then move compact semantic evidence to 4090 for final reasoning."
             ),
             steps=[
+                CalibrationWorkflowStep(
+                    step_id="local_fixed_sampling",
+                    operator_id="sample_frames",
+                    execution_role="artifact_local_agent",
+                    input_kinds=["raw_video_chunk"],
+                    output_kinds=["sampled_frames"],
+                ),
                 CalibrationWorkflowStep(
                     step_id="local_generic_reduction",
                     operator_id="invoke_model",
                     execution_role="artifact_local_agent",
-                    input_kinds=["raw_video_chunk"],
-                    output_kinds=["sampled_frames", "reduced_clip", "semantic_evidence"],
+                    input_kinds=["raw_video_chunk", "sampled_frames"],
+                    output_kinds=["semantic_evidence"],
                 ),
                 CalibrationWorkflowStep(
                     step_id="reason_over_reduced_evidence",
                     operator_id="invoke_model",
                     execution_role="reasoning_4090",
-                    input_kinds=["sampled_frames", "reduced_clip", "semantic_evidence"],
+                    input_kinds=["semantic_evidence"],
                     output_kinds=["final_answer"],
                 ),
             ],
+            metadata={
+                "reference_workflow": True,
+                "dataset_specific_operator": False,
+            },
+        ),
+        CalibrationWorkflow(
+            workflow_id=VISUAL,
+            description=(
+                "Create task-independent contact-sheet evidence through artifact-local "
+                "frame sampling, then reason over it on 4090."
+            ),
+            steps=[
+                CalibrationWorkflowStep(
+                    step_id="local_visual_sampling",
+                    operator_id="sample_frames",
+                    execution_role="artifact_local_agent",
+                    input_kinds=["raw_video_chunk"],
+                    output_kinds=["contact_sheet"],
+                ),
+                CalibrationWorkflowStep(
+                    step_id="reason_over_visual_evidence",
+                    operator_id="invoke_model",
+                    execution_role="reasoning_4090",
+                    input_kinds=["contact_sheet"],
+                    output_kinds=["final_answer"],
+                ),
+            ],
+            metadata={
+                "reference_workflow": True,
+                "dataset_specific_operator": False,
+                "anchor_admission_arm": False,
+                "reporting_role": "independent_quality_pareto",
+            },
         ),
     ]
 
@@ -186,8 +242,8 @@ def validate_calibration_design(
     workflows: Sequence[CalibrationWorkflow],
 ) -> None:
     """Reject confounds before measured results are compared."""
-    if len(tasks) != 2:
-        raise ValueError("calibration_v0 requires exactly two real long-video tasks")
+    if not tasks:
+        raise ValueError("calibration_v0 requires at least one real long-video task")
     if len({task.task_id for task in tasks}) != len(tasks):
         raise ValueError("calibration task IDs must be unique")
     by_world = {world.world_id: world for world in worlds}
@@ -204,12 +260,68 @@ def validate_calibration_design(
     if stable_h1 != stable_h2:
         raise ValueError("H1 and H2 may differ only in network conditions")
     workflow_ids = [workflow.workflow_id for workflow in workflows]
-    if len(workflows) != 2 or set(workflow_ids) != {CENTRALIZED, LOCAL}:
-        raise ValueError("calibration_v0 requires the two reference workflows")
+    if len(workflow_ids) != len(set(workflow_ids)):
+        raise ValueError("calibration workflow IDs must be unique")
+    if not {CENTRALIZED, LOCAL}.issubset(workflow_ids):
+        raise ValueError("calibration_v0 requires the two anchor reference workflows")
 
 
 def _median(values: Iterable[float | int]) -> float:
     return round(float(statistics.median(values)), 6)
+
+
+def _run_series(run: CalibrationRun) -> tuple[str | None, str | None]:
+    series_id = run.measurement_series_id
+    if series_id is None:
+        candidate = run.metadata.get("measurement_series_id")
+        series_id = candidate if isinstance(candidate, str) else None
+    protocol_id = run.protocol_id
+    if protocol_id is None:
+        candidate = run.metadata.get("measurement_protocol")
+        protocol_id = candidate if isinstance(candidate, str) else None
+    return series_id, protocol_id
+
+
+def _is_complete_formal_series(
+    runs: Sequence[CalibrationRun], *, minimum_repeats: int
+) -> bool:
+    warmups = [run for run in runs if run.warmup]
+    completed_measured = {
+        run.repeat for run in runs if not run.warmup and run.status == "completed"
+    }
+    return (
+        len(warmups) == 1
+        and warmups[0].status == "completed"
+        and completed_measured == set(range(1, minimum_repeats + 1))
+    )
+
+
+def _select_measurement_series(
+    runs: Sequence[CalibrationRun], *, minimum_repeats: int
+) -> tuple[list[CalibrationRun], str | None, str | None]:
+    """Select the most recently appended complete formal series for one cell."""
+    formal: dict[str, list[CalibrationRun]] = defaultdict(list)
+    last_position: dict[str, int] = {}
+    for position, run in enumerate(runs):
+        series_id, protocol_id = _run_series(run)
+        if series_id is None or protocol_id != FORMAL_PROTOCOL_ID:
+            continue
+        formal[series_id].append(run)
+        last_position[series_id] = position
+    complete = [
+        series_id
+        for series_id, series_runs in formal.items()
+        if _is_complete_formal_series(
+            series_runs, minimum_repeats=minimum_repeats
+        )
+    ]
+    if complete:
+        selected = max(complete, key=last_position.__getitem__)
+        return formal[selected], selected, FORMAL_PROTOCOL_ID
+    if formal:
+        selected = max(formal, key=last_position.__getitem__)
+        return formal[selected], selected, FORMAL_PROTOCOL_ID
+    return list(runs), None, None
 
 
 def _cell_result(
@@ -219,8 +331,13 @@ def _cell_result(
     runs: Sequence[CalibrationRun],
     *,
     minimum_repeats: int,
+    measurement_series_id: str | None,
+    protocol_id: str | None,
 ) -> CalibrationCellResult:
-    completed = [run for run in runs if run.status == "completed"]
+    warmups = [run for run in runs if run.warmup]
+    completed_warmups = [run for run in warmups if run.status == "completed"]
+    measured = [run for run in runs if not run.warmup]
+    completed = [run for run in measured if run.status == "completed"]
     quality_runs = [run for run in completed if run.quality and run.quality.passed]
     pass_rate = len(quality_runs) / len(completed) if completed else 0.0
     quality_gate_passed = bool(completed) and all(
@@ -230,7 +347,14 @@ def _cell_result(
         and run.quality.score >= task.quality_threshold
         for run in completed
     )
-    eligible = len(completed) >= minimum_repeats and quality_gate_passed
+    protocol_passed = (
+        measurement_series_id is not None
+        and protocol_id == FORMAL_PROTOCOL_ID
+        and len(warmups) == 1
+        and len(completed_warmups) == 1
+        and {run.repeat for run in completed} == set(range(1, minimum_repeats + 1))
+    )
+    eligible = protocol_passed and quality_gate_passed
     medians: dict[str, float | None] = {}
     availability: dict[str, Literal["available", "unavailable"]] = {}
     if completed:
@@ -241,6 +365,16 @@ def _cell_result(
             ),
             "reduced_artifact_bytes": _median(
                 run.artifacts.reduced_bytes for run in completed if run.artifacts
+            ),
+            "reduced_visual_bytes": _median(
+                run.artifacts.reduced_visual_bytes
+                for run in completed
+                if run.artifacts and run.artifacts.reduced_visual_bytes is not None
+            ),
+            "semantic_evidence_bytes": _median(
+                run.artifacts.semantic_evidence_bytes
+                for run in completed
+                if run.artifacts and run.artifacts.semantic_evidence_bytes is not None
             ),
             "cross_agent_transfer_bytes": _median(
                 run.transfers.bytes for run in completed if run.transfers
@@ -317,8 +451,14 @@ def _cell_result(
         task_id=task.task_id,
         workflow_id=workflow_id,
         world_id=world_id,
+        selected_measurement_series_id=measurement_series_id,
+        selected_protocol_id=protocol_id,
         attempted_runs=len(runs),
+        warmup_attempts=len(warmups),
+        completed_warmups=len(completed_warmups),
+        measured_attempts=len(measured),
         completed_runs=len(completed),
+        profiling_protocol_passed=protocol_passed,
         quality_pass_rate=pass_rate,
         quality_gate_passed=quality_gate_passed,
         eligible_for_comparison=eligible,
@@ -353,7 +493,7 @@ def summarize_calibration(
     known_worlds = {world.world_id for world in worlds}
     known_workflows = {workflow.workflow_id for workflow in workflows}
     seen_run_ids: set[str] = set()
-    seen_completed_repeats: set[tuple[str, str, str, int]] = set()
+    seen_completed_repeats: set[tuple[str | None, str, str, str, int]] = set()
     grouped: dict[tuple[str, str, str], list[CalibrationRun]] = defaultdict(list)
     for run in runs:
         if run.task_id not in known_tasks:
@@ -362,7 +502,14 @@ def summarize_calibration(
             raise ValueError(f"run {run.run_id!r} references an unknown world/workflow")
         if run.run_id in seen_run_ids:
             raise ValueError(f"duplicate run_id {run.run_id!r}")
-        repeat_key = (run.task_id, run.workflow_id, run.world_id, run.repeat)
+        series_id, _ = _run_series(run)
+        repeat_key = (
+            series_id,
+            run.task_id,
+            run.workflow_id,
+            run.world_id,
+            run.repeat,
+        )
         if run.status == "completed" and repeat_key in seen_completed_repeats:
             raise ValueError(f"duplicate completed calibration cell repeat {repeat_key!r}")
         seen_run_ids.add(run.run_id)
@@ -376,23 +523,96 @@ def summarize_calibration(
     cell_lookup: dict[tuple[str, str, str], CalibrationCellResult] = {}
     for task in tasks:
         for world_id in (H1, H2):
-            for workflow_id in (CENTRALIZED, LOCAL):
+            workflow_order: list[CalibrationWorkflowId] = [CENTRALIZED, LOCAL]
+            task_has_visual_runs = any(
+                grouped[(task.task_id, VISUAL, candidate_world)]
+                for candidate_world in (H1, H2)
+            )
+            if VISUAL in known_workflows and task_has_visual_runs:
+                workflow_order.append(VISUAL)
+            for workflow_id in workflow_order:
                 key = (task.task_id, workflow_id, world_id)
+                selected_runs, selected_series_id, selected_protocol_id = (
+                    _select_measurement_series(
+                        grouped[key], minimum_repeats=minimum_repeats
+                    )
+                )
                 cell = _cell_result(
                     task,
                     workflow_id,
                     world_id,
-                    grouped[key],
+                    selected_runs,
                     minimum_repeats=minimum_repeats,
+                    measurement_series_id=selected_series_id,
+                    protocol_id=selected_protocol_id,
                 )
                 cells.append(cell)
                 cell_lookup[key] = cell
 
+    # Pareto status is per task/world and independent of the two-arm anchor test.
+    # Quality and protocol failures remain visible cells but are not Pareto candidates.
+    for task in tasks:
+        for world_id in (H1, H2):
+            world_cells = [
+                cell
+                for cell in cells
+                if cell.task_id == task.task_id and cell.world_id == world_id
+            ]
+            eligible_cells = [
+                cell for cell in world_cells if cell.eligible_for_comparison
+            ]
+            for cell in world_cells:
+                if not cell.eligible_for_comparison:
+                    cell.pareto_optimal = None
+                    cell.pareto_dominated_by = []
+                    continue
+                dominated_by: list[CalibrationWorkflowId] = []
+                for other in eligible_cells:
+                    if other.workflow_id == cell.workflow_id:
+                        continue
+                    cell_quality = cell.medians.get("task_quality")
+                    other_quality = other.medians.get("task_quality")
+                    cell_e2e = cell.medians.get("e2e_latency_ms")
+                    other_e2e = other.medians.get("e2e_latency_ms")
+                    cell_bytes = cell.medians.get("cross_agent_transfer_bytes")
+                    other_bytes = other.medians.get("cross_agent_transfer_bytes")
+                    values = (
+                        cell_quality,
+                        other_quality,
+                        cell_e2e,
+                        other_e2e,
+                        cell_bytes,
+                        other_bytes,
+                    )
+                    if any(value is None for value in values):
+                        continue
+                    assert cell_quality is not None and other_quality is not None
+                    assert cell_e2e is not None and other_e2e is not None
+                    assert cell_bytes is not None and other_bytes is not None
+                    weakly_better = (
+                        other_quality >= cell_quality
+                        and other_e2e <= cell_e2e
+                        and other_bytes <= cell_bytes
+                    )
+                    strictly_better = (
+                        other_quality > cell_quality
+                        or other_e2e < cell_e2e
+                        or other_bytes < cell_bytes
+                    )
+                    if weakly_better and strictly_better:
+                        dominated_by.append(other.workflow_id)
+                cell.pareto_dominated_by = sorted(dominated_by)
+                cell.pareto_optimal = not dominated_by
+
     task_results: list[CalibrationTaskResult] = []
     for task in tasks:
-        task_cells = [cell for cell in cells if cell.task_id == task.task_id]
+        task_cells = [
+            cell
+            for cell in cells
+            if cell.task_id == task.task_id
+            and cell.workflow_id in {CENTRALIZED, LOCAL}
+        ]
         quality_ok = all(cell.quality_gate_passed for cell in task_cells)
-        eligible = all(cell.eligible_for_comparison for cell in task_cells)
         if not quality_ok:
             result = CalibrationTaskResult(
                 task_id=task.task_id,
@@ -402,14 +622,32 @@ def summarize_calibration(
                 infra_sensitive_anchor_candidate=False,
                 reason="quality_gate_failed; system performance was not compared",
             )
-        elif not eligible:
+        elif not all(cell.profiling_protocol_passed for cell in task_cells):
             result = CalibrationTaskResult(
                 task_id=task.task_id,
                 quality_gate_passed=True,
                 comparison_eligible=False,
                 preference_reversal=False,
                 infra_sensitive_anchor_candidate=False,
-                reason=f"fewer than {minimum_repeats} completed runs in at least one cell",
+                reason=(
+                    "steady-state profiling protocol not met: each cell requires "
+                    f"one successful warm-up plus measured repeats 1..{minimum_repeats}"
+                ),
+            )
+        elif len(
+            {
+                cell.selected_measurement_series_id
+                for cell in task_cells
+                if cell.selected_measurement_series_id is not None
+            }
+        ) != 1:
+            result = CalibrationTaskResult(
+                task_id=task.task_id,
+                quality_gate_passed=True,
+                comparison_eligible=False,
+                preference_reversal=False,
+                infra_sensitive_anchor_candidate=False,
+                reason="anchor cells were measured in different formal series",
             )
         else:
             h1_winner, h1_margin = _winner_and_margin(
@@ -444,6 +682,17 @@ def summarize_calibration(
     return CalibrationSummary(
         policy={
             "minimum_completed_runs_per_cell": minimum_repeats,
+            "profiling_protocol": (
+                f"1 warm-up (repeat=0) + {minimum_repeats} measured repeats; "
+                "median over measured repeats only"
+            ),
+            "formal_protocol_id": FORMAL_PROTOCOL_ID,
+            "series_selection": (
+                "most recently appended complete formal measurement series per cell; "
+                "all four anchor cells must use the same series"
+            ),
+            "serving_mode": "steady_state",
+            "warmup_excluded_from_quality_metrics_break_even_and_admission": True,
             "quality_gate": "all completed runs pass original evaluator threshold",
             "comparison_requires_all_four_cells": True,
             "expected_h1_winner": LOCAL,
@@ -458,23 +707,35 @@ def summarize_calibration(
             "task_count": len(tasks),
             "raw_run_count": len(runs),
             "failed_run_count": sum(run.status == "failed" for run in runs),
+            "warmup_run_count": sum(run.warmup for run in runs),
+            "measured_run_count": sum(not run.warmup for run in runs),
             "comparison_eligible_task_count": sum(item.comparison_eligible for item in task_results),
             "anchor_candidate_count": sum(
                 item.infra_sensitive_anchor_candidate for item in task_results
+            ),
+            "pareto_optimal_cell_count": sum(
+                cell.pareto_optimal is True for cell in cells
             ),
         },
     )
 
 
-def _quality_runs(runs: Sequence[CalibrationRun], task_id: str, workflow_id: str) -> list[CalibrationRun]:
+def _quality_runs(
+    runs: Sequence[CalibrationRun],
+    task_id: str,
+    workflow_id: str,
+    selected_series_by_world: dict[str, str | None],
+) -> list[CalibrationRun]:
     return [
         run
         for run in runs
         if run.task_id == task_id
         and run.workflow_id == workflow_id
         and run.status == "completed"
+        and not run.warmup
         and run.quality is not None
         and run.quality.passed
+        and _run_series(run)[0] == selected_series_by_world.get(run.world_id)
     ]
 
 
@@ -501,8 +762,18 @@ def analyze_break_even(
     for task_result in summary.tasks:
         if not task_result.comparison_eligible:
             continue
-        central = _quality_runs(runs, task_result.task_id, CENTRALIZED)
-        local = _quality_runs(runs, task_result.task_id, LOCAL)
+        selected_series_by_world = {
+            cell.world_id: cell.selected_measurement_series_id
+            for cell in summary.cells
+            if cell.task_id == task_result.task_id
+            and cell.workflow_id == CENTRALIZED
+        }
+        central = _quality_runs(
+            runs, task_result.task_id, CENTRALIZED, selected_series_by_world
+        )
+        local = _quality_runs(
+            runs, task_result.task_id, LOCAL, selected_series_by_world
+        )
         if not central or not local:
             continue
 
@@ -678,6 +949,8 @@ def _markdown(summary: CalibrationSummary, analysis: CalibrationBreakEvenAnalysi
         "# calibration_v0 summary",
         "",
         "System performance is compared only after both workflows pass the original task evaluator in all worlds.",
+        "Admission uses steady-state serving: one warm-up is excluded, then the median of measured repeats 1--3 is compared.",
+        "Each cell uses one complete formal measurement series; historical and newly appended repeats are never pooled.",
         "",
         "| Task | Quality gate | H1 winner | H1 margin | H2 winner | H2 margin | Anchor candidate |",
         "| --- | --- | --- | ---: | --- | ---: | --- |",
@@ -700,8 +973,8 @@ def _markdown(summary: CalibrationSummary, analysis: CalibrationBreakEvenAnalysi
             "`critical` metrics require complete timestamps, dependencies, and trace coverage; "
             "a dash means the trace cannot support that claim.",
             "",
-            "| Task | World | Workflow | Completed | Quality pass rate | E2E ms | Local sum ms | Local critical ms | Transfer sum ms | Transfer critical ms | Service sum ms | Service critical ms |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+            "| Task | World | Workflow | Series | Warm-up | Measured | Protocol | Quality pass rate | Pareto | E2E ms | Local sum ms | Local critical ms | Transfer sum ms | Transfer critical ms | Service sum ms | Service critical ms |",
+            "| --- | --- | --- | --- | ---: | ---: | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for cell in summary.cells:
@@ -711,7 +984,11 @@ def _markdown(summary: CalibrationSummary, analysis: CalibrationBreakEvenAnalysi
         service_critical = metrics.get("service_critical_ms")
         lines.append(
             f"| {cell.task_id} | {cell.world_id} | {cell.workflow_id} | "
-            f"{cell.completed_runs} | {cell.quality_pass_rate:.3f} | "
+            f"{cell.selected_measurement_series_id or '-'} | "
+            f"{cell.completed_warmups} | {cell.completed_runs} | "
+            f"{'PASS' if cell.profiling_protocol_passed else 'FAIL'} | "
+            f"{cell.quality_pass_rate:.3f} | "
+            f"{('YES' if cell.pareto_optimal else 'NO') if cell.pareto_optimal is not None else '-'} | "
             f"{metrics.get('e2e_latency_ms', '-')} | "
             f"{metrics.get('local_preprocessing_sum_ms', '-')} | "
             f"{'-' if local_critical is None else local_critical} | "
@@ -729,18 +1006,36 @@ def _markdown(summary: CalibrationSummary, analysis: CalibrationBreakEvenAnalysi
             "- `*_sum_ms` is total measured work across calls/links and is not a wall-clock critical path.",
             "- `*_critical_ms` is emitted only when timestamps, dependency evidence, and trace coverage are complete.",
             "- `e2e_latency_ms` is the observed runtime wall clock and remains the workflow-comparison metric.",
+            "- Warm-up rows (`warmup=true`, `repeat=0`) are excluded from quality, medians, break-even, preference, and admission.",
+            f"- Formal admission requires protocol `{FORMAL_PROTOCOL_ID}` and one complete, consistently selected measurement series across the four anchor cells.",
+            "- `visual_reduction` participates in quality/Pareto reporting only; anchor reversal and admission remain a fixed `centralized_raw` versus `local_reduction` comparison.",
         ]
     )
-    lines.extend(["", "## Break-even estimates", ""])
+    lines.extend(
+        [
+            "",
+            "## Modeled break-even estimates",
+            "",
+            "BW* is a measurement-informed modeled crossover, not a directly measured "
+            "physical-link crossover.",
+            "",
+        ]
+    )
     if not analysis.tasks:
-        lines.append("No quality-gated task currently has enough measurements for BW* estimation.")
+        lines.append(
+            "No quality-gated task currently has enough measurements for a "
+            "measurement-informed modeled BW* estimate."
+        )
     for point in analysis.tasks:
         value = (
             f"{point.bandwidth_star_mbps:.3f} Mbps"
             if point.bandwidth_star_mbps is not None
             else "no positive finite crossing"
         )
-        lines.append(f"- `{point.task_id}` at RTT {point.rtt_ms:g} ms: BW* = {value}.")
+        lines.append(
+            f"- `{point.task_id}` at RTT {point.rtt_ms:g} ms: "
+            f"measurement-informed modeled BW* estimate = {value}."
+        )
     lines.append("")
     return "\n".join(lines)
 

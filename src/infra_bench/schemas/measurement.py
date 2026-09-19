@@ -60,6 +60,7 @@ class RealizedWorkflowTrace(BaseModel):
     run_id: str
     task_id: str
     workflow_id: str
+    warmup: bool = False
     dependency_evidence: TraceEvidence
     timestamp_evidence: TraceEvidence
     trace_coverage: TraceEvidence
@@ -111,6 +112,7 @@ class ReconstructedWorkflowMetrics(BaseModel):
     run_id: str
     task_id: str
     workflow_id: str
+    warmup: bool = False
     dependency_evidence: TraceEvidence
     timestamp_evidence: TraceEvidence
     trace_coverage: TraceEvidence

@@ -1,7 +1,14 @@
 import pytest
 from pydantic import ValidationError
 
-from infra_bench.schemas import WorkflowEdge, WorkflowNode, WorkflowRecord
+from infra_bench.schemas import (
+    CURRENT_MAS_OPERATOR_BINDINGS,
+    DEFAULT_OPERATOR_REGISTRY,
+    GENERAL_MAS_OPERATOR_BINDINGS,
+    WorkflowEdge,
+    WorkflowNode,
+    WorkflowRecord,
+)
 
 
 def test_workflow_round_trip_and_topological_order():
@@ -35,3 +42,14 @@ def test_cycle_is_rejected():
             success=True,
         )
 
+
+def test_visual_reduction_operators_are_registered_and_generically_bound() -> None:
+    visual_operators = {
+        "make_contact_sheet",
+        "extract_clip",
+        "process_local_artifact",
+        "aggregate_artifacts",
+    }
+    DEFAULT_OPERATOR_REGISTRY.require(sorted(visual_operators))
+    assert visual_operators <= GENERAL_MAS_OPERATOR_BINDINGS
+    assert visual_operators <= CURRENT_MAS_OPERATOR_BINDINGS

@@ -1,11 +1,12 @@
 from infra_bench.real_tasks.measurement import reconstruct_workflow_metrics
 from infra_bench.schemas import RealizedWorkflowTrace, WorkflowTraceSpan
+from infra_bench.schemas.measurement import ServiceScope, TraceSpanKind
 
 
 def _span(
     span_id: str,
-    kind: str,
-    scope: str,
+    kind: TraceSpanKind,
+    scope: ServiceScope,
     start: float,
     finish: float,
     *,
@@ -138,6 +139,36 @@ def test_reconstructs_sum_and_timestamped_dependency_critical_path() -> None:
         "evidence-a",
         "evidence-b",
     }
+
+
+def test_aggregate_sums_use_measured_duration_while_critical_uses_wall_time() -> None:
+    trace = _complete_trace()
+    measured_durations = {
+        "planner": 7.0,
+        "local-a": 11.0,
+        "local-b": 13.0,
+        "transfer-a": 17.0,
+        "transfer-b": 19.0,
+        "remote": 23.0,
+    }
+    trace.spans = [
+        span.model_copy(update={"duration_ms": measured_durations[span.span_id]})
+        for span in trace.spans
+    ]
+
+    metrics = reconstruct_workflow_metrics(trace)
+
+    assert metrics.local_preprocessing_sum_ms == 24
+    assert metrics.transfer_sum_ms == 36
+    assert metrics.service_sum_ms == 47
+    assert metrics.local_service_sum_ms == 24
+    assert metrics.remote_service_sum_ms == 23
+    assert metrics.planner_sum_ms == 7
+    assert metrics.local_preprocessing_critical_ms == 200
+    assert metrics.transfer_critical_ms == 30
+    assert metrics.service_critical_ms == 250
+    assert metrics.planner_critical_ms == 10
+    assert metrics.critical_path_ms == 290
 
 
 def test_critical_metrics_fail_closed_when_dependency_evidence_is_partial() -> None:

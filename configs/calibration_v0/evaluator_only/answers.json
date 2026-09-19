@@ -20,6 +20,16 @@
         {"question_id": "848-2", "correct_option": "C"},
         {"question_id": "848-3", "correct_option": "A"}
       ]
+    },
+    {
+      "schema_version": "calibration-v0-evaluator-v1",
+      "task_id": "video_mme:747",
+      "evaluator_id": "video_mme_multiple_choice",
+      "answers": [
+        {"question_id": "747-1", "correct_option": "D"},
+        {"question_id": "747-2", "correct_option": "A"},
+        {"question_id": "747-3", "correct_option": "D"}
+      ]
     }
   ]
 }

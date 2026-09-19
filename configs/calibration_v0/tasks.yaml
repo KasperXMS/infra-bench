@@ -157,3 +157,86 @@ tasks:
       source_sha256_prefix: 41e26d
       evidence_requirement: multi_chapter_order_and_cross_video_events
       frame_width_px: 320
+
+  - schema_version: calibration-v0-task-v1
+    task_id: video_mme:747
+    benchmark: Video-MME
+    instruction: >-
+      Review the complete basketball game across all three chronological chunks.
+      747-1: What happened to the team on the counterattack after Sabonis' first
+      steal? A: Sabonis finishes the pick-and-roll. B: A teammate hit a three.
+      C: Sabonis pass is broken up. D: Teammate singles and fails. 747-2: How many
+      athletic goals did LIT score from the last technical statistic on shooting
+      percentage before halftime to the end of the half? A: 4. B: 2. C: 1. D: 6.
+      747-3: How many timeouts does the HUN actively consume throughout the game?
+      A: 2. B: 5. C: 7. D: 3. Return only a JSON object mapping each question ID
+      to one option letter, for example {"747-1":"A","747-2":"B","747-3":"C"}.
+    duration_s: 3277.643
+    evaluator_id: video_mme_multiple_choice
+    question_count: 3
+    sample_count_per_chunk: 12
+    questions:
+      - question_id: 747-1
+        prompt: What happened to the team on the counterattack after Sabonis' first steal?
+        options:
+          A: Sabonis finishes the pick-and-roll.
+          B: A teammate hit a three.
+          C: Sabonis pass is broken up.
+          D: Teammate singles and fails.
+      - question_id: 747-2
+        prompt: >-
+          How many athletic goals did LIT score from the last technical statistic
+          on shooting percentage before halftime to the end of the half?
+        options:
+          A: "4."
+          B: "2."
+          C: "1."
+          D: "6."
+      - question_id: 747-3
+        prompt: How many timeouts does the HUN actively consume throughout the game?
+        options:
+          A: "2."
+          B: "5."
+          C: "7."
+          D: "3."
+    quality_metric: accuracy
+    quality_threshold: 0.6666666666666666
+    segmentation: fixed_uniform_3
+    chunks:
+      - artifact_id: video_mme:747:chunk:0
+        chunk_index: 0
+        start_s: 0.0
+        end_s: 1092.548
+        duration_s: 1092.548
+        observed_duration_s: 1091.341
+        source_ref: /home/edge/xiaoming/calibration_v0/candidates/747/chunk-0.webm
+        site_id: A4
+        raw_bytes: 108644854
+      - artifact_id: video_mme:747:chunk:1
+        chunk_index: 1
+        start_s: 1092.548
+        end_s: 2185.095
+        duration_s: 1092.547
+        observed_duration_s: 1092.547
+        source_ref: /home/edge/xiaoming/calibration_v0/candidates/747/chunk-1.webm
+        site_id: A5
+        raw_bytes: 111078348
+      - artifact_id: video_mme:747:chunk:2
+        chunk_index: 2
+        start_s: 2185.095
+        end_s: 3277.643
+        duration_s: 1092.548
+        observed_duration_s: 1093.755
+        source_ref: /home/edge/xiaoming/calibration_v0/candidates/747/chunk-2.webm
+        site_id: A28
+        raw_bytes: 110353684
+    metadata:
+      dataset: Video-MME
+      dataset_split: long
+      video_id: 747
+      youtube_id: 4qYqPmIO0v0
+      annotation_source: https://huggingface.co/datasets/lmms-eval/Video-MME
+      annotation_revision: ead1408f75b618502df9a1d8e0950166bf0a2a0b
+      source_duration_s: 3277.643
+      evidence_requirement: multi_event_sports_action_and_full_game_counting
+      frame_width_px: 320

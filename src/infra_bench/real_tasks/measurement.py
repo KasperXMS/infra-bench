@@ -212,9 +212,10 @@ def reconstruct_workflow_metrics(
     transfer_spans = [span for span in trace.spans if span.span_kind == "transfer"]
     planner_spans = [span for span in trace.spans if span.span_kind == "planner"]
 
-    def duration(span: WorkflowTraceSpan) -> float:
-        observed = _elapsed_ms(span)
-        return observed if observed is not None else float(span.duration_ms or 0.0)
+    def aggregate_duration(span: WorkflowTraceSpan) -> float:
+        if span.duration_ms is not None:
+            return float(span.duration_ms)
+        return float(_elapsed_ms(span) or 0.0)
 
     def path_duration(*, kind: str | None = None, scope: str | None = None) -> float | None:
         if reasons:
@@ -246,6 +247,7 @@ def reconstruct_workflow_metrics(
         run_id=trace.run_id,
         task_id=trace.task_id,
         workflow_id=trace.workflow_id,
+        warmup=trace.warmup,
         dependency_evidence=trace.dependency_evidence,
         timestamp_evidence=trace.timestamp_evidence,
         trace_coverage=trace.trace_coverage,
@@ -268,15 +270,17 @@ def reconstruct_workflow_metrics(
         raw_input_bytes=sum(span.input_bytes for span in action_spans),
         produced_bytes=sum(span.output_bytes for span in action_spans),
         transfer_bytes=sum(span.bytes for span in transfer_spans),
-        local_preprocessing_sum_ms=sum(duration(span) for span in local_spans),
+        local_preprocessing_sum_ms=sum(
+            aggregate_duration(span) for span in local_spans
+        ),
         local_preprocessing_critical_ms=path_duration(scope="local"),
-        transfer_sum_ms=sum(duration(span) for span in transfer_spans),
+        transfer_sum_ms=sum(aggregate_duration(span) for span in transfer_spans),
         transfer_critical_ms=path_duration(kind="transfer"),
-        service_sum_ms=sum(duration(span) for span in action_spans),
+        service_sum_ms=sum(aggregate_duration(span) for span in action_spans),
         service_critical_ms=path_duration(kind="action"),
-        local_service_sum_ms=sum(duration(span) for span in local_spans),
-        remote_service_sum_ms=sum(duration(span) for span in remote_spans),
-        planner_sum_ms=sum(duration(span) for span in planner_spans),
+        local_service_sum_ms=sum(aggregate_duration(span) for span in local_spans),
+        remote_service_sum_ms=sum(aggregate_duration(span) for span in remote_spans),
+        planner_sum_ms=sum(aggregate_duration(span) for span in planner_spans),
         planner_critical_ms=path_duration(kind="planner"),
         critical_path_ms=(sum(elapsed[item] for item in path) if not reasons else None),
         critical_path_span_ids=path,
@@ -323,6 +327,7 @@ def reconstruct_calibration_run(run: CalibrationRun) -> ReconstructedWorkflowMet
         run_id=run.run_id,
         task_id=run.task_id,
         workflow_id=run.workflow_id,
+        warmup=run.warmup,
         dependency_evidence="unavailable",
         timestamp_evidence="unavailable",
         trace_coverage="partial",
@@ -385,6 +390,8 @@ def build_critical_path_report(
         runs=metrics,
         totals={
             "completed_run_count": len(metrics),
+            "warmup_run_count": sum(item.warmup for item in metrics),
+            "measured_run_count": sum(not item.warmup for item in metrics),
             "critical_path_available_count": sum(
                 item.critical_path_availability == "available" for item in metrics
             ),
@@ -405,6 +412,8 @@ def build_trace_metrics_report(
         runs=metrics,
         totals={
             "completed_run_count": len(metrics),
+            "warmup_run_count": sum(item.warmup for item in metrics),
+            "measured_run_count": sum(not item.warmup for item in metrics),
             "critical_path_available_count": sum(
                 item.critical_path_availability == "available" for item in metrics
             ),
