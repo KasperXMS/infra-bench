@@ -1,0 +1,1076 @@
+{
+  "complete": true,
+  "completeness": {
+    "cell_matrix_complete": true,
+    "duplicate_task_bank_ids": [],
+    "expected_cell_count": 28,
+    "expected_task_count": 7,
+    "identity_complete": true,
+    "manifest_task_count": 7,
+    "measurement_series_mismatch_task_ids": [],
+    "missing_cells": [],
+    "missing_report_task_ids": [],
+    "missing_source_paths": [],
+    "missing_task_bank_ids": [],
+    "protocol_complete": true,
+    "protocol_complete_cell_count": 28,
+    "protocol_incomplete_cells": [],
+    "report_coverage_complete": true,
+    "reported_cell_count": 28,
+    "reported_task_count": 7,
+    "source_mismatch_task_ids": [],
+    "task_bank_complete": true,
+    "unexpected_cells": [],
+    "unexpected_report_task_ids": [],
+    "unexpected_task_bank_ids": []
+  },
+  "families": {
+    "long_video_qa": {
+      "label_counts": {
+        "communication_sensitive": 2,
+        "compute_sensitive": 0,
+        "context_cost_sensitive": 0,
+        "parallelism_sensitive": 0,
+        "quality_risk": 1,
+        "representation_sensitive": 2,
+        "workflow_reversal": 1
+      },
+      "protocol_complete_task_count": 2,
+      "quality_comparable_task_count": 1,
+      "task_count": 2,
+      "workflow_reversal_task_count": 1
+    },
+    "multi_document_qa": {
+      "label_counts": {
+        "communication_sensitive": 4,
+        "compute_sensitive": 0,
+        "context_cost_sensitive": 2,
+        "parallelism_sensitive": 4,
+        "quality_risk": 0,
+        "representation_sensitive": 3,
+        "workflow_reversal": 0
+      },
+      "protocol_complete_task_count": 4,
+      "quality_comparable_task_count": 1,
+      "task_count": 4,
+      "workflow_reversal_task_count": 0
+    },
+    "structured_data_analysis": {
+      "label_counts": {
+        "communication_sensitive": 1,
+        "compute_sensitive": 0,
+        "context_cost_sensitive": 1,
+        "parallelism_sensitive": 1,
+        "quality_risk": 0,
+        "representation_sensitive": 1,
+        "workflow_reversal": 0
+      },
+      "protocol_complete_task_count": 1,
+      "quality_comparable_task_count": 0,
+      "task_count": 1,
+      "workflow_reversal_task_count": 0
+    }
+  },
+  "policy": {
+    "calibration_protocol_note": "The archived calibration_v0 source uses its legacy three-measured-run protocol and has no warmup field.",
+    "cross_world_reversal_requires_both_worlds_comparable": true,
+    "quality_before_efficiency": true,
+    "warmups_excluded": true,
+    "winner": "lower measured median E2E only after both workflows pass quality"
+  },
+  "schema_version": "scope-expansion-v0-top-level-summary-v1",
+  "sources": [
+    {
+      "mtime_ns": 1789808560518244500,
+      "path": "runs/scope_expansion_v0/core_set_manifest.json",
+      "sha256": "835c143cbfd8c664b2a0f7a251d79e070aa39fc074fe691413197528de388d5c",
+      "size_bytes": 1651
+    },
+    {
+      "mtime_ns": 1789808560449657100,
+      "path": "runs/scope_expansion_v0/task_bank.jsonl",
+      "sha256": "47e5a5d8595ca26458cf01a12ad290a1639f3e9016278cf5ddcb7ca39535f22b",
+      "size_bytes": 50283
+    },
+    {
+      "mtime_ns": 1789789735012474400,
+      "path": "runs/calibration_v0/summary.json",
+      "sha256": "affccf180ffd0fa97d87d689960339ec6c5df35cbd08784f4ccd925b8a03d605",
+      "size_bytes": 16685
+    },
+    {
+      "mtime_ns": 1789804472231528800,
+      "path": "runs/scope_expansion_v0/multihop_rag/sensitivity_summary.json",
+      "sha256": "17db868bf96efe9d0fe85c249cc219df72965c59bb9ae6bb70d966aec1c58db2",
+      "size_bytes": 24927
+    },
+    {
+      "mtime_ns": 1789811114484277900,
+      "path": "runs/scope_expansion_v0/longbench_multidoc/sensitivity_summary.json",
+      "sha256": "9c1dc99ebec97d7162aab4b83d65401c6c86eaf66ccc3b65d0fdd3b04d18b94f",
+      "size_bytes": 9734
+    },
+    {
+      "mtime_ns": 1789812152316540100,
+      "path": "runs/scope_expansion_v0/longbench_structured/sensitivity_summary.json",
+      "sha256": "c22f2d39f7e314c3f28296f6858bda637922c60d91cacc6cb2d2899b229f0c8b",
+      "size_bytes": 9805
+    }
+  ],
+  "tasks": [
+    {
+      "cells": [
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 117635.86739997845,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 3602.535799960606,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "distributed_compute",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 108677.30069998652,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 3215.524499886669,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "distributed_compute",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": false,
+      "dataset": "LongBench-v2",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.999875567686917,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_local_compute_critical_e2e_share": 0.019916960261822755,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.8577354807223035,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_local_compute_sum_over_critical": 2.879709326490093,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.9998761024854632,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "quality_gated": false,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_triggered",
+        "context_cost_sensitive": "triggered",
+        "parallelism_sensitive": "triggered",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_compute": 1.0
+      },
+      "role": "long_structured_data",
+      "source_report": "longbench_structured",
+      "task_family": "structured_data_analysis",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 117635.86739997845,
+            "distributed_compute": 3602.535799960606
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 108677.30069998652,
+            "distributed_compute": 3215.524499886669
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "distributed_compute"
+      ],
+      "workflow_reversal": false
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 100017.91669998784,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 98815.01969997771,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 97991.40709999483,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-longbench-v2",
+          "median_e2e_latency_ms": 97138.07410001755,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": false,
+      "dataset": "LongBench-v2",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.5283686936387635,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_local_compute_critical_e2e_share": 0.007028198111232273,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.0,
+          "triggered": false
+        },
+        "parallelism_sensitive": {
+          "max_local_compute_sum_over_critical": 2.2231499073366887,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.10072133622794299,
+          "triggered": false
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "quality_gated": false,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_triggered",
+        "context_cost_sensitive": "not_triggered",
+        "parallelism_sensitive": "triggered",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "not_triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "parallelism_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_retrieval": 0.0
+      },
+      "role": "extra_long_multidoc",
+      "source_report": "longbench_multidoc",
+      "task_family": "multi_document_qa",
+      "task_id": "longbench-v2-66f7c780bb02136c067c35e8",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 100017.91669998784,
+            "distributed_retrieval": 98815.01969997771
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 97991.40709999483,
+            "distributed_retrieval": 97138.07410001755
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "distributed_retrieval"
+      ],
+      "workflow_reversal": false
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 34697.889799950644,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 103601.13339999225,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 32862.8030999098,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 103140.72819997091,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": false,
+      "dataset": "MultiHop-RAG",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.8906492432430507,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0013466541146753075,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.4333821376281113,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 1.5131667802069069,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7191120550974388,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "quality_gated": false,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_triggered",
+        "context_cost_sensitive": "triggered",
+        "parallelism_sensitive": "triggered",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_retrieval": 0.0
+      },
+      "role": "M3",
+      "source_report": "multihop_rag",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 34697.889799950644,
+            "distributed_retrieval": 103601.13339999225
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 32862.8030999098,
+            "distributed_retrieval": 103140.72819997091
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "distributed_retrieval"
+      ],
+      "workflow_reversal": false
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 56826.27130008768,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 103193.09139996767,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 54221.34439996444,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 100983.67430001963,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": false,
+          "quality_median": 0.0,
+          "quality_pass_rate": 0.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": false,
+      "dataset": "MultiHop-RAG",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.8502407481433023,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0015381194262194201,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.023588277340957826,
+          "triggered": false
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 1.4972771910842642,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7417148273220688,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "quality_gated": false,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_triggered",
+        "context_cost_sensitive": "not_triggered",
+        "parallelism_sensitive": "triggered",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_retrieval": 0.0
+      },
+      "role": "M2",
+      "source_report": "multihop_rag",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 56826.27130008768,
+            "distributed_retrieval": 103193.09139996767
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 54221.34439996444,
+            "distributed_retrieval": 100983.67430001963
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "distributed_retrieval"
+      ],
+      "workflow_reversal": false
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 51742.36459995154,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 93101.01099999156,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 49918.87119994499,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "scope-expansion-v0-multihop-rag",
+          "median_e2e_latency_ms": 92965.06369998679,
+          "protocol_complete": true,
+          "protocol_id": "steady_state_1_warmup_3_measured_v1",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "distributed_retrieval",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": true,
+      "dataset": "MultiHop-RAG",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.9057221647226258,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0015034472181647079,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.6400683260126891,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 2.128185164616822,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7750188945209214,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": "centralized_raw",
+            "H2_distributed_favorable": "centralized_raw"
+          },
+          "quality_gated": true,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_triggered",
+        "context_cost_sensitive": "triggered",
+        "parallelism_sensitive": "triggered",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 1.0,
+        "distributed_retrieval": 1.0
+      },
+      "role": "M4",
+      "source_report": "multihop_rag",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 51742.36459995154,
+            "distributed_retrieval": 93101.01099999156
+          },
+          "margin": 0.799318831286631,
+          "status": "comparable",
+          "winner": "centralized_raw"
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 49918.87119994499,
+            "distributed_retrieval": 92965.06369998679
+          },
+          "margin": 0.8623230346620746,
+          "status": "comparable",
+          "winner": "centralized_raw"
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "distributed_retrieval"
+      ],
+      "workflow_reversal": false
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 284723.210879,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 205406.821388,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 0.666667,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "local_reduction",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 34926.806095,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 160787.620571,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 0.666667,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "local_reduction",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": true,
+      "dataset": "Video-MME",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.9999856255128877,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "reason": "critical path unavailable",
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "reason": "multimodal and text token accounting are not comparable",
+          "triggered": false
+        },
+        "parallelism_sensitive": {
+          "reason": "critical path unavailable",
+          "triggered": false
+        },
+        "quality_risk": {
+          "max_centralized_minus_reduced_quality_pass_rate": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.9999856255128877,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": "local_reduction",
+            "H2_distributed_favorable": "centralized_raw"
+          },
+          "quality_gated": true,
+          "triggered": true
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_evaluable",
+        "context_cost_sensitive": "not_applicable",
+        "parallelism_sensitive": "not_evaluable",
+        "quality_risk": "not_triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "triggered"
+      },
+      "labels": [
+        "workflow_reversal",
+        "communication_sensitive",
+        "representation_sensitive"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 1.0,
+        "local_reduction": 0.666667
+      },
+      "role": "workflow_reversal_positive_case",
+      "source_report": "calibration_v0",
+      "task_family": "long_video_qa",
+      "task_id": "video_mme:795",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 284723.210879,
+            "local_reduction": 205406.821388
+          },
+          "margin": 0.3861429185020908,
+          "status": "comparable",
+          "winner": "local_reduction"
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 34926.806095,
+            "local_reduction": 160787.620571
+          },
+          "margin": 3.603559229941091,
+          "status": "comparable",
+          "winner": "centralized_raw"
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "local_reduction"
+      ],
+      "workflow_reversal": true
+    },
+    {
+      "cells": [
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 209030.526644,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 0.666667,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 153872.55896,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": false,
+          "quality_median": 1.0,
+          "quality_pass_rate": 0.6666666666666666,
+          "workflow_id": "local_reduction",
+          "world_id": "H1_distributed_constrained"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 22239.816335,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 0.666667,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "centralized_raw",
+          "world_id": "H2_distributed_favorable"
+        },
+        {
+          "measurement_series_id": "calibration-v0-legacy-measured-series",
+          "median_e2e_latency_ms": 114950.478037,
+          "protocol_complete": true,
+          "protocol_id": "calibration-v0-legacy-3-measured",
+          "quality_gate_passed": true,
+          "quality_median": 1.0,
+          "quality_pass_rate": 1.0,
+          "workflow_id": "local_reduction",
+          "world_id": "H2_distributed_favorable"
+        }
+      ],
+      "comparison_eligible": false,
+      "dataset": "Video-MME",
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.9999768999973901,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "reason": "critical path unavailable",
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "reason": "multimodal and text token accounting are not comparable",
+          "triggered": false
+        },
+        "parallelism_sensitive": {
+          "reason": "critical path unavailable",
+          "triggered": false
+        },
+        "quality_risk": {
+          "max_centralized_minus_reduced_quality_pass_rate": 0.33333333333333337,
+          "triggered": true
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.9999768999973901,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": "centralized_raw"
+          },
+          "quality_gated": false,
+          "triggered": false
+        }
+      },
+      "label_status": {
+        "communication_sensitive": "triggered",
+        "compute_sensitive": "not_evaluable",
+        "context_cost_sensitive": "not_applicable",
+        "parallelism_sensitive": "not_evaluable",
+        "quality_risk": "triggered",
+        "representation_sensitive": "triggered",
+        "workflow_reversal": "not_triggered"
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "quality_risk"
+      ],
+      "measurement_series_consistent": true,
+      "protocol_complete": true,
+      "quality_by_workflow": {
+        "centralized_raw": 0.666667,
+        "local_reduction": 1.0
+      },
+      "role": "quality_risk_case",
+      "source_report": "calibration_v0",
+      "task_family": "long_video_qa",
+      "task_id": "video_mme:848",
+      "winner_by_world": {
+        "H1_distributed_constrained": {
+          "e2e_ms": {
+            "centralized_raw": 209030.526644,
+            "local_reduction": 153872.55896
+          },
+          "margin": null,
+          "status": "quality_gate_failed",
+          "winner": null
+        },
+        "H2_distributed_favorable": {
+          "e2e_ms": {
+            "centralized_raw": 22239.816335,
+            "local_reduction": 114950.478037
+          },
+          "margin": 4.16867928698207,
+          "status": "comparable",
+          "winner": "centralized_raw"
+        }
+      },
+      "workflow_pair": [
+        "centralized_raw",
+        "local_reduction"
+      ],
+      "workflow_reversal": false
+    }
+  ],
+  "thresholds": {
+    "compute_e2e_share": 0.1,
+    "parallelism_speedup": 1.25,
+    "quality_drop": 0.01,
+    "relative_system_difference": 0.2
+  },
+  "totals": {
+    "cell_count": 28,
+    "protocol_complete_task_count": 7,
+    "quality_blocked_task_count": 5,
+    "quality_comparable_task_count": 2,
+    "task_count": 7,
+    "workflow_reversal_task_count": 1
+  }
+}

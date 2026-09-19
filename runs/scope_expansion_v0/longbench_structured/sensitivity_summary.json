@@ -1,0 +1,263 @@
+{
+  "cells": [
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 3.0,
+        "documents_A28": 1.0,
+        "documents_A4": 1.0,
+        "documents_A5": 1.0,
+        "e2e_latency_ms": 117635.86739997845,
+        "final_model_ms": 107781.67923283763,
+        "input_tokens": 4098.0,
+        "local_compute_calls": 0.0,
+        "local_compute_critical_ms": 0.0,
+        "local_compute_sum_ms": 0.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 2.899012363540176,
+        "output_tokens": 1024.0,
+        "raw_bytes": 5310841.0,
+        "raw_tokens": 579227.0,
+        "reduced_bytes": 5310841.0,
+        "reduced_tokens": 579227.0,
+        "retrieval_calls": null,
+        "retrieval_critical_ms": null,
+        "retrieval_sum_ms": null,
+        "retrieved_document_count": null,
+        "service_total_ms": 107781.67923283763,
+        "transfer_bytes": 3519986.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 9713.614317122847,
+        "transfer_sum_ms": 9713.614317122847
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-longbench-v2",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "workflow_id": "centralized_raw",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 5310183.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 3.0,
+        "documents_A28": 1.0,
+        "documents_A4": 1.0,
+        "documents_A5": 1.0,
+        "e2e_latency_ms": 3602.535799960606,
+        "final_model_ms": 2635.0517719984055,
+        "input_tokens": 583.0,
+        "local_compute_calls": 12.0,
+        "local_compute_critical_ms": 64.7472208365798,
+        "local_compute_sum_ms": 185.82212005276233,
+        "local_preprocessing_ms": 185.82212005276233,
+        "observed_effective_transfer_mbps": 0.014185826985297058,
+        "output_tokens": 17.0,
+        "raw_bytes": 5310841.0,
+        "raw_tokens": 579227.0,
+        "reduced_bytes": 658.0,
+        "reduced_tokens": 84.0,
+        "retrieval_calls": null,
+        "retrieval_critical_ms": null,
+        "retrieval_sum_ms": null,
+        "retrieved_document_count": null,
+        "service_total_ms": 2820.873892051168,
+        "transfer_bytes": 438.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 247.00710107572377,
+        "transfer_sum_ms": 247.00710107572377
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-longbench-v2",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "workflow_id": "distributed_compute",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 3.0,
+        "documents_A28": 1.0,
+        "documents_A4": 1.0,
+        "documents_A5": 1.0,
+        "e2e_latency_ms": 108677.30069998652,
+        "final_model_ms": 107817.37308483571,
+        "input_tokens": 4098.0,
+        "local_compute_calls": 0.0,
+        "local_compute_critical_ms": 0.0,
+        "local_compute_sum_ms": 0.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 35.293078510281056,
+        "output_tokens": 1024.0,
+        "raw_bytes": 5310841.0,
+        "raw_tokens": 579227.0,
+        "reduced_bytes": 5310841.0,
+        "reduced_tokens": 579227.0,
+        "retrieval_calls": null,
+        "retrieval_critical_ms": null,
+        "retrieval_sum_ms": null,
+        "retrieved_document_count": null,
+        "service_total_ms": 107817.37308483571,
+        "transfer_bytes": 3519986.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 797.8869848884642,
+        "transfer_sum_ms": 797.8869848884642
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-longbench-v2",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "workflow_id": "centralized_raw",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 5310183.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 3.0,
+        "documents_A28": 1.0,
+        "documents_A4": 1.0,
+        "documents_A5": 1.0,
+        "e2e_latency_ms": 3215.524499886669,
+        "final_model_ms": 2641.472317976877,
+        "input_tokens": 583.0,
+        "local_compute_calls": 12.0,
+        "local_compute_critical_ms": 64.04347368516028,
+        "local_compute_sum_ms": 184.4265884719789,
+        "local_preprocessing_ms": 184.4265884719789,
+        "observed_effective_transfer_mbps": 0.02330835478307362,
+        "output_tokens": 17.0,
+        "raw_bytes": 5310841.0,
+        "raw_tokens": 579227.0,
+        "reduced_bytes": 658.0,
+        "reduced_tokens": 84.0,
+        "retrieval_calls": null,
+        "retrieval_critical_ms": null,
+        "retrieval_sum_ms": null,
+        "retrieved_document_count": null,
+        "service_total_ms": 2825.898906448856,
+        "transfer_bytes": 438.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 150.33236076124012,
+        "transfer_sum_ms": 150.33236076124012
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-longbench-v2",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "workflow_id": "distributed_compute",
+      "world_id": "H2_distributed_favorable"
+    }
+  ],
+  "metric_definitions": {
+    "configured_network": "Configured bandwidth cap and added RTT for the world.",
+    "critical_ms": "Recovered wall-clock contribution; null unless trace timestamps and dependencies support it.",
+    "e2e_latency_ms": "Observed end-to-end runtime wall clock.",
+    "measured_network": "Measured effective bandwidth when a real probe is available.",
+    "observed_effective_transfer_mbps": "Per-run transferred bytes divided by transfer sum_ms, then median across runs. This application-observed value includes configured added RTT and is not pure link capacity.",
+    "sum_ms": "Aggregate measured work; it may exceed wall clock under concurrency.",
+    "workflow_preference": "Lower median E2E among workflows that both pass the original quality gate."
+  },
+  "protocol": {
+    "estimator": "median",
+    "measured_runs": 3,
+    "no_anchor_admission_objective": true,
+    "protocol_id": "steady_state_1_warmup_3_measured_v1",
+    "quality_before_efficiency": true,
+    "warmup_excluded_from_quality_and_metrics": true,
+    "warmup_runs": 1
+  },
+  "schema_version": "scope-expansion-v0-sensitivity-report-v1",
+  "tasks": [
+    {
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.999875567686917,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_local_compute_critical_e2e_share": 0.019916960261822755,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.8577354807223035,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_local_compute_sum_over_critical": 2.879709326490093,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.9998761024854632,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "triggered": false
+        }
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_compute": 1.0
+      },
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203",
+      "workflow_preference": {
+        "H1_distributed_constrained": null,
+        "H2_distributed_favorable": null
+      }
+    }
+  ],
+  "thresholds": {
+    "compute_e2e_share": 0.1,
+    "parallelism_speedup": 1.25,
+    "quality_drop": 0.01,
+    "relative_system_difference": 0.2
+  },
+  "totals": {
+    "labeled_task_count": 1,
+    "measured_run_count": 12,
+    "protocol_complete_cell_count": 4,
+    "quality_gated_cell_count": 2,
+    "raw_run_count": 16,
+    "task_count": 1,
+    "warmup_run_count": 4
+  }
+}

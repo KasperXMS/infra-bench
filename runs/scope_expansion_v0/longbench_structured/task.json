@@ -1,0 +1,135 @@
+{
+  "agent_count": 3,
+  "answer_choices": {
+    "A": "600052;32",
+    "B": "000722;30",
+    "C": "000416;30",
+    "D": "000416;29"
+  },
+  "artifact_count": 3,
+  "artifact_document_ids": {
+    "lb2-artifact-4f59490e80a56ab88439a095": "lb2-record-shard-e4a11e1fc5b7db2c321e69be",
+    "lb2-artifact-bd0d515940643991e250fe9f": "lb2-record-shard-cdcd33c026ed10e0ce74b003",
+    "lb2-artifact-fccab5d497cecba6b810809f": "lb2-record-shard-f1eb817131a9aaa9ec32cd23"
+  },
+  "artifact_ids": [
+    "lb2-artifact-4f59490e80a56ab88439a095",
+    "lb2-artifact-fccab5d497cecba6b810809f",
+    "lb2-artifact-bd0d515940643991e250fe9f"
+  ],
+  "artifact_placement": {
+    "lb2-artifact-4f59490e80a56ab88439a095": "A4",
+    "lb2-artifact-bd0d515940643991e250fe9f": "A28",
+    "lb2-artifact-fccab5d497cecba6b810809f": "A5"
+  },
+  "artifact_sizes": {
+    "lb2-artifact-4f59490e80a56ab88439a095": 1761466,
+    "lb2-artifact-bd0d515940643991e250fe9f": 1790855,
+    "lb2-artifact-fccab5d497cecba6b810809f": 1758520
+  },
+  "artifact_source_refs": {
+    "lb2-artifact-4f59490e80a56ab88439a095": "scope-expansion-v0://longbench-structured/A4/lb2-artifact-4f59490e80a56ab88439a095.json",
+    "lb2-artifact-bd0d515940643991e250fe9f": "scope-expansion-v0://longbench-structured/A28/lb2-artifact-bd0d515940643991e250fe9f.json",
+    "lb2-artifact-fccab5d497cecba6b810809f": "scope-expansion-v0://longbench-structured/A5/lb2-artifact-fccab5d497cecba6b810809f.json"
+  },
+  "artifact_tokens": {
+    "lb2-artifact-4f59490e80a56ab88439a095": 192118,
+    "lb2-artifact-bd0d515940643991e250fe9f": 195304,
+    "lb2-artifact-fccab5d497cecba6b810809f": 191805
+  },
+  "artifact_types": {
+    "lb2-artifact-4f59490e80a56ab88439a095": "records",
+    "lb2-artifact-bd0d515940643991e250fe9f": "records",
+    "lb2-artifact-fccab5d497cecba6b810809f": "records"
+  },
+  "dataset": "LongBench-v2",
+  "evaluator_only": false,
+  "evaluator_type": "longbench_v2_official_multiple_choice",
+  "instruction": "Execute the generic structured plan over all natural records, combine partial results, and return the selected choice letter A, B, C, or D.",
+  "metadata": {
+    "local_operation": "filter -> derive(divide) -> local top-1 -> global top-1",
+    "natural_record_count": 17071,
+    "numeric_columns": [
+      "TotalAssets",
+      "TotalLiability",
+      "IntangibleAsset",
+      "NetProfit",
+      "OperatingEvenue",
+      "OperatingCost",
+      "OperationProfit"
+    ],
+    "numeric_value_recovery": "finite JSON int/float; source NaN, missing, and non-finite values map to null",
+    "record_boundary_recovery": "one audited fixed-width source line per record",
+    "record_placement": "sha256(record_id) prefix u64 modulo 3",
+    "record_schema": [
+      "Symbol",
+      "EndDate",
+      "IndustryCode",
+      "TotalAssets",
+      "TotalLiability",
+      "IntangibleAsset",
+      "NetProfit",
+      "OperatingEvenue",
+      "OperatingCost",
+      "OperationProfit"
+    ],
+    "records_per_agent": {
+      "A28": 5755,
+      "A4": 5662,
+      "A5": 5654
+    },
+    "source_difficulty": "hard",
+    "source_domain": "Long Structured Data Understanding",
+    "source_id": "66f3ac0b821e116aacb2e203",
+    "source_length": "long",
+    "source_sub_domain": "Table QA",
+    "visible_text_normalization": "Unicode NFKC (gold answer letter unchanged)"
+  },
+  "placement_method": "sha256_prefix_u64_mod_3",
+  "planner_visible": true,
+  "quality_threshold": 1.0,
+  "query": "For end dates on 2021-12-31, which company has the highest total asset/total liability ratio? Please provide the stock symbol of the company, and the value of the total asset/total liability ratio (rounded to the nearest whole number).",
+  "retrieval_config": null,
+  "schema_version": "scope-expansion-v0-task-v1",
+  "structured_plan": {
+    "aggregations": [],
+    "derived_fields": [
+      {
+        "alias": "asset_liability_ratio",
+        "operands": [
+          "TotalAssets",
+          "TotalLiability"
+        ],
+        "operator": "divide"
+      }
+    ],
+    "group_by": [],
+    "limit": 1,
+    "order_by": [
+      {
+        "direction": "descending",
+        "field": "asset_liability_ratio"
+      }
+    ],
+    "predicates": [
+      {
+        "field": "EndDate",
+        "operator": "eq",
+        "value": "2021-12-31"
+      },
+      {
+        "field": "TotalLiability",
+        "operator": "gt",
+        "value": 0
+      }
+    ],
+    "select_fields": [
+      "Symbol",
+      "EndDate",
+      "TotalAssets",
+      "TotalLiability"
+    ]
+  },
+  "task_family": "structured_data_analysis",
+  "task_id": "longbench-v2-66f3ac0b821e116aacb2e203"
+}

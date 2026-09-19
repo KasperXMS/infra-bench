@@ -1,0 +1,83 @@
+{
+  "agent_count": 3,
+  "answer_choices": {
+    "A": "In terms of supplier management, JD has continuously improved the standards and systems related to green procurement by establishing a negative list mechanism for green procurement suppliers. In 2022, JD initiated a questionnaire survey to evaluate suppliers' ESG (Environmental, Social, and Governance) performance. In 2023, JD issued questionnaires to suppliers with higher ESG scores, receiving 461 valid responses. From 2024 onwards, JD has incorporated ESG clauses into supplier contracts, requiring suppliers to make commitments regarding ESG-related requirements and strictly abide by the \"JD Group Supplier Code of Conduct.\"",
+    "B": "JD strives to ensure a diverse employee demographic structure. In 2020, the total number of employees within the JD system reached 360,000, with a proportion of 1.5% being employees with disabilities. In 2021, the total number of employees surpassed 420,000, among which over 80% hailed from rural areas. By 2022, the number declined to 370,000, but the rural population proportion remained at 80%. In 2023, the cumulative number of employees exceeded 360,000, with a female employee ratio of 21%.",
+    "C": "JD has made efforts in green operations, including promoting green commuting among employees and other initiatives. Since 2016, JD has established a strategic partnership with Didi, and in 2021, it forged a cooperation with CaoCao online car-hailing platform to provide carpooling services for employees. In 2021, the company's self-operated new energy shuttle buses at its headquarters have reached 80, with an additional 37 vehicles added in 2022. In response to the pandemic, JD has provided remote work systems for its employees, with the number of online meetings surpassing 1.6 million in 2021 and soaring to nearly 3.8 million in 2022. Notably, in 2023 alone, the number of online meetings conducted through Joymeeting exceeded 18 million.",
+    "D": "In terms of social welfare, JD is dedicated to giving back to society, making contributions in various fields such as targeted poverty alleviation, green environmental protection, inclusive healthcare, caring for vulnerable groups, emergency rescue and disaster relief. In 2021, JD initiated a series of projects and established funds in the healthcare sector; in 2022, JD played a vital role in ensuring the supply of essential goods during the pandemic; and in 2023, JD donated nearly 70,000 books to over one hundred primary schools."
+  },
+  "artifact_count": 4,
+  "artifact_document_ids": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": "lb2-doc-71db8ca30acc3103ca498fef",
+    "lb2-artifact-95324f07078e429e5c83a3d7": "lb2-doc-a4ee420109b26634a1ad5cec",
+    "lb2-artifact-a73561262e981c7f9dc514ec": "lb2-doc-bb4046c59cd34618bf5de162",
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": "lb2-doc-ca0f0dad0f8dcad4238fe74f"
+  },
+  "artifact_ids": [
+    "lb2-artifact-95324f07078e429e5c83a3d7",
+    "lb2-artifact-7f327f06a35d2a74242b8094",
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591",
+    "lb2-artifact-a73561262e981c7f9dc514ec"
+  ],
+  "artifact_placement": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": "A28",
+    "lb2-artifact-95324f07078e429e5c83a3d7": "A5",
+    "lb2-artifact-a73561262e981c7f9dc514ec": "A5",
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": "A4"
+  },
+  "artifact_sizes": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": 266577,
+    "lb2-artifact-95324f07078e429e5c83a3d7": 141446,
+    "lb2-artifact-a73561262e981c7f9dc514ec": 334930,
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": 322015
+  },
+  "artifact_source_refs": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": "scope-expansion-v0://longbench-multidoc/A28/lb2-artifact-7f327f06a35d2a74242b8094.json",
+    "lb2-artifact-95324f07078e429e5c83a3d7": "scope-expansion-v0://longbench-multidoc/A5/lb2-artifact-95324f07078e429e5c83a3d7.json",
+    "lb2-artifact-a73561262e981c7f9dc514ec": "scope-expansion-v0://longbench-multidoc/A5/lb2-artifact-a73561262e981c7f9dc514ec.json",
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": "scope-expansion-v0://longbench-multidoc/A4/lb2-artifact-dc7c66b091bfbfb5ba31e591.json"
+  },
+  "artifact_tokens": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": 37465,
+    "lb2-artifact-95324f07078e429e5c83a3d7": 19693,
+    "lb2-artifact-a73561262e981c7f9dc514ec": 47645,
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": 44941
+  },
+  "artifact_types": {
+    "lb2-artifact-7f327f06a35d2a74242b8094": "document",
+    "lb2-artifact-95324f07078e429e5c83a3d7": "document",
+    "lb2-artifact-a73561262e981c7f9dc514ec": "document",
+    "lb2-artifact-dc7c66b091bfbfb5ba31e591": "document"
+  },
+  "dataset": "LongBench-v2",
+  "evaluator_only": false,
+  "evaluator_type": "longbench_v2_official_multiple_choice",
+  "instruction": "Answer the multiple-choice question from the complete natural-document bundle. Return the selected choice letter A, B, C, or D.",
+  "metadata": {
+    "boundary_recovery": "four audited complete-report transitions at source lines 0, 3277, 9091, and 17721; no token-based splitting",
+    "context_word_count": 143802,
+    "source_difficulty": "hard",
+    "source_domain": "Multi-Document QA",
+    "source_id": "66f7c780bb02136c067c35e8",
+    "source_length": "long",
+    "source_sub_domain": "Financial",
+    "visible_text_normalization": "Unicode NFKC (gold answer letter unchanged)"
+  },
+  "placement_method": "sha256_prefix_u64_mod_3",
+  "planner_visible": true,
+  "quality_threshold": 1.0,
+  "query": "What changes have taken place in JD's ESG initiatives over the past four years?",
+  "retrieval_config": {
+    "algorithm": "BM25",
+    "corpus_scope": "full_corpus",
+    "parameters": {
+      "runtime_local_top_k": 1,
+      "tokenizer": "lowercase_a-z0-9"
+    },
+    "top_n": 4
+  },
+  "schema_version": "scope-expansion-v0-task-v1",
+  "structured_plan": null,
+  "task_family": "multi_document_qa",
+  "task_id": "longbench-v2-66f7c780bb02136c067c35e8"
+}

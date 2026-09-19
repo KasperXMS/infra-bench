@@ -1,0 +1,157 @@
+{
+  "dataset_repository": "zai-org/LongBench-v2",
+  "dataset_revision": "2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9",
+  "dataset_sha256": "15d61c22d92c96900b3c4948b6aeea218d3214b676a65df48e7b8555604c7fe2",
+  "multidoc": {
+    "artifacts": [
+      {
+        "artifact_id": "lb2-artifact-95324f07078e429e5c83a3d7",
+        "bytes": 141446,
+        "document_id": "lb2-doc-a4ee420109b26634a1ad5cec",
+        "sha256": "51e508a709eda92ac063052943df0c9f9ffd1f263d76f163b1c84f4aab2549ae",
+        "site": "A5"
+      },
+      {
+        "artifact_id": "lb2-artifact-7f327f06a35d2a74242b8094",
+        "bytes": 266577,
+        "document_id": "lb2-doc-71db8ca30acc3103ca498fef",
+        "sha256": "e4cd385b416165d80d75aac1cd1c012451607b7f2eff274f47af9907c28278a7",
+        "site": "A28"
+      },
+      {
+        "artifact_id": "lb2-artifact-dc7c66b091bfbfb5ba31e591",
+        "bytes": 322015,
+        "document_id": "lb2-doc-ca0f0dad0f8dcad4238fe74f",
+        "sha256": "64c5a381612d7c95c1f0d2eef4a77778de1f1698963206f3fcf3ece8ec341f8c",
+        "site": "A4"
+      },
+      {
+        "artifact_id": "lb2-artifact-a73561262e981c7f9dc514ec",
+        "bytes": 334930,
+        "document_id": "lb2-doc-bb4046c59cd34618bf5de162",
+        "sha256": "dc9ec5fa99f56fc874a9f92f5ff89a6b3ecce84142e4ebcbe0d0923b90ee5c82",
+        "site": "A5"
+      }
+    ],
+    "boundary_rule": "audited complete-report starts at source lines 0,3277,9091,17721",
+    "document_ids": [
+      "lb2-doc-a4ee420109b26634a1ad5cec",
+      "lb2-doc-71db8ca30acc3103ca498fef",
+      "lb2-doc-ca0f0dad0f8dcad4238fe74f",
+      "lb2-doc-bb4046c59cd34618bf5de162"
+    ],
+    "natural_document_count": 4,
+    "sites": [
+      "A5",
+      "A28",
+      "A4",
+      "A5"
+    ],
+    "word_count": 143802
+  },
+  "reference_repository": "THUDM/LongBench",
+  "reference_revision": "2e00731f8d0bff23dc4325161044d0ed8af94c1e",
+  "selected_source_ids": [
+    "66f7c780bb02136c067c35e8",
+    "66f3ac0b821e116aacb2e203"
+  ],
+  "selected_task_ids": [
+    "longbench-v2-66f7c780bb02136c067c35e8",
+    "longbench-v2-66f3ac0b821e116aacb2e203"
+  ],
+  "structured": {
+    "artifacts": [
+      {
+        "artifact_id": "lb2-artifact-4f59490e80a56ab88439a095",
+        "bytes": 1761466,
+        "record_count": 5662,
+        "sha256": "ecfcc947627334f7a1b5e152d078ecbadcf3a8293285ceb0c22b1864f12fa0bb",
+        "shard_id": "lb2-record-shard-e4a11e1fc5b7db2c321e69be",
+        "site": "A4"
+      },
+      {
+        "artifact_id": "lb2-artifact-fccab5d497cecba6b810809f",
+        "bytes": 1758520,
+        "record_count": 5654,
+        "sha256": "057abf69421ed594ccd29de31ec412650dd0e2dc90f6f2e98032a58be0d851de",
+        "shard_id": "lb2-record-shard-f1eb817131a9aaa9ec32cd23",
+        "site": "A5"
+      },
+      {
+        "artifact_id": "lb2-artifact-bd0d515940643991e250fe9f",
+        "bytes": 1790855,
+        "record_count": 5755,
+        "sha256": "5116966c0fe8ba2906ae31543e267d3a8da9db0e7c06bf9675f8f41012aaa6dc",
+        "shard_id": "lb2-record-shard-cdcd33c026ed10e0ce74b003",
+        "site": "A28"
+      }
+    ],
+    "columns": [
+      "Symbol",
+      "EndDate",
+      "IndustryCode",
+      "TotalAssets",
+      "TotalLiability",
+      "IntangibleAsset",
+      "NetProfit",
+      "OperatingEvenue",
+      "OperatingCost",
+      "OperationProfit"
+    ],
+    "missing_value_policy": "source NaN, missing, and non-finite numeric values map to JSON null",
+    "natural_record_count": 17071,
+    "numeric_columns": [
+      "TotalAssets",
+      "TotalLiability",
+      "IntangibleAsset",
+      "NetProfit",
+      "OperatingEvenue",
+      "OperatingCost",
+      "OperationProfit"
+    ],
+    "records_per_site": {
+      "A28": 5755,
+      "A4": 5662,
+      "A5": 5654
+    },
+    "structured_plan": {
+      "aggregations": [],
+      "derived_fields": [
+        {
+          "alias": "asset_liability_ratio",
+          "operands": [
+            "TotalAssets",
+            "TotalLiability"
+          ],
+          "operator": "divide"
+        }
+      ],
+      "group_by": [],
+      "limit": 1,
+      "order_by": [
+        {
+          "direction": "descending",
+          "field": "asset_liability_ratio"
+        }
+      ],
+      "predicates": [
+        {
+          "field": "EndDate",
+          "operator": "eq",
+          "value": "2021-12-31"
+        },
+        {
+          "field": "TotalLiability",
+          "operator": "gt",
+          "value": 0
+        }
+      ],
+      "select_fields": [
+        "Symbol",
+        "EndDate",
+        "TotalAssets",
+        "TotalLiability"
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+worlds:
+  - schema_version: scope-expansion-v0-world-v1
+    world_id: H1_distributed_constrained
+    network:
+      bandwidth_mbps: 3.0
+      rtt_ms: 83.0
+    sites: [A4, A5, A28]
+    reasoning_site: A28
+    final_model_id: edge-text-reasoner
+    device_fingerprints:
+      A4: orin-a4
+      A5: orin-a5
+      A28: orin-a28
+    metadata:
+      network_emulation: application_layer_throttle
+      rtt_semantics: added_delay_above_shared_physical_baseline
+
+  - schema_version: scope-expansion-v0-world-v1
+    world_id: H2_distributed_favorable
+    network:
+      bandwidth_mbps: 100.0
+      rtt_ms: 33.0
+    sites: [A4, A5, A28]
+    reasoning_site: A28
+    final_model_id: edge-text-reasoner
+    device_fingerprints:
+      A4: orin-a4
+      A5: orin-a5
+      A28: orin-a28
+    metadata:
+      network_emulation: application_layer_throttle
+      rtt_semantics: added_delay_above_shared_physical_baseline

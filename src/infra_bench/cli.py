@@ -27,6 +27,8 @@ from .real_tasks import (
     run_swebench_workflows,
     run_video_mme_workflows,
     write_calibration_report,
+    write_scope_expansion_report,
+    write_scope_expansion_top_level_report,
 )
 from .real_tasks.admission_search import build_trace_admission_search_report
 from .real_tasks.measurement import build_trace_metrics_report
@@ -42,8 +44,19 @@ from .schemas import (
     CalibrationWorld,
     EvaluationResult,
     RealizedWorkflowTrace,
+    ScopeEvaluatorRecord,
+    ScopeRun,
+    ScopeTask,
+    ScopeTaskBankRecord,
+    ScopeWorkflow,
+    ScopeWorld,
     TaskRecord,
     WorkflowRecord,
+)
+from .scope_expansion import (
+    LongBenchV2Adapter,
+    materialize_longbench_v2,
+    select_longbench_v2_tasks,
 )
 from .task_evaluation import build_swebench_command, run_swebench_evaluation, score_video_mme
 from .trajectories import build_workflow_bank, read_trajectories
@@ -91,6 +104,31 @@ def _read_calibration_records(path: str, model: Any, envelope_key: str) -> list[
     if not isinstance(records, list):
         raise ValueError(f"{source} must contain a list or a {envelope_key!r} list")
     return [model.model_validate(item) for item in records]
+
+
+def _read_scope_tasks(path: str) -> list[ScopeTask]:
+    """Read runtime tasks or the audit task-bank envelope used by offline reports."""
+    source = Path(path)
+    if source.suffix != ".jsonl":
+        return _read_calibration_records(path, ScopeTask, "tasks")
+    tasks: list[ScopeTask] = []
+    with source.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            try:
+                payload = json.loads(line)
+                if isinstance(payload, dict) and "planner_visible" in payload:
+                    tasks.append(
+                        ScopeTaskBankRecord.model_validate(payload).planner_visible
+                    )
+                else:
+                    tasks.append(ScopeTask.model_validate(payload))
+            except (ValueError, json.JSONDecodeError) as exc:
+                raise ValueError(
+                    f"invalid scope task at {source}:{line_number}: {exc}"
+                ) from exc
+    return tasks
 
 
 def _generate(args: argparse.Namespace) -> int:
@@ -449,6 +487,65 @@ def _report_calibration_v0(args: argparse.Namespace) -> int:
     return 0
 
 
+def _report_scope_expansion_v0(args: argparse.Namespace) -> int:
+    tasks = _read_scope_tasks(args.tasks)
+    evaluators = _read_calibration_records(
+        args.evaluators, ScopeEvaluatorRecord, "records"
+    )
+    worlds = _read_calibration_records(args.worlds, ScopeWorld, "worlds")
+    workflows = _read_calibration_records(
+        args.workflows, ScopeWorkflow, "workflows"
+    )
+    runs = read_jsonl(args.runs, ScopeRun)
+    if args.dataset:
+        tasks = [task for task in tasks if task.dataset == args.dataset]
+    if args.task_family:
+        tasks = [task for task in tasks if task.task_family == args.task_family]
+    selected_ids = {task.task_id for task in tasks}
+    evaluators = [record for record in evaluators if record.task_id in selected_ids]
+    runs = [run for run in runs if run.task_id in selected_ids]
+    report = write_scope_expansion_report(
+        tasks, evaluators, worlds, workflows, runs, Path(args.output_dir)
+    )
+    print(json.dumps(report.totals, indent=2, sort_keys=True))
+    print(
+        "wrote Scope Expansion v0 derived evaluation and sensitivity report to "
+        f"{Path(args.output_dir).resolve()}"
+    )
+    return 0
+
+
+def _aggregate_scope_expansion_v0(args: argparse.Namespace) -> int:
+    report = write_scope_expansion_top_level_report(
+        manifest_path=Path(args.manifest),
+        task_bank_path=Path(args.task_bank),
+        calibration_summary_path=Path(args.calibration_summary),
+        multihop_summary_path=Path(args.multihop_summary),
+        longbench_multidoc_summary_path=Path(args.longbench_multidoc_summary),
+        longbench_structured_summary_path=Path(args.longbench_structured_summary),
+        output_dir=Path(args.output_dir),
+        strict=bool(args.strict),
+    )
+    print(json.dumps(report["completeness"], indent=2, sort_keys=True))
+    print(
+        "wrote seven-task Scope Expansion v0 top-level sensitivity summary to "
+        f"{Path(args.output_dir).resolve()}"
+    )
+    return 0
+
+
+def _prepare_scope_longbench_v2(args: argparse.Namespace) -> int:
+    adapter = LongBenchV2Adapter.load(args.source)
+    selection = select_longbench_v2_tasks(adapter)
+    result = materialize_longbench_v2(adapter, selection, args.output_dir)
+    print(json.dumps(result, indent=2, sort_keys=True))
+    print(
+        "wrote natural-boundary LongBench-v2 Scope Expansion tasks to "
+        f"{Path(args.output_dir).resolve()}"
+    )
+    return 0
+
+
 def _report_realized_traces(args: argparse.Namespace) -> int:
     traces = read_jsonl(args.traces, RealizedWorkflowTrace)
     report = build_trace_metrics_report(traces)
@@ -559,6 +656,79 @@ def build_parser() -> argparse.ArgumentParser:
     report_calibration.add_argument("--minimum-repeats", type=int, default=3)
     report_calibration.add_argument("--anchor-margin", type=float, default=0.10)
     report_calibration.set_defaults(handler=_report_calibration_v0)
+
+    report_scope = subparsers.add_parser(
+        "report-scope-expansion-v0",
+        help="quality-gate MultiHop-RAG reference runs and assign sensitivity labels",
+    )
+    report_scope.add_argument("--tasks", required=True)
+    report_scope.add_argument("--evaluators", required=True)
+    report_scope.add_argument("--worlds", required=True)
+    report_scope.add_argument("--workflows", required=True)
+    report_scope.add_argument("--runs", required=True)
+    report_scope.add_argument(
+        "--dataset", choices=["MultiHop-RAG", "LongBench-v2"]
+    )
+    report_scope.add_argument(
+        "--task-family",
+        choices=["multi_document_qa", "structured_data_analysis"],
+    )
+    report_scope.add_argument(
+        "--output-dir", default="runs/scope_expansion_v0/multihop_rag"
+    )
+    report_scope.set_defaults(handler=_report_scope_expansion_v0)
+
+    aggregate_scope = subparsers.add_parser(
+        "aggregate-scope-expansion-v0",
+        help="strictly aggregate the fixed seven-task Scope Expansion sensitivity report",
+    )
+    aggregate_scope.add_argument(
+        "--manifest",
+        default="runs/scope_expansion_v0/core_set_manifest.json",
+    )
+    aggregate_scope.add_argument(
+        "--task-bank",
+        default="runs/scope_expansion_v0/task_bank.jsonl",
+    )
+    aggregate_scope.add_argument(
+        "--calibration-summary",
+        default="runs/calibration_v0/summary.json",
+    )
+    aggregate_scope.add_argument(
+        "--multihop-summary",
+        default="runs/scope_expansion_v0/multihop_rag/sensitivity_summary.json",
+    )
+    aggregate_scope.add_argument(
+        "--longbench-multidoc-summary",
+        default="runs/scope_expansion_v0/longbench_multidoc/sensitivity_summary.json",
+    )
+    aggregate_scope.add_argument(
+        "--longbench-structured-summary",
+        default="runs/scope_expansion_v0/longbench_structured/sensitivity_summary.json",
+    )
+    aggregate_scope.add_argument(
+        "--output-dir", default="runs/scope_expansion_v0"
+    )
+    aggregate_scope.add_argument(
+        "--strict",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="fail without writing unless all 7 tasks and 28 protocol-complete cells exist",
+    )
+    aggregate_scope.set_defaults(handler=_aggregate_scope_expansion_v0)
+
+    prepare_longbench = subparsers.add_parser(
+        "prepare-scope-longbench-v2",
+        help="select and materialize the two preregistered natural-boundary LongBench-v2 tasks",
+    )
+    prepare_longbench.add_argument(
+        "--source",
+        default="../data/scope_expansion_v0/sources/longbench_v2/data.json",
+    )
+    prepare_longbench.add_argument(
+        "--output-dir", default="runs/scope_expansion_v0"
+    )
+    prepare_longbench.set_defaults(handler=_prepare_scope_longbench_v2)
 
     report_traces = subparsers.add_parser(
         "report-realized-traces",

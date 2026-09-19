@@ -22,6 +22,12 @@ OperatorId = Literal[
     "extract_clip",
     "process_local_artifact",
     "aggregate_artifacts",
+    "bm25_retrieve",
+    "filter_records",
+    "select_fields",
+    "derive_fields",
+    "aggregate_records",
+    "top_k_records",
 ]
 
 
@@ -148,6 +154,30 @@ DEFAULT_OPERATOR_REGISTRY = OperatorRegistry(
             operator_id="aggregate_artifacts",
             description="Aggregate multiple derived artifacts for downstream reasoning.",
         ),
+        OperatorDefinition(
+            operator_id="bm25_retrieve",
+            description="Retrieve ranked evidence from a local document collection.",
+        ),
+        OperatorDefinition(
+            operator_id="filter_records",
+            description="Apply generic deterministic predicates to structured records.",
+        ),
+        OperatorDefinition(
+            operator_id="select_fields",
+            description="Project generic structured records onto named fields.",
+        ),
+        OperatorDefinition(
+            operator_id="derive_fields",
+            description="Compute generic arithmetic fields from structured records.",
+        ),
+        OperatorDefinition(
+            operator_id="aggregate_records",
+            description="Compute generic grouped or ungrouped record aggregates.",
+        ),
+        OperatorDefinition(
+            operator_id="top_k_records",
+            description="Select deterministic ordered top-k structured records.",
+        ),
     ]
 )
 
@@ -174,6 +204,12 @@ GENERAL_MAS_OPERATOR_BINDINGS = frozenset(
         "extract_clip",
         "process_local_artifact",
         "aggregate_artifacts",
+        "bm25_retrieve",
+        "filter_records",
+        "select_fields",
+        "derive_fields",
+        "aggregate_records",
+        "top_k_records",
     }
 )
 CURRENT_MAS_OPERATOR_BINDINGS = (

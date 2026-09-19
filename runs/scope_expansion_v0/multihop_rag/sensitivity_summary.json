@@ -1,0 +1,672 @@
+{
+  "cells": [
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 8.0,
+        "documents_A4": 8.0,
+        "documents_A5": 14.0,
+        "e2e_latency_ms": 56826.27130008768,
+        "final_model_ms": 52453.000179026276,
+        "input_tokens": 4197.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 1.1470155740922443,
+        "output_tokens": 436.0,
+        "raw_bytes": 671018.0,
+        "raw_tokens": 115390.0,
+        "reduced_bytes": 671018.0,
+        "reduced_tokens": 115390.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 52453.000179026276,
+        "transfer_bytes": 541938.0,
+        "transfer_count": 22.0,
+        "transfer_critical_ms": 3779.812670312822,
+        "transfer_sum_ms": 3779.812670312822
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "workflow_id": "centralized_raw",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 497704.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 8.0,
+        "documents_A4": 8.0,
+        "documents_A5": 14.0,
+        "e2e_latency_ms": 103193.09139996767,
+        "final_model_ms": 102431.07070890255,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 179.91890996927395,
+        "observed_effective_transfer_mbps": 1.903203615988789,
+        "output_tokens": 1017.0,
+        "raw_bytes": 671018.0,
+        "raw_tokens": 115390.0,
+        "reduced_bytes": 173314.0,
+        "reduced_tokens": 29788.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 120.1640625,
+        "retrieval_sum_ms": 179.91890996927395,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 102609.69680995913,
+        "transfer_bytes": 139053.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 584.5007810276002,
+        "transfer_sum_ms": 584.5007810276002
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 8.0,
+        "documents_A4": 8.0,
+        "documents_A5": 14.0,
+        "e2e_latency_ms": 54221.34439996444,
+        "final_model_ms": 52167.473492911085,
+        "input_tokens": 4197.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 3.3038946519315693,
+        "output_tokens": 436.0,
+        "raw_bytes": 671018.0,
+        "raw_tokens": 115390.0,
+        "reduced_bytes": 671018.0,
+        "reduced_tokens": 115390.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 52167.473492911085,
+        "transfer_bytes": 541938.0,
+        "transfer_count": 22.0,
+        "transfer_critical_ms": 1312.2403880115598,
+        "transfer_sum_ms": 1312.2403880115598
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "workflow_id": "centralized_raw",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 497704.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 8.0,
+        "documents_A4": 8.0,
+        "documents_A5": 14.0,
+        "e2e_latency_ms": 100983.67430001963,
+        "final_model_ms": 100575.99505013786,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 177.61064181104302,
+        "observed_effective_transfer_mbps": 5.660610698690969,
+        "output_tokens": 998.0,
+        "raw_bytes": 671018.0,
+        "raw_tokens": 115390.0,
+        "reduced_bytes": 173314.0,
+        "reduced_tokens": 29788.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 155.324951171875,
+        "retrieval_sum_ms": 177.61064181104302,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 100753.95308120642,
+        "transfer_bytes": 139053.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 196.52013876475394,
+        "transfer_sum_ms": 196.52013876475394
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 11.0,
+        "documents_A4": 6.0,
+        "documents_A5": 13.0,
+        "e2e_latency_ms": 34697.889799950644,
+        "final_model_ms": 31294.043492060155,
+        "input_tokens": 2322.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 1.0150763109333991,
+        "output_tokens": 235.0,
+        "raw_bytes": 572513.0,
+        "raw_tokens": 99037.0,
+        "reduced_bytes": 572513.0,
+        "reduced_tokens": 99037.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 31294.043492060155,
+        "transfer_bytes": 385878.0,
+        "transfer_count": 19.0,
+        "transfer_critical_ms": 3041.1743104923517,
+        "transfer_sum_ms": 3041.1743104923517
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "workflow_id": "centralized_raw",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 411701.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 11.0,
+        "documents_A4": 6.0,
+        "documents_A5": 13.0,
+        "e2e_latency_ms": 103601.13339999225,
+        "final_model_ms": 102936.67001207359,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 180.81439298111945,
+        "observed_effective_transfer_mbps": 1.8110417456957748,
+        "output_tokens": 1024.0,
+        "raw_bytes": 572513.0,
+        "raw_tokens": 99037.0,
+        "reduced_bytes": 160812.0,
+        "reduced_tokens": 28783.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 139.514892578125,
+        "retrieval_sum_ms": 180.81439298111945,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 103118.23992390418,
+        "transfer_bytes": 121360.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 536.0892438329756,
+        "transfer_sum_ms": 536.0892438329756
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 11.0,
+        "documents_A4": 6.0,
+        "documents_A5": 13.0,
+        "e2e_latency_ms": 32862.8030999098,
+        "final_model_ms": 31281.927855219692,
+        "input_tokens": 2322.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 2.683574741258318,
+        "output_tokens": 235.0,
+        "raw_bytes": 572513.0,
+        "raw_tokens": 99037.0,
+        "reduced_bytes": 572513.0,
+        "reduced_tokens": 99037.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 31281.927855219692,
+        "transfer_bytes": 385878.0,
+        "transfer_count": 19.0,
+        "transfer_critical_ms": 1150.3402355592698,
+        "transfer_sum_ms": 1150.3402355592698
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "workflow_id": "centralized_raw",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 411701.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 11.0,
+        "documents_A4": 6.0,
+        "documents_A5": 13.0,
+        "e2e_latency_ms": 103140.72819997091,
+        "final_model_ms": 102797.06768412143,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 180.49501097993925,
+        "observed_effective_transfer_mbps": 7.718225294619289,
+        "output_tokens": 1024.0,
+        "raw_bytes": 572513.0,
+        "raw_tokens": 99037.0,
+        "reduced_bytes": 160812.0,
+        "reduced_tokens": 28783.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 119.282958984375,
+        "retrieval_sum_ms": 180.49501097993925,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 102977.88428631611,
+        "transfer_bytes": 121360.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 125.7905752863735,
+        "transfer_sum_ms": 125.7905752863735
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": false,
+      "quality_median": 0.0,
+      "quality_pass_rate": 0.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 9.0,
+        "documents_A4": 9.0,
+        "documents_A5": 12.0,
+        "e2e_latency_ms": 51742.36459995154,
+        "final_model_ms": 48057.89931397885,
+        "input_tokens": 1475.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 0.8233747772346648,
+        "output_tokens": 452.0,
+        "raw_bytes": 451189.0,
+        "raw_tokens": 74658.0,
+        "reduced_bytes": 451189.0,
+        "reduced_tokens": 74658.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 48057.89931397885,
+        "transfer_bytes": 314750.0,
+        "transfer_count": 21.0,
+        "transfer_critical_ms": 3058.1456581130624,
+        "transfer_sum_ms": 3058.1456581130624
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "workflow_id": "centralized_raw",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 349680.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 9.0,
+        "documents_A4": 9.0,
+        "documents_A5": 12.0,
+        "e2e_latency_ms": 93101.01099999156,
+        "final_model_ms": 92539.66182516888,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 221.24656615778804,
+        "observed_effective_transfer_mbps": 1.2308593005704367,
+        "output_tokens": 1024.0,
+        "raw_bytes": 451189.0,
+        "raw_tokens": 74658.0,
+        "reduced_bytes": 101509.0,
+        "reduced_tokens": 16661.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 103.960205078125,
+        "retrieval_sum_ms": 221.24656615778804,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 92760.90839132667,
+        "transfer_bytes": 55480.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 360.59361114166677,
+        "transfer_sum_ms": 360.59361114166677
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H1_distributed_constrained"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 0.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 9.0,
+        "documents_A4": 9.0,
+        "documents_A5": 12.0,
+        "e2e_latency_ms": 49918.87119994499,
+        "final_model_ms": 48121.96297105402,
+        "input_tokens": 1475.0,
+        "local_preprocessing_ms": 0.0,
+        "observed_effective_transfer_mbps": 2.091983996335298,
+        "output_tokens": 452.0,
+        "raw_bytes": 451189.0,
+        "raw_tokens": 74658.0,
+        "reduced_bytes": 451189.0,
+        "reduced_tokens": 74658.0,
+        "retrieval_calls": 0.0,
+        "retrieval_critical_ms": 0.0,
+        "retrieval_sum_ms": 0.0,
+        "retrieved_document_count": 0.0,
+        "service_total_ms": 48121.96297105402,
+        "transfer_bytes": 314750.0,
+        "transfer_count": 21.0,
+        "transfer_critical_ms": 1203.6420949734747,
+        "transfer_sum_ms": 1203.6420949734747
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "workflow_id": "centralized_raw",
+      "world_id": "H2_distributed_favorable"
+    },
+    {
+      "completed_runs": 3,
+      "completed_warmups": 1,
+      "medians": {
+        "absolute_reducible_bytes": 349680.0,
+        "api_cost_usd": 0.0,
+        "artifact_count": 30.0,
+        "documents_A28": 9.0,
+        "documents_A4": 9.0,
+        "documents_A5": 12.0,
+        "e2e_latency_ms": 92965.06369998679,
+        "final_model_ms": 92584.55923106521,
+        "input_tokens": 4098.0,
+        "local_preprocessing_ms": 221.73394600395113,
+        "observed_effective_transfer_mbps": 3.9112850625891835,
+        "output_tokens": 1024.0,
+        "raw_bytes": 451189.0,
+        "raw_tokens": 74658.0,
+        "reduced_bytes": 101509.0,
+        "reduced_tokens": 16661.0,
+        "retrieval_calls": 3.0,
+        "retrieval_critical_ms": 139.76806640625,
+        "retrieval_sum_ms": 221.73394600395113,
+        "retrieved_document_count": 9.0,
+        "service_total_ms": 92806.57321808394,
+        "transfer_bytes": 55480.0,
+        "transfer_count": 2.0,
+        "transfer_critical_ms": 113.47677116282284,
+        "transfer_sum_ms": 113.47677116282284
+      },
+      "profiling_protocol_passed": true,
+      "quality_gate_passed": true,
+      "quality_median": 1.0,
+      "quality_pass_rate": 1.0,
+      "selected_measurement_series_id": "scope-expansion-v0-multihop-rag",
+      "selected_protocol_id": "steady_state_1_warmup_3_measured_v1",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "workflow_id": "distributed_retrieval",
+      "world_id": "H2_distributed_favorable"
+    }
+  ],
+  "metric_definitions": {
+    "configured_network": "Configured bandwidth cap and added RTT for the world.",
+    "critical_ms": "Recovered wall-clock contribution; null unless trace timestamps and dependencies support it.",
+    "e2e_latency_ms": "Observed end-to-end runtime wall clock.",
+    "measured_network": "Measured effective bandwidth when a real probe is available.",
+    "observed_effective_transfer_mbps": "Per-run transferred bytes divided by transfer sum_ms, then median across runs. This application-observed value includes configured added RTT and is not pure link capacity.",
+    "sum_ms": "Aggregate measured work; it may exceed wall clock under concurrency.",
+    "workflow_preference": "Lower median E2E among workflows that both pass the original quality gate."
+  },
+  "protocol": {
+    "estimator": "median",
+    "measured_runs": 3,
+    "no_anchor_admission_objective": true,
+    "protocol_id": "steady_state_1_warmup_3_measured_v1",
+    "quality_before_efficiency": true,
+    "warmup_excluded_from_quality_and_metrics": true,
+    "warmup_runs": 1
+  },
+  "schema_version": "scope-expansion-v0-sensitivity-report-v1",
+  "tasks": [
+    {
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.8502407481433023,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0015381194262194201,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.023588277340957826,
+          "triggered": false
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 1.4972771910842642,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7417148273220688,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "triggered": false
+        }
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive"
+      ],
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_retrieval": 0.0
+      },
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583",
+      "workflow_preference": {
+        "H1_distributed_constrained": null,
+        "H2_distributed_favorable": null
+      }
+    },
+    {
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.8906492432430507,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0013466541146753075,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.4333821376281113,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 1.5131667802069069,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7191120550974388,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": null,
+            "H2_distributed_favorable": null
+          },
+          "triggered": false
+        }
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "quality_by_workflow": {
+        "centralized_raw": 0.0,
+        "distributed_retrieval": 0.0
+      },
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7",
+      "workflow_preference": {
+        "H1_distributed_constrained": null,
+        "H2_distributed_favorable": null
+      }
+    },
+    {
+      "evidence": {
+        "communication_sensitive": {
+          "max_relative_difference": 0.9057221647226258,
+          "triggered": true
+        },
+        "compute_sensitive": {
+          "max_retrieval_critical_e2e_share": 0.0015034472181647079,
+          "triggered": false
+        },
+        "context_cost_sensitive": {
+          "max_final_input_token_relative_difference": 0.6400683260126891,
+          "triggered": true
+        },
+        "parallelism_sensitive": {
+          "max_retrieval_sum_over_critical": 2.128185164616822,
+          "triggered": true
+        },
+        "quality_risk": {
+          "centralized_minus_distributed_quality": 0.0,
+          "triggered": false
+        },
+        "representation_sensitive": {
+          "max_raw_to_evidence_byte_reduction": 0.7750188945209214,
+          "triggered": true
+        },
+        "workflow_reversal": {
+          "measurement_series_consistent": true,
+          "preferences": {
+            "H1_distributed_constrained": "centralized_raw",
+            "H2_distributed_favorable": "centralized_raw"
+          },
+          "triggered": false
+        }
+      },
+      "labels": [
+        "communication_sensitive",
+        "representation_sensitive",
+        "parallelism_sensitive",
+        "context_cost_sensitive"
+      ],
+      "quality_by_workflow": {
+        "centralized_raw": 1.0,
+        "distributed_retrieval": 1.0
+      },
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f",
+      "workflow_preference": {
+        "H1_distributed_constrained": "centralized_raw",
+        "H2_distributed_favorable": "centralized_raw"
+      }
+    }
+  ],
+  "thresholds": {
+    "compute_e2e_share": 0.1,
+    "parallelism_speedup": 1.25,
+    "quality_drop": 0.01,
+    "relative_system_difference": 0.2
+  },
+  "totals": {
+    "labeled_task_count": 3,
+    "measured_run_count": 36,
+    "protocol_complete_cell_count": 12,
+    "quality_gated_cell_count": 4,
+    "raw_run_count": 48,
+    "task_count": 3,
+    "warmup_run_count": 12
+  }
+}

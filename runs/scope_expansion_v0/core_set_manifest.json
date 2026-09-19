@@ -1,0 +1,56 @@
+{
+  "expected_task_count": 7,
+  "schema_version": "scope-expansion-v0-core-set-v1",
+  "task_count": 7,
+  "tasks": [
+    {
+      "dataset": "Video-MME",
+      "record_ref": "../calibration_v0",
+      "role": "workflow_reversal_positive_case",
+      "task_family": "long_video_qa",
+      "task_id": "video_mme:795"
+    },
+    {
+      "dataset": "Video-MME",
+      "record_ref": "../calibration_v0",
+      "role": "quality_risk_case",
+      "task_family": "long_video_qa",
+      "task_id": "video_mme:848"
+    },
+    {
+      "dataset": "MultiHop-RAG",
+      "record_ref": "task_bank.jsonl",
+      "role": "M2",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-9bae0079038050a37a1ae583"
+    },
+    {
+      "dataset": "MultiHop-RAG",
+      "record_ref": "task_bank.jsonl",
+      "role": "M3",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-0071e3a68e90c2896fc7fce7"
+    },
+    {
+      "dataset": "MultiHop-RAG",
+      "record_ref": "task_bank.jsonl",
+      "role": "M4",
+      "task_family": "multi_document_qa",
+      "task_id": "multihop-rag-train-9fec8a884e51ff8e037c394f"
+    },
+    {
+      "dataset": "LongBench-v2",
+      "record_ref": "task_bank.jsonl",
+      "role": "extra_long_multidoc",
+      "task_family": "multi_document_qa",
+      "task_id": "longbench-v2-66f7c780bb02136c067c35e8"
+    },
+    {
+      "dataset": "LongBench-v2",
+      "record_ref": "task_bank.jsonl",
+      "role": "long_structured_data",
+      "task_family": "structured_data_analysis",
+      "task_id": "longbench-v2-66f3ac0b821e116aacb2e203"
+    }
+  ]
+}

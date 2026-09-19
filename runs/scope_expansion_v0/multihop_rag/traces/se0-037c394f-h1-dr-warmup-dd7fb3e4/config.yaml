@@ -1,0 +1,15 @@
+mode: scope_expansion_v0_multihop_reference
+planner_constructed: false
+measurement_series_id: scope-expansion-v0-multihop-rag
+measurement_protocol: steady_state_1_warmup_3_measured_v1
+task_id: multihop-rag-train-9fec8a884e51ff8e037c394f
+workflow_id: distributed_retrieval
+world_id: H1_distributed_constrained
+repeat: 0
+warmup: true
+candidate_top_n: 30
+local_top_k_per_shard: 3
+retrieval_algorithm: bm25
+configured_bandwidth_mbps: 3.0
+configured_added_rtt_ms: 83.0
+input_source: worker_local

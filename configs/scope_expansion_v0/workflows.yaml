@@ -1,0 +1,64 @@
+workflows:
+  - schema_version: scope-expansion-v0-workflow-v1
+    workflow_id: centralized_raw
+    description: Transfer every candidate document to A28 and run the common final model.
+    steps:
+      - step_id: reason_over_raw_documents
+        operator_id: invoke_model
+        execution_role: final_reasoning_agent
+        input_kinds: [raw_document]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false
+
+  - schema_version: scope-expansion-v0-workflow-v1
+    workflow_id: distributed_retrieval
+    description: Run identical deterministic BM25 on each local shard and transfer evidence to A28.
+    steps:
+      - step_id: retrieve_local_evidence
+        operator_id: bm25_retrieve
+        execution_role: artifact_local_agent
+        input_kinds: [raw_document, query]
+        output_kinds: [retrieved_evidence]
+      - step_id: reason_over_retrieved_evidence
+        operator_id: invoke_model
+        execution_role: final_reasoning_agent
+        input_kinds: [retrieved_evidence]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false
+
+  - schema_version: scope-expansion-v0-workflow-v1
+    workflow_id: distributed_compute
+    description: Apply generic deterministic record filters, derivations, and local top-k before A28 reasoning.
+    steps:
+      - step_id: filter_local_records
+        operator_id: filter_records
+        execution_role: artifact_local_agent
+        input_kinds: [raw_records, structured_plan]
+        output_kinds: [filtered_records]
+      - step_id: select_local_fields
+        operator_id: select_fields
+        execution_role: artifact_local_agent
+        input_kinds: [filtered_records]
+        output_kinds: [projected_records]
+      - step_id: derive_local_fields
+        operator_id: derive_fields
+        execution_role: artifact_local_agent
+        input_kinds: [projected_records]
+        output_kinds: [derived_records]
+      - step_id: select_local_top_k
+        operator_id: top_k_records
+        execution_role: artifact_local_agent
+        input_kinds: [derived_records]
+        output_kinds: [partial_top_k]
+      - step_id: reason_over_partial_results
+        operator_id: invoke_model
+        execution_role: final_reasoning_agent
+        input_kinds: [partial_top_k]
+        output_kinds: [final_answer]
+    metadata:
+      reference_workflow: true
+      dataset_specific_operator: false

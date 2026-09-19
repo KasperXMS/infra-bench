@@ -1,0 +1,12 @@
+mode: scope_expansion_v0_longbench_reference
+planner_constructed: false
+measurement_series_id: scope-expansion-v0-longbench-v2
+measurement_protocol: steady_state_1_warmup_3_measured_v1
+task_id: longbench-v2-66f7c780bb02136c067c35e8
+task_family: multi_document_qa
+workflow_id: centralized_raw
+world_id: H1_distributed_constrained
+repeat: 0
+warmup: true
+configured_bandwidth_mbps: 3.0
+configured_added_rtt_ms: 83.0

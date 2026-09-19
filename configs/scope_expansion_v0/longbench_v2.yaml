@@ -1,0 +1,22 @@
+schema_version: scope-expansion-v0-longbench-selection-v1
+dataset:
+  repository: zai-org/LongBench-v2
+  revision: 2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9
+  data_json_sha256: 15d61c22d92c96900b3c4948b6aeea218d3214b676a65df48e7b8555604c7fe2
+evaluator:
+  repository: THUDM/LongBench
+  revision: 2e00731f8d0bff23dc4325161044d0ed8af94c1e
+  metric: official_multiple_choice_exact_match
+selected:
+  extra_long_multidoc:
+    source_id: 66f7c780bb02136c067c35e8
+    minimum_words: 100000
+    minimum_natural_documents: 4
+    boundary_rule: audited_complete_report_transitions
+    runtime_local_top_k_per_shard: 1
+  long_structured_data:
+    source_id: 66f3ac0b821e116aacb2e203
+    boundary_rule: fixed_width_source_rows
+placement:
+  algorithm: sha256_prefix_u64_mod_3
+  sites: [A4, A5, A28]

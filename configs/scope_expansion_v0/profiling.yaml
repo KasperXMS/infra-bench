@@ -1,0 +1,8 @@
+schema_version: scope-expansion-v0-profiling-v1
+protocol_id: steady_state_1_warmup_3_measured_v1
+warmup_runs: 1
+measured_runs: 3
+estimator: median
+exclude_warmup_from_quality: true
+exclude_warmup_from_metrics: true
+exclude_warmup_from_preference: true
